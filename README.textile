@@ -1,75 +1,14 @@
 h2. rex_markitup
 
-https://github.com/marijnh/CodeMirror als Redaxo be_style Plugin
+alpha..
 
-h2. Anwendung
-
-h4. Codemirror für Textareas aktivieren
-
-*Pauschal* für alle Textareas einer backend page aktivieren: key der Redaxo backend page(subpage) in die Settings eintragen
-*Individuell* für eine Textarea: CSS Klasse @rex-codemirror@ vergeben
-
-h4. Fullscreen Modus
-
-Durch drücken der @F11@ Taste wird die Codemirror Textarea auf den gesamten viewport erweitert.
-Nochmaliges drücken von @F11@ oder @Esc@ stellt die normale Darstellung wieder her.
-
-h4. Individueller FoldMode
-
-In den Settings ist als default der foldmode @tagRangeFinder@ definiert.
-Um gezielt für eine Textarea einen anderen foldmode zu aktivieren, muß dieser per @data-attribute@ angegeben werden:
-
-bc. <textarea class="rex-codemirror" data-foldmode="braceRangeFinder">...</textarea>
-
-h2. Settings
-
-Das Plugin hat ein sinnvolles Set an default Einstellungen definiert welche in den meisten Fällen ausreichend sein sollten.
-Will man dennoch Einstellungen ändern sind diese direkt in der Datei @config.inc.php@ vorzunehmen:
-
-<pre lang="php"><code>// SETTINGS
-////////////////////////////////////////////////////////////////////////////////
-/* THEMES:
- * ambiance, blackboard, cobalt, eclipse, elegant, erlang-dark,
- * lesser-dark, monokai, neat, night, rubyblue, vibrant-ink, xq-dark,
- * custom: jdlx
- */
-$REX[$mypage]['settings'] = array(
-  'theme'          =>'jdlx',
-  'keys' => array(
-    'enter_fullscreen' => 'F11',
-    'leave_fullscreen' => 'Esc',
-    ),
-  // AUTOENABLED BACKEND PAGES - ANY TEXTAREA WILL GET CODEMIRROR
-  'autoenabled_pages' => array(
-      array('page'=>'template'),
-      array('page'=>'module'),
-      array('page'=>'xform', 'subpage'=>'email'),
-      array('page'=>'xform', 'subpage'=>'form_templates'),
-    ),
-  // TRIGGER CLASS - WILL ENABLE CODEMIRROR OUTSIDE AUTOENABLED PAGES
-  'trigger_class' => 'rex-codemirror',
-  'foldmode'        =>'tagRangeFinder', // @html: tagRangeFinder, @php: braceRangeFinder
-  );</code></pre>
 
 h2. Screenshots
 
-h5. Backend Page Templates (auto_enabled)
+h5. Editor @ agk_skin => fixed with parent elem
 
-!http://rexdev.de/index.php?rex_img_type=github_readme&rex_img_file=lnk_rex_markitup_templates.png!
+!http://rexdev.de/index.php?rex_img_type=github_readme&rex_img_file=lnk_rex_markitup_editor_agk_skin.png!
 
-h5. Backend Page Templates (auto_enabled) - Anzeige im fullscreen mode
+h5. Editor @ rexdev_skin => fluid with parent elem
 
-!http://rexdev.de/index.php?rex_img_type=github_readme&rex_img_file=lnk_rex_markitup_templates_fullscreen.png!
-
-h5. Backend Page Module (auto_enabled)
-
-!http://rexdev.de/index.php?rex_img_type=github_readme&rex_img_file=lnk_rex_markitup_module.png!
-
-h5. Backend Page Aktionen (auto_enabled)
-
-!http://rexdev.de/index.php?rex_img_type=github_readme&rex_img_file=lnk_rex_markitup_actions.png!
-
-
-h2. Support Codemirror:
-
- <a href='http://www.pledgie.com/campaigns/17784'><img alt='Click here to lend your support to: Fund CodeMirror development and make a donation at www.pledgie.com !' src='http://www.pledgie.com/campaigns/17784.png?skin_name=chrome' border='0' /></a>
+!http://rexdev.de/index.php?rex_img_type=github_readme&rex_img_file=lnk_rex_markitup_editor_rexdev_skin.png!

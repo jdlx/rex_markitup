@@ -36,48 +36,11 @@ $REX['ADDON']['BE_STYLE_PAGE_CONTENT'][$mypage] = '
 
 // SETTINGS
 ////////////////////////////////////////////////////////////////////////////////
-/* THEMES:
- * ambiance, blackboard, cobalt, eclipse, elegant, erlang-dark,
- * lesser-dark, monokai, neat, night, rubyblue, vibrant-ink, xq-dark,
- * custom: jdlx
- */
-$REX[$mypage]['settings'] = array(
-  'theme'          =>'jdlx',
-  'keys' => array(
-    'enter_fullscreen' => 'F11',
-    'leave_fullscreen' => 'Esc',
-    ),
-  // AUTOENABLED BACKEND PAGES - ANY TEXTAREA WILL GET CODEMIRROR
-  'autoenabled_pages' => array(
-      array('page'=>'template'),
-      array('page'=>'module'),
-    ),
-  // TRIGGER CLASS - WILL ENABLE CODEMIRROR OUTSIDE AUTOENABLED PAGES
-  'trigger_class' => 'rex-codemirror',
-  'foldmode'        =>'tagRangeFinder', // @html: tagRangeFinder, @php: braceRangeFinder
-  'codemirror_options' => '',
-  );
-
-
-// CHECK IF ENABLED PAGE
-////////////////////////////////////////////////////////////////////////////////
-$enabled_page = false;
-foreach($REX[$mypage]['settings']['autoenabled_pages'] as $def) {
-  foreach ($def as $k => $v) {
-    $enabled_page = rex_request($k,'string') === $v;
-  }
-  if($enabled_page){
-    break;
-  }
-}
-
-$REX[$mypage]['settings']['selector'] = $enabled_page
-                                      ? 'textarea'
-                                      : 'textarea.'.$REX[$mypage]['settings']['trigger_class'];
+$REX[$mypage]['settings'] = array();
 
 
 
-// CODEMIRROR ENABLER SCRIPT @ BODY END
+// INCLUDE ASSETS @ OPF
 ////////////////////////////////////////////////////////////////////////////////
 rex_register_extension('OUTPUT_FILTER',
   function($params) use($REX)

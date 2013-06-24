@@ -15,7 +15,7 @@ var markitupEditors = {};
   $('textarea.rex-markitup').each(function(){
     area = $(this);
 
-    var uid = area.constructor.guid; console.log('uid:',uid);
+    var uid = area.constructor.guid;
     if(typeof area.attr('id') == 'undefined'){
       area.attr('id','instance-' + uid);
     }

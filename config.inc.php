@@ -80,7 +80,11 @@ $REX[$mypage]['settings']['selector'] = $enabled_page
 // CODEMIRROR ENABLER SCRIPT @ BODY END
 ////////////////////////////////////////////////////////////////////////////////
 rex_register_extension('OUTPUT_FILTER',
-  function($params) use($REX) {
+  function($params) use($REX)
+  {
+    if(preg_match('/<textarea[^>]*class="[^"]*rex-markitup/',$params['subject']) == 0) {
+      return;
+    }
 
     // CSS
     $head = '

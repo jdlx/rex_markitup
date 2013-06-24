@@ -11,7 +11,8 @@
 
     var pluginName = "rexMarkItUp",
         defaults = {
-            buttonDefinitions: {
+            namespace: 'textile',
+            buttondefinitions: {
                                 'h1':           {
                                                   openWith:'\n\nh1(!(([![Class]!]))!). ',
                                                   closeWith:'\n\n',
@@ -141,21 +142,18 @@
                                                   placeHolder:'Zitat hier...'
                                                 }
 
-            }, // buttonDefinitions
+            }, // buttondefinitions
 
-            buttonSets: {
+            buttonsets: {
               standard: 'h1,h2,h3,h4,h5,h6,|,bold,italic,stroke,|,listbullet,listnumeric,|,image,linkmedia,linkintern,linkextern,linkmailto',
               full:     'h1,h2,h3,h4,h5,h6,|,bold,italic,stroke,|,listbullet,listnumeric,|,image,linkmedia,linkintern,linkextern,linkmailto,|,code,blockquote'
-            },
-            buttonSet: 'standard'
+            }
 
         }; // defaults
 
     // The actual plugin constructor
     function Plugin( element, options ) {
         this.element = element;
-
-        defaults.buttons = defaults.buttonSets[defaults.buttonSet];
 
         this.options = $.extend( {}, defaults, options );
 
@@ -169,15 +167,18 @@
 
         init: function() {
 
+            this.options = $.extend( {}, this.options, $(this.element).data() );
+
             this.markupSet = [];
-            this.options.buttons = this.options.buttons.split(',');
+            this.options.buttonset = typeof this.options.buttonset == 'undefined' ? 'standard' : this.options.buttonset;
+            this.options.buttons   = typeof this.options.buttons == 'undefined' ? this.options.buttonsets[this.options.buttonset].split(',') : this.options.buttons.split(',');
 
             for(var i = 0; i < this.options.buttons.length; i++) {
               key = this.options.buttons[i];
               if(key === '|') {
                 def = { separator:'---------------' };
-              }else if(typeof this.options.buttonDefinitions[key] !== 'undefined') {
-                def = this.options.buttonDefinitions[key];
+              }else if(typeof this.options.buttondefinitions[key] !== 'undefined') {
+                def = this.options.buttondefinitions[key];
                 def.name = key;
                 def.placeHolder = key;
                 def.className = 'markitup-'+key;
@@ -188,7 +189,7 @@
             }
 
             return $(this.element).markItUp({
-              nameSpace:'textile',
+              nameSpace: this.options.namespace,
               markupSet: this.markupSet
             });
         }

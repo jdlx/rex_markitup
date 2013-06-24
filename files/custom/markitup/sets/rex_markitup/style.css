@@ -82,13 +82,3 @@
 .markItUpButton.markitup-preview a {
     background-image: url('images/preview.png') !important;
 }
-
-
-
-.markItUpContainer ul{
-  margin-left:0 !important;
-}
-.markItUpContainer li{
-  list-style:none !important;
-}
-

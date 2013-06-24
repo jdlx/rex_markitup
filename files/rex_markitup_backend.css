@@ -1,0 +1,74 @@
+/**
+ * RexMarkitup be_style Plugin for Redaxo
+ *
+ * @version 0.1.0
+ * @link http://markitup.jaysalvat.com
+ * @author Redaxo be_style plugin: rexdev.de
+ * @package redaxo 4.3.x/4.4.x/4.5.x
+ */
+
+.CodeMirror {
+  background:white;
+  border:1px solid #999999;
+  height:auto;
+  }
+.CodeMirror-scroll {
+  height: auto !important;
+  max-height:600px;
+  min-height:50px;
+  overflow-x: auto !important;
+  }
+.CodeMirror pre {
+  font-size: 12px;
+  line-height: 12px;
+  }
+.CodeMirror div.fold-icon{
+  position: absolute;
+  right: 2px;
+  margin-top: -2px;
+  padding: 0 1px 1px 1px;
+  color: white;
+  background:rgba(160,160,160,1);
+  font-size: 9px;
+  border-radius: 2px;
+  }
+
+/*FULLSCREEN STYLES*/
+
+.CodeMirror-fullscreen {
+  font-family:Monospace !important;
+  font-size:12px !important;
+  position:fixed !important;
+  display:block !important;
+  float:none !important;
+  top:5% !important;
+  left:2% !important;
+  width:95% !important;
+  height:92% !important;
+  z-index:9999 !important;
+  border:1px solid silver !important;
+  box-shadow: 5px 5px 40px 10px #000 !important;
+  border-radius:4px !important;
+  overflow: auto !important;
+  }
+.CodeMirror-fullscreen .CodeMirror-scroll {
+  max-height:none;
+  height:100% !important;
+  }
+
+
+/* AGK EDITS & RESETS */
+
+/* page=template */
+#rex-page-template.be-style-agb-skin div.rex-form-template-editmode div.rex-form-row p.rex-form-textarea textarea#content,
+/* page=module */
+#rex-page-module.be-style-agb-skin div.rex-form-module-editmode div.rex-form-row p.rex-form-textarea textarea#eingabe,
+#rex-page-module.be-style-agb-skin div.rex-form-module-editmode div.rex-form-row p.rex-form-textarea textarea#ausgabe,
+/* page=module&subpage=actions */
+#rex-page-module.be-style-agb-skin div.rex-action-editmode div.rex-form-row p.rex-form-textarea textarea#previewaction,
+#rex-page-module.be-style-agb-skin div.rex-action-editmode div.rex-form-row p.rex-form-textarea textarea#presaveaction,
+#rex-page-module.be-style-agb-skin div.rex-action-editmode div.rex-form-row p.rex-form-textarea textarea#postsaveaction {
+    clear: left;
+    margin-left: 6px !important;
+    width: 729px !important;
+}

@@ -1,0 +1,94 @@
+/**
+ * RexMarkitup be_style Plugin for Redaxo
+ *
+ * @version 0.1.0
+ * @link http://markitup.jaysalvat.com
+ * @author Redaxo be_style plugin: rexdev.de
+ * @package redaxo 4.3.x/4.4.x/4.5.x
+ */
+
+.markItUpButton.markitup-h1 a {
+    background-image: url('images/h1.png') !important;
+}
+.markItUpButton.markitup-h2 a {
+    background-image: url('images/h2.png') !important;
+}
+.markItUpButton.markitup-h3 a {
+    background-image: url('images/h3.png') !important;
+}
+.markItUpButton.markitup-h4 a {
+    background-image: url('images/h4.png') !important;
+}
+.markItUpButton.markitup-h5 a {
+    background-image: url('images/h5.png') !important;
+}
+.markItUpButton.markitup-h6 a {
+    background-image: url('images/h6.png') !important;
+}
+.markItUpButton.markitup-separator a {
+    background-image: url('images/separator.png') !important;
+}
+.markItUpButton.markitup-bold a {
+    background-image: url('images/bold.png') !important;
+}
+.markItUpButton.markitup-italic a {
+    background-image: url('images/italic.png') !important;
+}
+.markItUpButton.markitup-stroke a {
+    background-image: url('images/stroke.png') !important;
+}
+.markItUpButton.markitup-separator a {
+    background-image: url('images/separator.png') !important;
+}
+.markItUpButton.markitup-listbullet a {
+    background-image: url('images/listbullet.png') !important;
+}
+.markItUpButton.markitup-listnumeric a {
+    background-image: url('images/listnumeric.png') !important;
+}
+.markItUpButton.markitup-separator a {
+    background-image: url('images/separator.png') !important;
+}
+.markItUpButton.markitup-image a {
+    background-image: url('images/image.png') !important;
+}
+.markItUpButton.markitup-linkmedia a {
+    background-image: url('images/linkmedia.png') !important;
+}
+.markItUpButton.markitup-separator a {
+    background-image: url('images/separator.png') !important;
+}
+.markItUpButton.markitup-linkintern a {
+    background-image: url('images/linkintern.png') !important;
+}
+.markItUpButton.markitup-linkextern a {
+    background-image: url('images/linkextern.png') !important;
+}
+.markItUpButton.markitup-linkmailto a {
+    background-image: url('images/linkmailto.png') !important;
+}
+.markItUpButton.markitup-separator a {
+    background-image: url('images/separator.png') !important;
+}
+.markItUpButton.markitup-code a {
+    background-image: url('images/code.png') !important;
+}
+.markItUpButton.markitup-blockquote a {
+    background-image: url('images/blockquote.png') !important;
+}
+.markItUpButton.markitup-separator a {
+    background-image: url('images/separator.png') !important;
+}
+.markItUpButton.markitup-preview a {
+    background-image: url('images/preview.png') !important;
+}
+
+
+
+.markItUpContainer ul{
+  margin-left:0 !important;
+}
+.markItUpContainer li{
+  list-style:none !important;
+}
+

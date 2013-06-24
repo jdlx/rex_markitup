@@ -25,11 +25,11 @@ $REX['ADDON']['author'][$mypage]      = 'jdlx';
 $REX['ADDON']['supportpage'][$mypage] = 'forum.redaxo.de';
 
 $REX['ADDON']['page'][$mypage]        = $mypage;
-$REX['ADDON']['title'][$mypage]       = 'RexCodemirror';
+$REX['ADDON']['title'][$mypage]       = 'RexMarkitup';
 
 $REX['ADDON']['BE_STYLE_PAGE_CONTENT'][$mypage] = '
 <h2 class="settings"><a href="index.php?page=be_style&amp;subpage='.$mypage.'">'.$REX['ADDON']['title'][$mypage].'</a></h2>
-<p>CodeMirror (<a href="https://github.com/marijnh/CodeMirror" target="_blank">Github</a>) von <a href="http://marijnhaverbeke.nl/" target="_blank">Marijn Haverbeke</a> als Redaxo be_style Plugin.</p>
+<p>Reinterpretation des bisherigen Markitup Addons mit reduzierter/schlankerer Codebase.. dev status: <b>alpha</b></p>
 <hr />
 ';
 

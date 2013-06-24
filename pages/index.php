@@ -27,7 +27,7 @@ rex_title('Backend Style <span style="color:silver;font-size:0.5em;">'.$REX['ADD
 // SAVE SETTINGS
 ////////////////////////////////////////////////////////////////////////////////
 if($func=='save_settings'){
-  $settings   = rex_request('settings', 'array');         FB::log($settings,' $settings');
+  $settings   = rex_request('settings', 'array');
   foreach($settings as $k => $v){
     $settings[$k] = stripslashes($v);
   }
@@ -42,27 +42,6 @@ if($func=='save_settings'){
 
 // PAGE BODY
 ////////////////////////////////////////////////////////////////////////////////
-
-// THEME SELECT
-$theme_dirs = glob($myroot.'files/themes/*');
-$tmp = new rex_select();
-$tmp->setSize(1);
-$tmp->setName('settings[theme]');
-foreach(glob($myroot.'files/vendor/theme/*.css') as $theme_css){
-  $theme = str_replace(array($myroot.'files/vendor/theme/','.css'),'',$theme_css);
-  $tmp->addOption($theme,$theme);
-}
-$tmp->setSelected($REX[$mypage]['settings']['theme']);
-$theme = $tmp->get();
-
-// JQUERY INJECT SELECT
-$tmp = new rex_select();
-$tmp->setSize(1);
-$tmp->setName('settings[foldmode]');
-$tmp->addOption('tagRangeFinder (HTML)','tagRangeFinder');
-$tmp->addOption('braceRangeFinder (PHP)','braceRangeFinder');
-$tmp->setSelected($REX[$mypage]['settings']['foldmode']);
-$foldmode = $tmp->get();
 
 
 // SUBSUB NAVI
@@ -83,75 +62,20 @@ echo '
       <input type="hidden" name="codemirror_options" value="" />
 
       <fieldset class="rex-form-col-1">
-        <legend style="font-size:1.2em">RexCodemirror Settings</legend>
-          <div class="rex-form-wrapper">
-
-
-            <div class="rex-form-row">
-              <p class="rex-form-col-a rex-form-select">
-                <label for="theme">Theme</label>
-                '.$theme.'
-              </p>
-            </div><!-- /rex-form-row -->
-
-
-            <div class="rex-form-row">
-              <p class="rex-form-col-a rex-form-text">
-                <label for="trigger_class">Trigger Class</label>
-                <input id="trigger_class" class="rex-form-text" type="text" name="settings[trigger_class]" value="'.
-                $REX[$mypage]['settings']['trigger_class'].
-                '" />
-              </p>
-            </div><!-- /rex-form-row -->
-
-
-            <div class="rex-form-row">
-              <p class="rex-form-col-a rex-form-text">
-                <label for="enter_fullscreen">Enter Fullscreen</label>
-                <input id="enter_fullscreen" class="rex-form-text" type="text" name="settings[keys][enter_fullscreen]" value="'.
-                $REX[$mypage]['settings']['keys']['enter_fullscreen'].
-                '" />
-              </p>
-            </div><!-- /rex-form-row -->
-
-
-            <div class="rex-form-row">
-              <p class="rex-form-col-a rex-form-text">
-                <label for="leave_fullscreen">Leave Fullscreen</label>
-                <input id="leave_fullscreen" class="rex-form-text" type="text" name="settings[keys][leave_fullscreen]" value="'.
-                $REX[$mypage]['settings']['keys']['leave_fullscreen'].
-                '" />
-              </p>
-            </div><!-- /rex-form-row -->
-
-
-            <div class="rex-form-row">
-              <p class="rex-form-col-a rex-form-select">
-                <label for="theme">Foldmode</label>
-                '.$foldmode.'
-              </p>
-            </div><!-- /rex-form-row -->
-
-            <!--<div class="rex-form-row">
-              <p class="rex-form-col-a rex-form-textarea">
-                <label for="codemirror_options">Codemirror Options</label>
-                <textarea id="codemirror_options" style="width:97%;margin-left:6px;min-height:180px;font-family:monospace;font-size:1.3em" class="rex-form-textarea rex-codemirror" name="settings[codemirror_options]">'.$REX[$mypage]['settings']['codemirror_options'].'</textarea>
-              </p>
-            </div>--><!-- .rex-form-row -->
-
-
-              <div class="rex-form-row rex-form-element-v2">
-                <p class="rex-form-submit">
-                  <input class="rex-form-submit" type="submit" id="sendit" name="sendit" value="Einstellungen speichern" />
-                </p>
-              </div><!-- /rex-form-row -->
-
-            </div><!-- /rex-form-wrapper -->
-        </fieldset>
-      </form>
-    </div><!-- /rex-form -->
-  </div><!-- /rex-addon-output -->
-  ';
+        <legend style="font-size:1.2em">RexMarkitup Settings</legend>
+        <div class="rex-form-wrapper">
+          none yet..
+          <div class="rex-form-row rex-form-element-v2">
+            <p class="rex-form-submit">
+              <input class="rex-form-submit" type="submit" id="sendit" name="sendit" value="Einstellungen speichern" />
+            </p>
+          </div><!-- /rex-form-row -->
+        </div><!-- /rex-form-wrapper -->
+      </fieldset>
+    </form>
+  </div><!-- /rex-form -->
+</div><!-- /rex-addon-output -->
+';
 
 
 require $REX['INCLUDE_PATH'] . '/layout/bottom.php';

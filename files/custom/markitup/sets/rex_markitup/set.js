@@ -58,6 +58,7 @@ rexMarkitup.sets.standard = {
     },
     {
       separator:'---------------'
+    },
     {
       name:'Fett',
       className:'markitup-bold',
@@ -194,7 +195,7 @@ rexMarkitup.sets.standard = {
       openWith:'\n\nbq(!(([![Class]!]))!). ',
       closeWith:'\n\n',
       placeHolder:'Zitat hier...'
-    },
+    } //,
     // {
     //   separator:'---------------'},
     // {

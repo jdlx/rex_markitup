@@ -181,13 +181,13 @@ rexMarkitup.sets.standard = {
       closeWith:'\n\n',
       placeHolder:'Zitat hier...'
     },
-    {
-      separator:'---------------'},
-    {
-      name:'Voransicht',
-      className:'markitup-preview',
-      call:'preview', key:'Y'
-    }
+    // {
+    //   separator:'---------------'},
+    // {
+    //   name:'Voransicht',
+    //   className:'markitup-preview',
+    //   call:'preview', key:'Y'
+    // }
 
   ] // markupSet
 

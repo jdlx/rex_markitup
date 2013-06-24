@@ -1,6 +1,5 @@
 if(typeof rexMarkitup == 'undefined') {
-  var rexMarkitup = {};
-  rexMarkitup.sets = {};
+  var rexMarkitup = {sets:{}};
 }
 
 rexMarkitup.sets.standard = {
@@ -14,65 +13,74 @@ rexMarkitup.sets.standard = {
       className:'markitup-h1',
       openWith:'\n\nh1(!(([![Class]!]))!). ',
       closeWith:'\n\n',
-      placeHolder:'Überschrift 1. Ordnung hier..', key:'1'
+      placeHolder:'Überschrift 1. Ordnung hier..',
+      key:'1'
     },
     {
       name:'Überschrift 2. Ordnung',
       className:'markitup-h2',
       openWith:'\n\nh2(!(([![Class]!]))!). ',
       closeWith:'\n\n',
-      placeHolder:'Überschrift 2. Ordnung hier..', key:'2'
+      placeHolder:'Überschrift 2. Ordnung hier..',
+      key:'2'
     },
     {
       name:'Überschrift 3. Ordnung',
       className:'markitup-h3',
       openWith:'\n\nh3(!(([![Class]!]))!). ',
       closeWith:'\n\n',
-      placeHolder:'Überschrift 3. Ordnung hier..', key:'3'
+      placeHolder:'Überschrift 3. Ordnung hier..',
+      key:'3'
     },
     {
       name:'Überschrift 4. Ordnung',
       className:'markitup-h4',
       openWith:'\n\nh4(!(([![Class]!]))!). ',
       closeWith:'\n\n',
-      placeHolder:'Überschrift 4. Ordnung hier..', key:'4'
+      placeHolder:'Überschrift 4. Ordnung hier..',
+      key:'4'
     },
     {
       name:'Überschrift 5. Ordnung',
       className:'markitup-h5',
       openWith:'\n\nh5(!(([![Class]!]))!). ',
       closeWith:'\n\n',
-      placeHolder:'Überschrift 5. Ordnung hier..', key:'5'
+      placeHolder:'Überschrift 5. Ordnung hier..',
+      key:'5'
     },
     {
       name:'Überschrift 6. Ordnung',
       className:'markitup-h6',
       openWith:'\n\nh6(!(([![Class]!]))!). ',
       closeWith:'\n\n',
-      placeHolder:'Überschrift 6. Ordnung hier..', key:'6'
+      placeHolder:'Überschrift 6. Ordnung hier..',
+      key:'6'
     },
     {
-      separator:'---------------', key:'6'},
+      separator:'---------------'
     {
       name:'Fett',
       className:'markitup-bold',
       openWith:'*',
-      closeWith:'*', key:'B'
+      closeWith:'*',
+      key:'B'
     },
     {
       name:'Kursiv',
       className:'markitup-italic',
       openWith:'_',
-      closeWith:'_', key:'I'
+      closeWith:'_',
+      key:'I'
     },
     {
       name:'Durchstrichen',
       className:'markitup-stroke',
       openWith:'-',
-      closeWith:'-', key:'S'
+      closeWith:'-',
+      key:'S'
     },
     {
-      separator:'---------------', key:'S'
+      separator:'---------------'
     },
     {
       name:'Liste - ungeordnet',
@@ -134,30 +142,34 @@ rexMarkitup.sets.standard = {
       closeWith:' ',
       beforeInsert:function(h) {
         openMediaPool('TINYIMG');
-      }, key:'P'
+      },
+      key:'P'
     },
     {
       name:'Datei verlinken',
       className:'markitup-linkmedia',
       beforeInsert:function() {
         openMediaPool('TINY');
-      }, key:'M'
+      },
+      key:'M'
     },
     {
-      separator:'---------------', key:'M'
+      separator:'---------------'
     },
     {
       name:'Interner Link',
       className:'markitup-linkintern',
       beforeInsert:function() {
         openLinkMap('TINY','&clang='+markitup_getURLParam('clang'));
-      }, key:'L'},
+      },
+      key:'L'},
     {
       name:'Externer Link',
       className:'markitup-linkextern',
       openWith:'"',
       closeWith:'":[![Link eingeben:!:http://]!]',
-      placeHolder:'Linktext hier', key:'E'
+      placeHolder:'Linktext hier',
+      key:'E'
     },
     {
       name:'Mailto-Link',
@@ -168,12 +180,14 @@ rexMarkitup.sets.standard = {
       key:'M'
     },
     {
-      separator:'---------------', key:'M'},
+      separator:'---------------'
+    },
     {
       name:'Quellcode',
       className:'markitup-code',
       openWith:' @',
-      closeWith:'@ '},
+      closeWith:'@ '
+    },
     {
       name:'Zitat',
       className:'markitup-blockquote',

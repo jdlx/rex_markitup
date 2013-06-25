@@ -7,7 +7,7 @@
  * @author Redaxo be_style plugin: rexdev.de
  * @package redaxo 4.3.x/4.4.x/4.5.x
  */
-        FB::log($_REQUEST,' $_REQUEST');
+
 
 // GET PARAMS
 ////////////////////////////////////////////////////////////////////////////////

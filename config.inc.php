@@ -9,6 +9,64 @@
  */
 
 
+
+
+// PLUGIN IDENTIFIER & ROOT
+////////////////////////////////////////////////////////////////////////////////
+$mypage = 'rex_markitup';
+$myroot = $REX['INCLUDE_PATH'].'/addons/be_style/plugins/'.$mypage.'/';
+
+
+// APPEND LANG
+////////////////////////////////////////////////////////////////////////////////
+$I18N->appendFile($myroot.'lang/');
+
+
+// AJAX API
+////////////////////////////////////////////////////////////////////////////////
+$data     = rex_request('rex_markitup_api','string',false);
+
+if( $data !== false )
+{
+  $data = $data !== '' ? json_decode(stripslashes($data),true) : $data;
+
+  switch($data['func'])
+  {
+    case'get_i18n':
+
+      // $custom_I18N = new I18N($locale,$myroot.'lang/rex_markitup/');
+      // $custom_I18N->appendFile($myroot.'lang/rex_markitup/');
+      // $custom_I18N->loadTexts();
+      rex_markitup_ajax_reply($I18N->text);
+      break;
+
+    default:
+      rex_markitup_ajax_reply(array('msg'=>'ok'));
+
+  }
+}
+
+function rex_markitup_ajax_reply($data = false, $content_type = 'application/json')
+{
+  if(!$data){
+    return false;
+  }
+
+  if(is_array($data) || is_object($data)) {
+    $data = json_encode($data);
+  }
+
+  while(ob_get_level()){
+    ob_end_clean();
+  }
+  ob_start();
+  header('Content-Type: '.$content_type);
+  echo $data;
+  die();
+} // END ajax_reply
+
+
+
 // BACKEND ONLY
 ////////////////////////////////////////////////////////////////////////////////
 if(!$REX['REDAXO'] || (rex_request('page','string')=='markitup' && rex_request('subpage','string')=='preview') ){
@@ -18,8 +76,6 @@ if(!$REX['REDAXO'] || (rex_request('page','string')=='markitup' && rex_request('
 
 // REX COMMONS
 ////////////////////////////////////////////////////////////////////////////////
-$mypage = 'rex_markitup';
-
 $REX['ADDON']['version'][$mypage]     = '1.3.0';
 $REX['ADDON']['author'][$mypage]      = 'jdlx';
 $REX['ADDON']['supportpage'][$mypage] = 'forum.redaxo.de';

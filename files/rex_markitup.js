@@ -167,6 +167,8 @@
 
         init: function() {
 
+            this.getI18n();
+
             this.options = $.extend( {}, this.options, $(this.element).data() );
 
             this.markupSet = [];
@@ -179,8 +181,10 @@
                 def = { separator:'---------------' };
               }else if(typeof this.options.buttondefinitions[key] !== 'undefined') {
                 def = this.options.buttondefinitions[key];
-                def.name = key;
-                def.placeHolder = key;
+                def.name = typeof this.i18n['markitup_'+key] != 'undefined' ? this.i18n['markitup_'+key] : key;
+                if(typeof this.i18n['markitup_'+key+'_placeholder'] != 'undefined') {
+                  def.placeHolder = this.i18n['markitup_'+key+'_placeholder'];
+                }
                 def.className = 'markitup-'+key;
               }else {
                 def = null;
@@ -192,7 +196,21 @@
               nameSpace: this.options.namespace,
               markupSet: this.markupSet
             });
+        },
+        getI18n: function(){
+          $.ajax({
+            type: 'POST',
+            url: 'index.php',
+            async: false,
+            dataType:'json',
+            data: {'rex_markitup_api': JSON.stringify({func:'get_i18n'})},
+              success: $.proxy(function(data) { //console.log('data:',data);
+                this.i18n = data;
+              },this),
+            error: function(e){console.warn('error:',e);}
+          });
         }
+
     };
 
     $.fn[pluginName] = function ( options ) {

@@ -167,7 +167,7 @@
             this.getI18n();
             if(typeof rex_markitup !== 'undefined') {
               if(typeof rex_markitup.buttonsets !== 'undefined') {
-                this.options.buttonsets = $.extend( {}, this.options.buttonsets, rex_markitup.buttonsets );                      console.log('this.options.buttonsets:',this.options.buttonsets);
+                this.options.buttonsets = $.extend( {}, this.options.buttonsets, rex_markitup.buttonsets );                      // console.log('this.options.buttonsets:',this.options.buttonsets);
               }
               if(typeof rex_markitup.buttondefinitions !== 'undefined') {
                 this.options.buttondefinitions = $.extend( {}, this.options.buttondefinitions, rex_markitup.buttondefinitions ); // console.log('this.options.buttondefinitions:',this.options.buttondefinitions);

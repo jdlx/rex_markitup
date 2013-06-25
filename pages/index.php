@@ -70,14 +70,13 @@ echo '
             <p class="rex-form-col-a rex-form-textarea">
               <label for="buttoncss">Button CSS</label>
               <textarea id="buttoncss" style="min-height:100px;font-family:monospace;font-size:1.3em;width:98%;margin-left:5px;" class="rex-form-textarea rex-codemirror" name="settings[buttoncss]">'.$REX[$mypage]['settings']['buttoncss'].'</textarea>
-              <span style="margin-left:5px;color:gray;font-size:10px;font-family:monospace;">use JS obj property notation</span>
             </p>
           </div><!-- .rex-form-row -->
 
 
           <div class="rex-form-row">
             <p class="rex-form-col-a rex-form-textarea">
-              <label for="buttondefinitions">rex_markitup.buttondefinitions:&nbsp;{…}&nbsp;[<a href="http://markitup.jaysalvat.com/documentation/#markupset" target="_blank">?</a>]</label>
+              <label for="buttondefinitions" style="width:auto;">rex_markitup.buttondefinitions:&nbsp;{…}</label>
               <textarea id="buttondefinitions" style="min-height:100px;font-family:monospace;font-size:1.3em;width:98%;margin-left:5px;" class="rex-form-textarea rex-codemirror" name="settings[buttondefinitions]">'.$REX[$mypage]['settings']['buttondefinitions'].'</textarea>
               <span style="margin-left:5px;color:gray;font-size:10px;font-family:monospace;">use JS obj property notation</span>
             </p>
@@ -106,6 +105,20 @@ echo '
   </div><!-- /rex-form -->
 </div><!-- /rex-addon-output -->
 ';
+
+
+$help = rex_get_file_contents($REX['INCLUDE_PATH'].'/addons/be_style/plugins/rex_markitup/lang/help.'.$REX['LANG'].'.textile');
+$help = OOAddon::isActivated('textile') ? rex_a79_textile($help) : '<pre>'.$help.'</pre>';
+
+echo '<div class="rex-addon-output im-plugins">
+    <h2 style="font-size:1.2em" class="rex-hl2">Infos</h2>
+
+    <div class="rex-addon-content">
+
+    '.$help.'
+
+    </div><!-- /rex-addon-content -->
+  </div>';
 
 
 require $REX['INCLUDE_PATH'] . '/layout/bottom.php';

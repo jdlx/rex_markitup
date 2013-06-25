@@ -137,6 +137,17 @@
                                 'blockquote':   {
                                                   openWith:'\n\nbq(!(([![Class]!]))!). ',
                                                   closeWith:'\n\n'
+                                                },
+                                'fullscreen':   {
+                                                  beforeInsert: function(markItUp) {
+                                                    p = $(markItUp.textarea).parents("div.markItUpContainer");
+                                                    if(p.hasClass("fullscreen")){
+                                                      p.removeClass("fullscreen");
+                                                    }else{
+                                                      p.addClass("fullscreen");
+                                                    }
+                                                  },
+                                                  key:"F"
                                                 }
 
             }, // buttondefinitions
@@ -164,7 +175,10 @@
 
         init: function() {                                                                                                       // console.log('this.options:',this.options);
 
-            this.getI18n();
+            if(typeof rex_markitup.i18n === 'undefined') {
+              this.getI18n();
+            }
+
             if(typeof rex_markitup !== 'undefined') {
               if(typeof rex_markitup.buttonsets !== 'undefined') {
                 this.options.buttonsets = $.extend( {}, this.options.buttonsets, rex_markitup.buttonsets );                      // console.log('this.options.buttonsets:',this.options.buttonsets);
@@ -187,11 +201,11 @@
                 this.markupSet.push(def);
               }else if(typeof this.options.buttondefinitions[key] !== 'undefined') {
                 def = this.options.buttondefinitions[key];
-                if(typeof def.name === 'undefined' && typeof this.i18n['markitup_'+key] != 'undefined'){
-                  def.name = this.i18n['markitup_'+key];
+                if(typeof def.name === 'undefined' && typeof rex_markitup.i18n['markitup_'+key] != 'undefined'){
+                  def.name = rex_markitup.i18n['markitup_'+key];
                 }
-                if(typeof def.placeHolder === 'undefined' && typeof this.i18n['markitup_'+key+'_placeholder'] != 'undefined'){
-                  def.placeHolder = this.i18n['markitup_'+key+'_placeholder'];
+                if(typeof def.placeHolder === 'undefined' && typeof rex_markitup.i18n['markitup_'+key+'_placeholder'] != 'undefined'){
+                  def.placeHolder = rex_markitup.i18n['markitup_'+key+'_placeholder'];
                 }
                 def.className = 'markitup-'+key;
                 this.markupSet.push(def);
@@ -210,8 +224,8 @@
             async: false,
             dataType:'json',
             data: {'rex_markitup_api': JSON.stringify({func:'get_i18n'})},
-              success: $.proxy(function(data) { //console.log('data:',data);
-                this.i18n = data;
+              success: $.proxy(function(data) {                                 //console.log('data:',data);
+                rex_markitup.i18n = data;
               },this),
             error: function(e){console.warn('error:',e);}
           });

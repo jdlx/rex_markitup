@@ -82,3 +82,14 @@
 .markItUpButton.markitup-preview a {
     background-image: url('images/preview.png') !important;
 }
+
+
+li.markItUpButton.markitup-fullscreen {
+    float: right;
+}
+.markItUpButton.markitup-fullscreen a {
+    background-image: url('images/fullscreen-open.png') !important;
+}
+.fullscreen .markItUpButton.markitup-fullscreen a {
+    background-image: url('images/fullscreen-close.png') !important;
+}

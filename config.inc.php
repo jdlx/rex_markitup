@@ -28,7 +28,9 @@ $myroot = $REX['INCLUDE_PATH'].'/addons/be_style/plugins/'.$mypage.'/';
 
 // APPEND LANG
 ////////////////////////////////////////////////////////////////////////////////
-$I18N->appendFile($myroot.'lang/');
+if(is_a($I18N,'i18n')) {
+  $I18N->appendFile($myroot.'lang/');
+}
 
 
 // AJAX API
@@ -99,6 +101,7 @@ $REX['ADDON']['BE_STYLE_PAGE_CONTENT'][$mypage] = '
 ////////////////////////////////////////////////////////////////////////////////
 // --- DYN
 $REX["rex_markitup"]["settings"] = array (
+  'buttoncss' => '',
   'buttondefinitions' => 'examplebutton:
 {
   name:         \'Example Button\',
@@ -121,7 +124,7 @@ $REX["rex_markitup"]["settings"] = array (
 \'h1,h2,h3,h4,h5,h6,|,bold,italic,stroke,|,listbullet,listnumeric,|,image,linkmedia,linkintern,linkextern,linkmailto\',
 
 full:
-\'h1,h2,h3,h4,h5,h6,|,bold,italic,stroke,|,listbullet,listnumeric,|,image,linkmedia,linkintern,linkextern,linkmailto,|,code,blockquote\'
+\'h1,h2,h3,h4,h5,h6,|,bold,italic,stroke,|,listbullet,listnumeric,|,image,linkmedia,linkintern,linkextern,linkmailto,|,code,blockquote,|,fullscreen\'
 ',
 );
 // --- /DYN
@@ -142,7 +145,7 @@ rex_register_extension('OUTPUT_FILTER',
                                         array(
                                               'buttondefinitions' => stripslashes($REX["rex_markitup"]["settings"]["buttondefinitions"]),
                                               'buttonsets'        => stripslashes($REX["rex_markitup"]["settings"]["buttonsets"]),
-                                              'buttoncss'         => '',
+                                              'buttoncss'         => stripslashes($REX["rex_markitup"]["settings"]["buttoncss"]),
                                              )
                                       );
     $buttondefinitions = $ep['buttondefinitions'];

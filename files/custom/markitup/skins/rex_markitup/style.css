@@ -59,21 +59,38 @@
   background: linear-gradient(to bottom, #FAFAFA 0%, #E6E6E6 62%, #D9D9D9 100%) transparent;
   width:99.99%;
   cursor:n-resize;
-  padding:2px 0 2px 0;
+  padding:0;
+  margin:0;
   border-top: 1px solid #E3E3E3;
 }
 .markItUpResizeHandle {
-  overflow:hidden;
-  width:22px; height:5px;
-  margin-left:auto;
-  margin-right:auto;
-  background-image:url(images/handle.png);
-  cursor:n-resize;
+    background: url("images/handle.png") repeat scroll 0 0 transparent;
+    border-top:2px solid #FAFAFA;
+    border-bottom:2px solid #D9D9D9;
+    cursor: n-resize;
+    margin: 0 auto;
+    overflow: hidden;
+    width: 50%;
+    height: 6px;
+  /*-webkit-transition: height 0.15s ease-in-out;
+     -moz-transition: height 0.15s ease-in-out;
+      -ms-transition: height 0.15s ease-in-out;
+       -o-transition: height 0.15s ease-in-out;
+          transition: height 0.15s ease-in-out;*/
 }
+/*.markItUpFooter:hover .markItUpResizeHandle {
+  height:25px;
+  -webkit-transition: height 0.01s ease-in-out;
+     -moz-transition: height 0.01s ease-in-out;
+      -ms-transition: height 0.01s ease-in-out;
+       -o-transition: height 0.01s ease-in-out;
+          transition: height 0.01s ease-in-out;
+  }*/
 /***************************************************************************************/
 /* first row of buttons */
 .markItUpHeader ul {
   display: table;
+  width:99.99%;
 }
 .markItUpHeader ul li  {
   list-style:none;
@@ -161,4 +178,24 @@
     clear: both;
     content: ".";
     visibility: hidden;
+}
+
+
+
+
+.markItUpContainer.fullscreen {
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    width:auto;
+    height:auto;
+    z-index:9999;
+}
+.markItUpContainer.fullscreen .markItUpFooter {
+    display:none;
+}
+.markItUpContainer.fullscreen textarea {
+    height:100% !important;
 }

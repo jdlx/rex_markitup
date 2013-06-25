@@ -68,6 +68,15 @@ echo '
 
           <div class="rex-form-row">
             <p class="rex-form-col-a rex-form-textarea">
+              <label for="buttoncss">Button CSS</label>
+              <textarea id="buttoncss" style="min-height:100px;font-family:monospace;font-size:1.3em;width:98%;margin-left:5px;" class="rex-form-textarea rex-codemirror" name="settings[buttoncss]">'.$REX[$mypage]['settings']['buttoncss'].'</textarea>
+              <span style="margin-left:5px;color:gray;font-size:10px;font-family:monospace;">use JS obj property notation</span>
+            </p>
+          </div><!-- .rex-form-row -->
+
+
+          <div class="rex-form-row">
+            <p class="rex-form-col-a rex-form-textarea">
               <label for="buttondefinitions">rex_markitup.buttondefinitions:&nbsp;{…}&nbsp;[<a href="http://markitup.jaysalvat.com/documentation/#markupset" target="_blank">?</a>]</label>
               <textarea id="buttondefinitions" style="min-height:100px;font-family:monospace;font-size:1.3em;width:98%;margin-left:5px;" class="rex-form-textarea rex-codemirror" name="settings[buttondefinitions]">'.$REX[$mypage]['settings']['buttondefinitions'].'</textarea>
               <span style="margin-left:5px;color:gray;font-size:10px;font-family:monospace;">use JS obj property notation</span>

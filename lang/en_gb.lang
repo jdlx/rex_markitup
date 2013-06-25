@@ -1,49 +1,49 @@
 # rex_markitup- de_de
 
-markitup_h1                     = Überschrift 1. Ordnung
-markitup_h1_placeHolder         = Überschrift 1. Ordnung hier..
+markitup_h1                     = headline 1. order
+markitup_h1_placeHolder         = headline 1. order here..
 
-markitup_h2                     = Überschrift 2. Ordnung
-markitup_h2_placeHolder         = Überschrift 2. Ordnung hier..
+markitup_h2                     = headline 2. order
+markitup_h2_placeHolder         = headline 2. order here..
 
-markitup_h3                     = Überschrift 3. Ordnung
-markitup_h3_placeHolder         = Überschrift 3. Ordnung hier..
+markitup_h3                     = headline 3. order
+markitup_h3_placeHolder         = headline 3. order here..
 
-markitup_h4                     = Überschrift 4. Ordnung
-markitup_h4_placeHolder         = Überschrift 4. Ordnung hier..
+markitup_h4                     = headline 4. order
+markitup_h4_placeHolder         = headline 4. order here..
 
-markitup_h5                     = Überschrift 5. Ordnung
-markitup_h5_placeHolder         = Überschrift 5. Ordnung hier..
+markitup_h5                     = headline 5. order
+markitup_h5_placeHolder         = headline 5. order here..
 
-markitup_h6                     = Überschrift 6. Ordnung
-markitup_h6_placeHolder         = Überschrift 6. Ordnung hier..
+markitup_h6                     = headline 6. order
+markitup_h6_placeHolder         = headline 6. order here..
 
-markitup_bold                   = Fett
+markitup_bold                   = bold
 
-markitup_italic                 = Kursiv
+markitup_italic                 = italic
 
-markitup_stroke                 = Durchstrichen
+markitup_stroke                 = stroke
 
-markitup_listbullet             = Liste - ungeordnet
+markitup_listbullet             = list - unsorted
 
-markitup_listnumeric            = Liste - geordnet
+markitup_listnumeric            = list - numeric
 
-markitup_image                  = Bild
+markitup_image                  = image
 
-markitup_linkmedia              = Datei verlinken
+markitup_linkmedia              = file link
 
-markitup_linkintern             = Interner Link
+markitup_linkintern             = internal link
 
-markitup_linkextern             = Externer Link
-markitup_linkextern_placeHolder = Linktext hier
+markitup_linkextern             = external link
+markitup_linkextern_placeHolder = linktext here
 
-markitup_linkmailto             = Mailto-Link
-markitup_linkmailto_placeHolder = Linktext hier
+markitup_linkmailto             = mailto link
+markitup_linkmailto_placeHolder = linktext here
 
-markitup_code                   = Quellcode
+markitup_code                   = code
 
-markitup_blockquote             = Zitat
-markitup_blockquote_placeHolder = Zitat hier...
+markitup_blockquote             = quote
+markitup_blockquote_placeHolder = quote here...
 
-markitup_preview                = Voransicht
+markitup_preview                = preview
 

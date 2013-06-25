@@ -14,6 +14,17 @@ h2. Features
 * Fluid Editor Layout..
 * ..und ein klein wenig aufgehübscht das ganze
 
+h2. Anwendung im Modul
+
+h4. Aufruf per CSS Klasse
+
+@<textarea class="rex-markitup"></textarea>@
+
+h4. @Data@ Attribute
+
+@<textarea class="rex-markitup" data-buttonset="full"></textarea>@
+@<textarea class="rex-markitup" data-buttons="h1,h2,h3,|,…"></textarea>@
+
 h2. Settings
 
 *Button CSS* Beispiel:

@@ -21,7 +21,7 @@ $func       = rex_request('func', 'string');
 ////////////////////////////////////////////////////////////////////////////////
 require $REX['INCLUDE_PATH'] . '/layout/top.php';
 
-rex_title('Backend Style <span style="color:silver;font-size:0.5em;">'.$REX['ADDON']['plugins']['be_style']['version'][$mypage].'</span>',$REX['ADDON']['be_style']['SUBPAGES']);
+rex_title('Backend Style <span style="color:silver;font-size:0.5em;">'.$REX['ADDON']['plugins']['be_style']['title'][$mypage].' '.$REX['ADDON']['plugins']['be_style']['version'][$mypage].'</span>',$REX['ADDON']['be_style']['SUBPAGES']);
 
 
 // SAVE SETTINGS
@@ -64,12 +64,24 @@ echo '
       <fieldset class="rex-form-col-1">
         <legend style="font-size:1.2em">RexMarkitup Settings</legend>
         <div class="rex-form-wrapper">
-          none yet..
+
+
+          <div class="rex-form-row">
+            <p class="rex-form-col-a rex-form-textarea">
+              <label for="buttonsets">rex_markitup.buttonsets:&nbsp;{…}</label>
+              <textarea id="buttonsets" style="min-height:100px;font-family:monospace;font-size:1.3em;width:98%;margin-left:5px;" class="rex-form-textarea rex-codemirror" name="settings[buttonsets]">'.$REX[$mypage]['settings']['buttonsets'].'</textarea>
+              <br /><span style="margin-left:5px;color:gray;font-size:10px;font-family:monospace;">JS obj property notation</span>
+            </p>
+          </div><!-- .rex-form-row -->
+
+
+
           <div class="rex-form-row rex-form-element-v2">
             <p class="rex-form-submit">
               <input class="rex-form-submit" type="submit" id="sendit" name="sendit" value="Einstellungen speichern" />
             </p>
           </div><!-- /rex-form-row -->
+
         </div><!-- /rex-form-wrapper -->
       </fieldset>
     </form>

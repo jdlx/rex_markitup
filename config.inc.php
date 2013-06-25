@@ -40,8 +40,12 @@ if( $data !== false )
       rex_markitup_ajax_reply($I18N->text);
       break;
 
+    case'buttons_ep':
+      rex_markitup_ajax_reply(array('msg'=>'default reply'));
+      break;
+
     default:
-      rex_markitup_ajax_reply(array('msg'=>'ok'));
+      rex_markitup_ajax_reply(array('msg'=>'default reply'));
 
   }
 }
@@ -76,7 +80,7 @@ if(!$REX['REDAXO'] || (rex_request('page','string')=='markitup' && rex_request('
 
 // REX COMMONS
 ////////////////////////////////////////////////////////////////////////////////
-$REX['ADDON']['version'][$mypage]     = '1.3.0';
+$REX['ADDON']['version'][$mypage]     = '0.8.0';
 $REX['ADDON']['author'][$mypage]      = 'jdlx';
 $REX['ADDON']['supportpage'][$mypage] = 'forum.redaxo.de';
 
@@ -92,8 +96,16 @@ $REX['ADDON']['BE_STYLE_PAGE_CONTENT'][$mypage] = '
 
 // SETTINGS
 ////////////////////////////////////////////////////////////////////////////////
-$REX[$mypage]['settings'] = array();
+// --- DYN
+$REX["rex_markitup"]["settings"] = array (
+  'buttonsets' => 'standard:
+\'h1,h2,h3,h4,h5,h6,|,bold,italic,stroke,|,listbullet,listnumeric,|,image,linkmedia,linkintern,linkextern,linkmailto\',
 
+full:
+\'h1,h2,h3,h4,h5,h6,|,bold,italic,stroke,|,listbullet,listnumeric,|,image,linkmedia,linkintern,linkextern,linkmailto,|,code,blockquote\'
+',
+);
+// --- /DYN
 
 
 // INCLUDE ASSETS @ OPF
@@ -110,7 +122,6 @@ rex_register_extension('OUTPUT_FILTER',
 <!-- rex_markitup head assets -->
   <link rel="stylesheet" href="../files/addons/be_style/plugins/rex_markitup/custom/markitup/skins/rex_markitup/style.css">
   <link rel="stylesheet" href="../files/addons/be_style/plugins/rex_markitup/custom/markitup/sets/rex_markitup/style.css">
-  <script type="text/javascript"></script>
 <!-- end rex_markitup head assets -->
     ';
 
@@ -120,7 +131,10 @@ rex_register_extension('OUTPUT_FILTER',
     $body = '
 <!-- rex_markitup body assets -->
   <script src="../files/addons/be_style/plugins/rex_markitup/vendor/markitup/jquery.markitup.js"></script>
-  <script src="../files/addons/be_style/plugins/rex_markitup/custom/markitup/sets/rex_markitup/set.js"></script>
+  <script type="text/javascript">
+    if(typeof rex_markitup === "undefined") { var rex_markitup = {}; }
+    rex_markitup.buttonsets = {'.stripslashes($REX["rex_markitup"]["settings"]["buttonsets"]).'}
+  </script>
   <script src="../files/addons/be_style/plugins/rex_markitup/rex_markitup.js"></script>
   <script type="text/javascript">
   </script>

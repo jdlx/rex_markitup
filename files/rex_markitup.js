@@ -123,13 +123,11 @@
                                 'linkextern':   {
                                                   openWith:'"',
                                                   closeWith:'":[![Link eingeben:!:http://]!]',
-                                                  placeHolder:'Linktext hier',
                                                   key:'E'
                                                 },
                                 'linkmailto':   {
                                                   openWith:'"',
                                                   closeWith:'":[![E-Mail-Link eingeben:!:mailto:]!]',
-                                                  placeHolder:'Linktext hier',
                                                   key:'M'
                                                 },
                                 'code':         {
@@ -138,8 +136,7 @@
                                                 },
                                 'blockquote':   {
                                                   openWith:'\n\nbq(!(([![Class]!]))!). ',
-                                                  closeWith:'\n\n',
-                                                  placeHolder:'Zitat hier...'
+                                                  closeWith:'\n\n'
                                                 }
 
             }, // buttondefinitions
@@ -168,6 +165,9 @@
         init: function() {
 
             this.getI18n();
+            if(typeof rex_markitup !== 'undefined') {
+              this.options = $.extend( {}, this.options, rex_markitup ); console.log('this.options:',this.options);
+            }
 
             this.options = $.extend( {}, this.options, $(this.element).data() );
 
@@ -207,6 +207,23 @@
               success: $.proxy(function(data) { //console.log('data:',data);
                 this.i18n = data;
               },this),
+            error: function(e){console.warn('error:',e);}
+          });
+        },
+        buttonsEP: function(){
+          $.ajax({
+            type: 'POST',
+            url: 'index.php',
+            async: false,
+            dataType:'json',
+            data: {'rex_markitup_api': JSON.stringify({
+              func:'buttons_ep',
+              buttondefinitions: this.options.buttondefinitions
+              })
+            },
+            success: $.proxy(function(data) { //console.log('data:',data);
+              //this.i18n = data;
+            },this),
             error: function(e){console.warn('error:',e);}
           });
         }

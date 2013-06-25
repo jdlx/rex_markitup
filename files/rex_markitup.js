@@ -215,23 +215,6 @@
               },this),
             error: function(e){console.warn('error:',e);}
           });
-        },
-        buttonsEP: function(){
-          $.ajax({
-            type: 'POST',
-            url: 'index.php',
-            async: false,
-            dataType:'json',
-            data: {'rex_markitup_api': JSON.stringify({
-              func:'buttons_ep',
-              buttondefinitions: this.options.buttondefinitions
-              })
-            },
-            success: $.proxy(function(data) { //console.log('data:',data);
-              //this.i18n = data;
-            },this),
-            error: function(e){console.warn('error:',e);}
-          });
         }
 
     };

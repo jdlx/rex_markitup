@@ -2,7 +2,7 @@
 /**
  * RexMarkitup be_style Plugin for Redaxo
  *
- * @version 0.8.0
+ * @version 0.8.5
  * @link http://markitup.jaysalvat.com
  * @author Redaxo be_style plugin: rexdev.de
  * @package redaxo 4.4.x/4.5.x
@@ -79,7 +79,7 @@ if(!$REX['REDAXO'] || (rex_request('page','string')=='markitup' && rex_request('
 
 // REX COMMONS
 ////////////////////////////////////////////////////////////////////////////////
-$REX['ADDON']['version'][$mypage]     = '0.8.0';
+$REX['ADDON']['version'][$mypage]     = '0.8.5';
 $REX['ADDON']['author'][$mypage]      = 'jdlx';
 $REX['ADDON']['supportpage'][$mypage] = 'forum.redaxo.de';
 

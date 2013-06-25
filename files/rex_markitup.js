@@ -162,34 +162,40 @@
 
     Plugin.prototype = {
 
-        init: function() {
+        init: function() {                                                                                                       // console.log('this.options:',this.options);
 
             this.getI18n();
             if(typeof rex_markitup !== 'undefined') {
-              this.options = $.extend( {}, this.options, rex_markitup ); console.log('this.options:',this.options);
+              if(typeof rex_markitup.buttonsets !== 'undefined') {
+                this.options.buttonsets = $.extend( {}, this.options.buttonsets, rex_markitup.buttonsets );                      console.log('this.options.buttonsets:',this.options.buttonsets);
+              }
+              if(typeof rex_markitup.buttondefinitions !== 'undefined') {
+                this.options.buttondefinitions = $.extend( {}, this.options.buttondefinitions, rex_markitup.buttondefinitions ); // console.log('this.options.buttondefinitions:',this.options.buttondefinitions);
+              }
             }
 
             this.options = $.extend( {}, this.options, $(this.element).data() );
 
             this.markupSet = [];
-            this.options.buttonset = typeof this.options.buttonset == 'undefined' ? 'standard' : this.options.buttonset;
+            this.options.buttonset = ( typeof this.options.buttonset == 'undefined' || typeof this.options.buttonsets[this.options.buttonset] == 'undefined' ) ? 'standard' : this.options.buttonset;
             this.options.buttons   = typeof this.options.buttons == 'undefined' ? this.options.buttonsets[this.options.buttonset].split(',') : this.options.buttons.split(',');
 
             for(var i = 0; i < this.options.buttons.length; i++) {
               key = this.options.buttons[i];
               if(key === '|') {
                 def = { separator:'---------------' };
+                this.markupSet.push(def);
               }else if(typeof this.options.buttondefinitions[key] !== 'undefined') {
                 def = this.options.buttondefinitions[key];
-                def.name = typeof this.i18n['markitup_'+key] != 'undefined' ? this.i18n['markitup_'+key] : key;
-                if(typeof this.i18n['markitup_'+key+'_placeholder'] != 'undefined') {
+                if(typeof def.name === 'undefined' && typeof this.i18n['markitup_'+key] != 'undefined'){
+                  def.name = this.i18n['markitup_'+key];
+                }
+                if(typeof def.placeHolder === 'undefined' && typeof this.i18n['markitup_'+key+'_placeholder'] != 'undefined'){
                   def.placeHolder = this.i18n['markitup_'+key+'_placeholder'];
                 }
                 def.className = 'markitup-'+key;
-              }else {
-                def = null;
+                this.markupSet.push(def);
               }
-              this.markupSet.push(def);
             }
 
             return $(this.element).markItUp({

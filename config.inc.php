@@ -8,7 +8,14 @@
  * @package redaxo 4.4.x/4.5.x
  */
 
-
+# rex_register_extension('REX_MARKITUP_BUTTONS',
+#                        function($params)
+#                        {
+#                                  FB::log($params,' $params');
+#                                  $params['subject']['buttonsets'] .= ', headline: "h1,h2,h3"';
+#                                  return $params['subject'];
+#                        }
+#                        );
 
 
 // PLUGIN IDENTIFIER & ROOT
@@ -33,19 +40,11 @@ if( $data !== false )
   switch($data['func'])
   {
     case'get_i18n':
-
-      // $custom_I18N = new I18N($locale,$myroot.'lang/rex_markitup/');
-      // $custom_I18N->appendFile($myroot.'lang/rex_markitup/');
-      // $custom_I18N->loadTexts();
       rex_markitup_ajax_reply($I18N->text);
       break;
 
-    case'buttons_ep':
-      rex_markitup_ajax_reply(array('msg'=>'default reply'));
-      break;
-
     default:
-      rex_markitup_ajax_reply(array('msg'=>'default reply'));
+      rex_markitup_ajax_reply(array('error'=>'unknown value for "func" param'));
 
   }
 }
@@ -98,6 +97,24 @@ $REX['ADDON']['BE_STYLE_PAGE_CONTENT'][$mypage] = '
 ////////////////////////////////////////////////////////////////////////////////
 // --- DYN
 $REX["rex_markitup"]["settings"] = array (
+  'buttondefinitions' => 'examplebutton:
+{
+  name:         \'Example Button\',
+  openWith:     \'[foobar]\',
+  closeWith:    \'[/foobar]\',
+  beforeInsert: function(h) {
+    text = "You\'ve just click the "+h.name+" button ";
+    text+= "which will wrap \'"+h.selection+"\' ";
+    text+= "with "+h.openWith+" and "+h.closeWith+".";
+    alert(text);
+  },
+  afterInsert:  function(h) {
+    text = "The result is now:\n";
+    text+= $(h.textarea).val();
+    alert(text);
+  },
+  placeHolder: \'Placeholder Text..\'
+}',
   'buttonsets' => 'standard:
 \'h1,h2,h3,h4,h5,h6,|,bold,italic,stroke,|,listbullet,listnumeric,|,image,linkmedia,linkintern,linkextern,linkmailto\',
 
@@ -117,7 +134,8 @@ rex_register_extension('OUTPUT_FILTER',
       return;
     }
 
-    // CSS
+    // CSS @ HEAD
+    ////////////////////////////////////////////////////////////////////////////
     $head = '
 <!-- rex_markitup head assets -->
   <link rel="stylesheet" href="../files/addons/be_style/plugins/rex_markitup/custom/markitup/skins/rex_markitup/style.css">
@@ -127,13 +145,24 @@ rex_register_extension('OUTPUT_FILTER',
 
     $params['subject'] = str_replace('</head>',$head.'</head>',$params['subject']);
 
-    // JS
+    // JS @ BODY
+    ////////////////////////////////////////////////////////////////////////////
+    $ep = rex_register_extension_point('REX_MARKITUP_BUTTONS',
+                                        array(
+                                              'buttondefinitions' => stripslashes($REX["rex_markitup"]["settings"]["buttondefinitions"]),
+                                              'buttonsets' => stripslashes($REX["rex_markitup"]["settings"]["buttonsets"])
+                                             )
+                                      );
+    $buttondefinitions = $ep['buttondefinitions'];
+    $buttonsets        = $ep['buttonsets'];
+
     $body = '
 <!-- rex_markitup body assets -->
   <script src="../files/addons/be_style/plugins/rex_markitup/vendor/markitup/jquery.markitup.js"></script>
   <script type="text/javascript">
     if(typeof rex_markitup === "undefined") { var rex_markitup = {}; }
-    rex_markitup.buttonsets = {'.stripslashes($REX["rex_markitup"]["settings"]["buttonsets"]).'}
+    rex_markitup.buttondefinitions = {'.PHP_EOL.$buttondefinitions.PHP_EOL.'} // buttondefinitions
+    rex_markitup.buttonsets = {'.PHP_EOL.$buttonsets.PHP_EOL.'} // buttonsets
   </script>
   <script src="../files/addons/be_style/plugins/rex_markitup/rex_markitup.js"></script>
   <script type="text/javascript">

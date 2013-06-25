@@ -8,14 +8,16 @@
  * @package redaxo 4.4.x/4.5.x
  */
 
-# rex_register_extension('REX_MARKITUP_BUTTONS',
-#                        function($params)
-#                        {
-#                                  FB::log($params,' $params');
-#                                  $params['subject']['buttonsets'] .= ', headline: "h1,h2,h3"';
-#                                  return $params['subject'];
-#                        }
-#                        );
+#rex_register_extension('REX_MARKITUP_BUTTONS',
+#  function($params)
+#  {                                                                             FB::log($params,' $params');
+#    $params['subject']['buttonsets'] .= ', headline: "h1,h2,h3"';
+#    $params['subject']['buttoncss'] .= '.markItUpButton.FOOBAR a {
+#    background-image: url("images/foobar.png") !important;
+#    }';
+#    return $params['subject'];
+#  }
+#);
 
 
 // PLUGIN IDENTIFIER & ROOT
@@ -134,28 +136,36 @@ rex_register_extension('OUTPUT_FILTER',
       return;
     }
 
+    // EP
+    ////////////////////////////////////////////////////////////////////////////
+    $ep = rex_register_extension_point('REX_MARKITUP_BUTTONS',
+                                        array(
+                                              'buttondefinitions' => stripslashes($REX["rex_markitup"]["settings"]["buttondefinitions"]),
+                                              'buttonsets'        => stripslashes($REX["rex_markitup"]["settings"]["buttonsets"]),
+                                              'buttoncss'         => '',
+                                             )
+                                      );
+    $buttondefinitions = $ep['buttondefinitions'];
+    $buttonsets        = $ep['buttonsets'];
+    $buttoncss         = $ep['buttoncss'];
+
+
     // CSS @ HEAD
     ////////////////////////////////////////////////////////////////////////////
     $head = '
 <!-- rex_markitup head assets -->
   <link rel="stylesheet" href="../files/addons/be_style/plugins/rex_markitup/custom/markitup/skins/rex_markitup/style.css">
   <link rel="stylesheet" href="../files/addons/be_style/plugins/rex_markitup/custom/markitup/sets/rex_markitup/style.css">
+  <style>
+    '.$buttoncss.'
+  </style>
 <!-- end rex_markitup head assets -->
     ';
-
     $params['subject'] = str_replace('</head>',$head.'</head>',$params['subject']);
+
 
     // JS @ BODY
     ////////////////////////////////////////////////////////////////////////////
-    $ep = rex_register_extension_point('REX_MARKITUP_BUTTONS',
-                                        array(
-                                              'buttondefinitions' => stripslashes($REX["rex_markitup"]["settings"]["buttondefinitions"]),
-                                              'buttonsets' => stripslashes($REX["rex_markitup"]["settings"]["buttonsets"])
-                                             )
-                                      );
-    $buttondefinitions = $ep['buttondefinitions'];
-    $buttonsets        = $ep['buttonsets'];
-
     $body = '
 <!-- rex_markitup body assets -->
   <script src="../files/addons/be_style/plugins/rex_markitup/vendor/markitup/jquery.markitup.js"></script>
@@ -169,7 +179,6 @@ rex_register_extension('OUTPUT_FILTER',
   </script>
 <!-- end rex_markitup body assets -->
     ';
-
     $params['subject'] = str_replace('</body>',$body.'</body>',$params['subject']);
 
     return $params['subject'];

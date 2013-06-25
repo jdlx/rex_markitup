@@ -33,7 +33,7 @@ bc. .markItUpButton.markitup-example a {
     background-image: url('path/to/my/example.png');
 }
 
-*rex_markitup.buttondefinitions* Beispiel:
+*rex_markitup.buttondefinitions* Beispiel: (siehe auch "MarkItUp Doku":http://markitup.jaysalvat.com/documentation/#markupset)
 
 bc. examplebutton:
 {

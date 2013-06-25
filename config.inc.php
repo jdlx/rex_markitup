@@ -92,7 +92,7 @@ $REX['ADDON']['title'][$mypage]       = 'RexMarkitup';
 
 $REX['ADDON']['BE_STYLE_PAGE_CONTENT'][$mypage] = '
 <h2 class="settings"><a href="index.php?page=be_style&amp;subpage='.$mypage.'">'.$REX['ADDON']['title'][$mypage].'</a></h2>
-<p>Reinterpretation des bisherigen Markitup Addons mit reduzierter/schlankerer Codebase.. dev status: <b>alpha</b></p>
+<p>Reinterpretation des bisherigen Markitup Addons mit reduzierter/schlankerer Codebase.</p>
 <hr />
 ';
 
@@ -102,30 +102,8 @@ $REX['ADDON']['BE_STYLE_PAGE_CONTENT'][$mypage] = '
 // --- DYN
 $REX["rex_markitup"]["settings"] = array (
   'buttoncss' => '',
-  'buttondefinitions' => 'examplebutton:
-{
-  name:         \'Example Button\',
-  openWith:     \'[foobar]\',
-  closeWith:    \'[/foobar]\',
-  beforeInsert: function(h) {
-    text = "You\'ve just click the "+h.name+" button ";
-    text+= "which will wrap \'"+h.selection+"\' ";
-    text+= "with "+h.openWith+" and "+h.closeWith+".";
-    alert(text);
-  },
-  afterInsert:  function(h) {
-    text = "The result is now:\n";
-    text+= $(h.textarea).val();
-    alert(text);
-  },
-  placeHolder: \'Placeholder Text..\'
-}',
-  'buttonsets' => 'standard:
-\'h1,h2,h3,h4,h5,h6,|,bold,italic,stroke,|,listbullet,listnumeric,|,image,linkmedia,linkintern,linkextern,linkmailto\',
-
-full:
-\'h1,h2,h3,h4,h5,h6,|,bold,italic,stroke,|,listbullet,listnumeric,|,image,linkmedia,linkintern,linkextern,linkmailto,|,code,blockquote,|,fullscreen\'
-',
+  'buttondefinitions' => '',
+  'buttonsets' => '',
 );
 // --- /DYN
 

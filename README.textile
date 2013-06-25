@@ -46,7 +46,7 @@ bc. examplebutton:
 *rex_markitup.buttonsets* Beispiel:
 
 bc. exampleset:
-'h1,h2,h3,|,bold,italic,|,listbullet,listnumeric,|,linkintern,linkmailto,|,examplebutton'
+'h1,h2,h3,|,bold,italic,examplebutton'
 
 h2. Screenshots
 

@@ -1,7 +1,7 @@
 /**
  * RexMarkitup be_style Plugin for Redaxo
  *
- * @version 0.8.5
+ * @version 0.9.0
  * @link http://markitup.jaysalvat.com
  * @author Redaxo be_style plugin: rexdev.de
  * @package redaxo 4.4.x/4.5.x
@@ -154,7 +154,7 @@
 
             buttonsets: {
               standard: 'h1,h2,h3,h4,h5,h6,|,bold,italic,stroke,|,listbullet,listnumeric,|,image,linkmedia,linkintern,linkextern,linkmailto',
-              full:     'h1,h2,h3,h4,h5,h6,|,bold,italic,stroke,|,listbullet,listnumeric,|,image,linkmedia,linkintern,linkextern,linkmailto,|,code,blockquote'
+              full:     'h1,h2,h3,h4,h5,h6,|,bold,italic,stroke,|,listbullet,listnumeric,|,image,linkmedia,linkintern,linkextern,linkmailto,|,code,blockquote,|,fullscreen'
             }
 
         }; // defaults

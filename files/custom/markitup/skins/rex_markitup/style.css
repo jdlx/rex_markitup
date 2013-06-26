@@ -35,10 +35,11 @@
     padding: 5px 0 3px 7px;
 }
 .markItUpEditor {
+  box-sizing: border-box;
   font:12px 'Courier New', Courier, monospace;
   padding: 1% 0 0 1%;
   margin:0 !important;
-  width: 98.99% !important;
+  width: 100% !important;
   border: 0;
   min-height: 100px;
   background:url('images/bg-editor-plain.png') repeat-x #fff;

@@ -7,6 +7,48 @@
  * @package redaxo 4.4.x/4.5.x
  */
 
+var insertFileLink = function(file){
+  jQuery.markItUp({
+    openWith:'"',
+    closeWith:'":'+file,
+    placeHolder:file
+  });
+};
+
+var insertLink = function(url,desc){
+  jQuery.markItUp({
+    openWith:'"',
+    closeWith:'":'+url,
+    placeHolder:desc
+  });
+};
+
+var insertImage = function(src, desc){
+  // jQuery.markItUp({replaceWith:"!./"+ src +"!"});
+  img = src.replace(/files\//, "");
+  jQuery.markItUp({
+    replaceWith:"!index.php?rex_resize=[![Image Width]!]w__"+ img +"!"
+    });
+};
+
+var markitup_getURLParam = function(strParamName){
+  var strReturn = "";
+  var strHref = window.location.href;
+  if ( strHref.indexOf("?") > -1 ){
+    var strQueryString = strHref.substr(strHref.indexOf("?")).toLowerCase();
+    var aQueryString = strQueryString.split("&");
+    for ( var iParam = 0; iParam < aQueryString.length; iParam++ ){
+      if( aQueryString[iParam].indexOf(strParamName.toLowerCase() + "=") > -1 ){
+        var aParam = aQueryString[iParam].split("=");
+        strReturn = aParam[1];
+        break;
+      }
+    }
+  }
+  return unescape(strReturn);
+};
+
+
 ;(function ( $, window, document, undefined ) {
 
     var pluginName = "rexMarkItUp",
@@ -224,10 +266,8 @@
             async: false,
             dataType:'json',
             data: {'rex_markitup_api': JSON.stringify({func:'get_i18n'})},
-              success: $.proxy(function(data) {                                 //console.log('data:',data);
-                rex_markitup.i18n = data;
-              },this),
-            error: function(e){console.warn('error:',e);}
+            success: $.proxy(function(data) { rex_markitup.i18n = data; /*console.log('data:',data);*/ },this),
+            error: function(e){ console.warn('error:',e); }
           });
         }
 

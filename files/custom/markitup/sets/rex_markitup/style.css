@@ -7,89 +7,147 @@
  * @package redaxo 4.4.x/4.5.x
  */
 
+/* HOVER */
+.markItUpButton a {
+    background-image: url('images/sprites.png');
+    opacity:0.7;
+    -webkit-transition: opacity 0.3s ease-in-out;
+       -moz-transition: opacity 0.3s ease-in-out;
+        -ms-transition: opacity 0.3s ease-in-out;
+         -o-transition: opacity 0.3s ease-in-out;
+            transition: opacity 0.3s ease-in-out;
+    border-radius:2px;
+}
+.markItUpButton:hover a {
+    opacity:1;
+    -webkit-transition: opacity 0.05s ease-in-out;
+       -moz-transition: opacity 0.05s ease-in-out;
+        -ms-transition: opacity 0.05s ease-in-out;
+         -o-transition: opacity 0.05s ease-in-out;
+            transition: opacity 0.05s ease-in-out;
+    /*background-color:rgba(0,0,0,0.05);
+    box-shadow: 1px 1px 1px rgba(0,0,0,0.2) inset;*/
+}
+.markItUpButton a:active {
+    background-color:rgba(0,0,0,0.05);
+    box-shadow: 1px 1px 1px rgba(0,0,0,0.2) inset;
+}
+
+/* DEFAULT ICON */
+.markItUpButton a {
+    background-position: -3px -900px;
+}
+
+/* HEADLINES */
 .markItUpButton.markitup-h1 a {
-    background-image: url('images/h1.png') !important;
+    background-position: 0 0px;
 }
 .markItUpButton.markitup-h2 a {
-    background-image: url('images/h2.png') !important;
+    background-position: 0 -30px;
 }
 .markItUpButton.markitup-h3 a {
-    background-image: url('images/h3.png') !important;
+    background-position: 0 -60px;
 }
 .markItUpButton.markitup-h4 a {
-    background-image: url('images/h4.png') !important;
+    background-position: 0 -90px;
 }
 .markItUpButton.markitup-h5 a {
-    background-image: url('images/h5.png') !important;
+    background-position: 0 -120px;
 }
 .markItUpButton.markitup-h6 a {
-    background-image: url('images/h6.png') !important;
+    background-position: 0 -150px;
 }
-.markItUpButton.markitup-separator a {
-    background-image: url('images/separator.png') !important;
-}
+
+/* INLINE STYLES */
 .markItUpButton.markitup-bold a {
-    background-image: url('images/bold.png') !important;
+    background-position: 0 -180px;
 }
 .markItUpButton.markitup-italic a {
-    background-image: url('images/italic.png') !important;
+    background-position: 0 -210px;
 }
 .markItUpButton.markitup-stroke a {
-    background-image: url('images/stroke.png') !important;
+    background-position: 0 -240px;
 }
-.markItUpButton.markitup-separator a {
-    background-image: url('images/separator.png') !important;
+.markItUpButton.markitup-ins a {
+    background-position: 0 -270px;
 }
-.markItUpButton.markitup-listbullet a {
-    background-image: url('images/listbullet.png') !important;
-}
-.markItUpButton.markitup-listnumeric a {
-    background-image: url('images/listnumeric.png') !important;
-}
-.markItUpButton.markitup-separator a {
-    background-image: url('images/separator.png') !important;
-}
-.markItUpButton.markitup-image a {
-    background-image: url('images/image.png') !important;
-}
-.markItUpButton.markitup-linkmedia a {
-    background-image: url('images/linkmedia.png') !important;
-}
-.markItUpButton.markitup-separator a {
-    background-image: url('images/separator.png') !important;
-}
-.markItUpButton.markitup-linkintern a {
-    background-image: url('images/linkintern.png') !important;
-}
-.markItUpButton.markitup-linkextern a {
-    background-image: url('images/linkextern.png') !important;
-}
-.markItUpButton.markitup-linkmailto a {
-    background-image: url('images/linkmailto.png') !important;
-}
-.markItUpButton.markitup-separator a {
-    background-image: url('images/separator.png') !important;
+.markItUpButton.markitup-cite a {
+    background-position: 0 -300px;
 }
 .markItUpButton.markitup-code a {
-    background-image: url('images/code.png') !important;
+    background-position: 0 -330px;
+}
+
+/* ALIGN*/
+.markItUpButton.markitup-alignleft a {
+    background-position: 0 -360px;
+}
+.markItUpButton.markitup-alignright a {
+    background-position: 0 -390px;
+}
+.markItUpButton.markitup-aligncenter a {
+    background-position: 0 -420px;
+}
+.markItUpButton.markitup-alignjustify a {
+    background-position: 0 -450px;
+}
+
+/* LISTS */
+.markItUpButton.markitup-listbullet a {
+    background-position: 0 -480px;
+}
+.markItUpButton.markitup-listnumeric a {
+    background-position: 0 -510px;
+}
+
+/* FILES */
+.markItUpButton.markitup-image a {
+    background-position: 0 -540px;
+}
+.markItUpButton.markitup-linkmedia a {
+    background-position: 0 -570px;
+}
+
+/* LINKS */
+.markItUpButton.markitup-linkintern a {
+    background-position: 0 -600px;
+}
+.markItUpButton.markitup-linkextern a {
+    background-position: 0 -630px;
+}
+.markItUpButton.markitup-linkmailto a {
+    background-position: 0 -660px;
+}
+
+/* OTHERS */
+.markItUpButton.markitup-preview a {
+    background-position: 0 -690px;
+}
+.markItUpButton.markitup-blockmenu {
+    background: none !important;
+}
+.markItUpButton.markitup-blockmenu a {
+    background-position: 0 -720px;
+}
+.markItUpButton.markitup-linkmenu {
+    background: none !important;
+}
+.markItUpButton.markitup-linkmenu a {
+    background-position: -3px -930px;
 }
 .markItUpButton.markitup-blockquote a {
-    background-image: url('images/blockquote.png') !important;
-}
-.markItUpButton.markitup-separator a {
-    background-image: url('images/separator.png') !important;
-}
-.markItUpButton.markitup-preview a {
-    background-image: url('images/preview.png') !important;
+    background-position: -96px 4px;
 }
 
 
+
+/* FULLSCREEN */
 li.markItUpButton.markitup-fullscreen {
     float: right;
 }
 .markItUpButton.markitup-fullscreen a {
-    background-image: url('images/fullscreen-open.png') !important;
+    background-position: 0 -780px;
 }
 .fullscreen .markItUpButton.markitup-fullscreen a {
-    background-image: url('images/fullscreen-close.png') !important;
+    background-position: 0 -810px;
 }

@@ -62,6 +62,8 @@ jQuery(function($){
         defaults = {
             namespace: 'textile',
             buttondefinitions: {
+                                // BLOCK MODIFIER
+                                ////////////////////////////////////////////////
                                 'h1':           {
                                                   openWith:'\n\nh1(!(([![Class]!]))!). ',
                                                   closeWith:'\n\n',
@@ -92,21 +94,66 @@ jQuery(function($){
                                                   closeWith:'\n\n',
                                                   key:'6'
                                                 },
+                                'p':            {
+                                                  openWith:'\n\np(!(([![Class]!]))!). ',
+                                                  closeWith:'\n\n'
+                                                },
+                                'blockquote':   {
+                                                  openWith:'\n\nbq(!(([![Class]!]))!). ',
+                                                  closeWith:'\n\n'
+                                                },
+                                'bc':           {
+                                                  openWith:'\n\nbc(!(([![Class]!]))!). ',
+                                                  closeWith:'\n\n'
+                                                },
+
+                                // PHRASE MODIFIER
+                                ////////////////////////////////////////////////
                                 'bold':         {
-                                                  openWith:'*',
-                                                  closeWith:'*',
+                                                  openWith:' *',
+                                                  closeWith:'* ',
                                                   key:'B'
                                                 },
                                 'italic':       {
-                                                  openWith:'_',
-                                                  closeWith:'_',
+                                                  openWith:' _',
+                                                  closeWith:'_ ',
                                                   key:'I'
                                                 },
                                 'stroke':       {
-                                                  openWith:'-',
-                                                  closeWith:'-',
+                                                  openWith:' -',
+                                                  closeWith:'- ',
                                                   key:'S'
                                                 },
+                                'ins':          {
+                                                  openWith:' +',
+                                                  closeWith:'+ '
+                                                },
+                                'cite':         {
+                                                  openWith:' ??',
+                                                  closeWith:'?? '
+                                                },
+                                'code':         {
+                                                  openWith:' @',
+                                                  closeWith:'@ '
+                                                },
+
+                                // ALIGN
+                                ////////////////////////////////////////////////
+                                'aligncenter':  {
+                                                  openWith:'\np(!(([![Class]!])!)=. '
+                                                },
+                                'alignjustify': {
+                                                  openWith:'\np(!(([![Class]!])!)<>. '
+                                                },
+                                'alignleft':    {
+                                                  openWith:'\np(!(([![Class]!])!)<. '
+                                                },
+                                'alignright':   {
+                                                  openWith:'\np(!(([![Class]!])!)>. '
+                                                },
+
+                                // LISTS
+                                ////////////////////////////////////////////////
                                 'listbullet':   {
                                                   replaceWith: function(h) {
                                                     var selection = h.selection;
@@ -179,15 +226,43 @@ jQuery(function($){
                                                   closeWith:'":[![E-Mail-Link eingeben:!:mailto:]!]',
                                                   key:'M'
                                                 },
-                                'code':         {
-                                                  openWith:' @',
-                                                  closeWith:'@ '
                                 'preview':      {
                                                   call:'preview'
                                                 },
-                                'blockquote':   {
-                                                  openWith:'\n\nbq(!(([![Class]!]))!). ',
-                                                  closeWith:'\n\n'
+                                'clean':        {
+                                                  replaceWith: function(h) {
+                                                    var s = h.selection;
+                                                    // link intern / extern / mailto / linkfiles
+                                                    s = s.replace(/"(.*?)":(https?|redaxo|mailto|files)(:|\/)(\/\/)?.+?\s/g, '$1 ');
+                                                    // files
+                                                    s = s.replace(/!files\/.*?!/g, '');
+                                                    // p
+                                                    s = s.replace(/p.*?\.\s(.*?)/g, '$1');
+                                                    // h(1-9)
+                                                    s = s.replace(/h\d+.*?\.\s(.*?)/g, '$1');
+                                                    // strong
+                                                    s = s.replace(/\s\*(.*?)\*\s/g, ' $1 ');
+                                                    // italic
+                                                    s = s.replace(/\s\_(.*?)\_\s/g, ' $1 ');
+                                                    // stroke
+                                                    s = s.replace(/\s\-(.*?)\-\s/g, ' $1 ');
+                                                    // underline
+                                                    s = s.replace(/\s\+(.*?)\+\s/g, ' $1 ');
+                                                    // superscript
+                                                    s = s.replace(/\s\^(.*?)\^\s/g, ' $1 ');
+                                                    // subscript
+                                                    s = s.replace(/\s\~(.*?)\~\s/g, ' $1 ');
+                                                    // code
+                                                    s = s.replace(/\s\@(.*?)\@\s/g, ' $1 ');
+                                                    // blockquote
+                                                    s = s.replace(/bq.*?\.\s(.*?)/g, '$1');
+                                                    // ul
+                                                    s = s.replace(/\*\s(.*?)/g, '$1');
+                                                    // ol
+                                                    s = s.replace(/\#\s(.*?)/g, '$1');
+
+                                                    return s;
+                                                  }
                                                 },
                                 'fullscreen':   {
                                                   beforeInsert: function(markItUp) {
@@ -199,13 +274,21 @@ jQuery(function($){
                                                     }
                                                   },
                                                   key:"F"
+                                                },
+                                'blockmenu':    {
+                                                  dropMenuButtons: ['h1','h2','h3','h4','h5','h6','|','p','blockquote','bc'],
+                                                  dropMenu: []
+                                                },
+                                'linkmenu':     {
+                                                  dropMenuButtons: ['linkintern','linkextern','linkmailto'],
+                                                  dropMenu: []
                                                 }
 
             }, // buttondefinitions
 
             buttonsets: {
-              standard: 'h1,h2,h3,h4,h5,h6,|,bold,italic,stroke,|,listbullet,listnumeric,|,image,linkmedia,linkintern,linkextern,linkmailto',
-              full:     'h1,h2,h3,h4,h5,h6,|,bold,italic,stroke,|,listbullet,listnumeric,|,image,linkmedia,linkintern,linkextern,linkmailto,|,code,blockquote,|,fullscreen'
+              standard: 'h1,h2,h3,h4,|,bold,italic,stroke,|,listbullet,listnumeric,|,image,linkmedia,|,linkintern,linkextern,linkmailto,fullscreen',
+              full:     'blockmenu,|,h1,h2,h3,h4,h5,h6,|,bold,italic,stroke,ins,cite,code,|,alignleft,alignright,aligncenter,alignjustify,|,listbullet,listnumeric,|,image,linkmedia,|,linkmenu,linkintern,linkextern,linkmailto,|,preview,fullscreen'
             }
 
         }; // defaults
@@ -224,7 +307,8 @@ jQuery(function($){
 
     Plugin.prototype = {
 
-        init: function() {                                                                                                       // console.log('this.options:',this.options);
+        init: function() {                                                                                                       //console.log('this.options:',this.options);
+            this.guid = $(this.element).constructor.guid;
 
             if(typeof rex_markitup.i18n === 'undefined') {
               this.getI18n();
@@ -245,11 +329,10 @@ jQuery(function($){
             this.options.buttonset = ( typeof this.options.buttonset == 'undefined' || typeof this.options.buttonsets[this.options.buttonset] == 'undefined' ) ? 'standard' : this.options.buttonset;
             this.options.buttons   = typeof this.options.buttons == 'undefined' ? this.options.buttonsets[this.options.buttonset].split(',') : this.options.buttons.split(',');
 
-            for(var i = 0; i < this.options.buttons.length; i++) {
-              key = this.options.buttons[i];
-              if(key === '|') {
+            var buttonPrepare = $.proxy(function(key){                                                                  //console.group(key);
+              var def = false;
+              if(key === '|'){
                 def = { separator:'---------------' };
-                this.markupSet.push(def);
               }else if(typeof this.options.buttondefinitions[key] !== 'undefined') {
                 def = this.options.buttondefinitions[key];
                 if(typeof def.name === 'undefined' && typeof rex_markitup.i18n['markitup_'+key] != 'undefined'){
@@ -259,13 +342,29 @@ jQuery(function($){
                   def.placeHolder = rex_markitup.i18n['markitup_'+key+'_placeholder'];
                 }
                 def.className = 'markitup-'+key;
+                if(typeof def.dropMenu !== 'undefined' && typeof def.dropMenuButtons !== 'undefined') {                 // console.log(def.dropMenu);
+                  for(var i = 0; i < def.dropMenuButtons.length; i++) {
+                    subdef = buttonPrepare(def.dropMenuButtons[i]);                                                     //console.log('subdef:',subdef);
+                    def.dropMenu.push(subdef);
+                  }
+                }
+              }                                                                                                         //console.groupEnd();
+              return def;
+            },this);
+
+            for(var i = 0; i < this.options.buttons.length; i++) {
+              def = buttonPrepare(this.options.buttons[i]);
+              if(def){
                 this.markupSet.push(def);
               }
             }
 
             return $(this.element).markItUp({
               nameSpace: this.options.namespace,
-              markupSet: this.markupSet
+              markupSet: this.markupSet,
+              previewParserPath: 'index.php?api=rex_markitup_api&func=parse_preview&uid='+this.guid,
+              previewParserVar: 'rex_markitup_markup',
+              previewAutoRefresh: true
             });
         },
         getI18n: function(){

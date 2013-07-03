@@ -27,7 +27,7 @@
   border-radius: 2px 2px 2px 2px;
   background:transparent;
   padding:0;
-  font:11px Verdana, Arial, Helvetica, sans-serif;
+  font:11px monaco, menlo, consolas, lucida console, courier new, monospace;
 }
 .markItUpHeader {
     background:#E6E6E6;
@@ -37,12 +37,12 @@
 }
 .markItUpEditor {
   -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
-  font:12px 'Courier New', Courier, monospace;
+  font:12px Monaco,'Courier New', Courier, monospace;
   padding: 1% 0 0 1%;
   margin:0 !important;
   width: 100% !important;
   border: 0;
-  min-height: 100px;
+  min-height: 200px !important;
   background:url('images/bg-editor-plain.png') repeat-x #fff;
   clear:both;
   display:block;
@@ -51,11 +51,11 @@
 }
 .markItUpPreviewFrame  {
   overflow:auto;
-  background-color:#FFFFFF;
-  border:1px solid #3C769D;
-  width:99.9%;
+  background:url('images/bg-editor-plain.png') repeat-x #fff;
+  border:none;
+  width:99.99%;
   height:300px;
-  margin:5px 0;
+  margin:0;
 }
 .markItUpFooter {
   background:#E6E6E6;
@@ -122,23 +122,29 @@
 }
 .markItUpHeader ul ul .markItUpSeparator {
   width:auto; height:1px;
-  margin:0px;
+  margin:0;
 }
 /* next rows of buttons */
 .markItUpHeader ul ul {
   display:none;
   position:absolute;
-  top:18px; left:0px;
-  background:#F5F5F5;
-  border:1px solid #3C769D;
-  height:inherit;
+  top:18px;
+  left:0px;
+  background: #F5F5F5;
+  box-shadow: 1px 1px 9px rgba(0, 0, 0, 0.81);
+  border-radius:2px;
+  border:0;
+  height:auto;
+  padding:4px;
+  width:auto;
+  z-index:9999;
 }
 .markItUpHeader ul ul li {
   float:none;
-  border-bottom:1px solid #3C769D;
+  border:0;
 }
 .markItUpHeader ul ul .markItUpDropMenu {
-  background:#F5F5F5 url(images/submenu.png) no-repeat 100% 50%;
+  background:#F5F5F5 url(images/submenu.png) no-repeat 100% 50%; /* tiny arrow */
 }
 /* next rows of buttons */
 .markItUpHeader ul ul ul {
@@ -157,16 +163,20 @@
   margin:0px;
 }
 .markItUpHeader ul ul a {
-  display:block;
-  padding-left:0px;
+  display:table-cell;
   text-indent:0;
-  width:120px;
-  padding:5px 5px 5px 25px;
-  background-position:2px 50%;
+  padding:3px;
+  white-space: nowrap;
+  background: transparent;
+  background-image: none !important;
 }
+
+.markItUpHeader ul ul li:hover  {
+  background-color:rgba(0,0,0,0.1);
+}
+
 .markItUpHeader ul ul a:hover  {
-  color:#FFF;
-  background-color:#3C769D;
+  text-decoration: none !important;
 }
 
 

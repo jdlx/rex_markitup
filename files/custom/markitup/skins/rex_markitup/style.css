@@ -27,7 +27,6 @@
   border-radius: 2px 2px 2px 2px;
   background:transparent;
   padding:0;
-  font:11px monaco, menlo, consolas, lucida console, courier new, monospace;
 }
 .markItUpHeader {
     background:#E6E6E6;
@@ -37,7 +36,7 @@
 }
 .markItUpEditor {
   -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
-  font:12px Monaco,'Courier New', Courier, monospace;
+  font:12px monaco, menlo, consolas, lucida console, courier new, monospace;
   padding: 1% 0 0 1%;
   margin:0 !important;
   width: 100% !important;

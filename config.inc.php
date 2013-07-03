@@ -35,16 +35,41 @@ if(is_a($I18N,'i18n')) {
 
 // AJAX API
 ////////////////////////////////////////////////////////////////////////////////
+$api      = rex_request('api','string',false);
 $data     = rex_request('rex_markitup_api','string',false);
 
-if( $data !== false )
+if( $data !== false || $api === 'rex_markitup_api')
 {
   $data = $data !== '' ? json_decode(stripslashes($data),true) : $data;
+
+  if(!$data) {
+    $data = $_REQUEST;
+  }
 
   switch($data['func'])
   {
     case'get_i18n':
       rex_markitup_ajax_reply($I18N->text);
+      break;
+
+    case'parse_preview':
+      if(isset($data['rex_markitup_markup'])) {
+        rex_register_extension('ADDONS_INCLUDED',
+          function($params) use($data,$REX)
+          {
+            $textile = stripslashes($data['rex_markitup_markup']);
+            $textile = str_replace('<br />','',$textile);
+            $html    = rex_get_file_contents($REX['INCLUDE_PATH'].'/addons/be_style/plugins/rex_markitup/files/custom/markitup/skins/rex_markitup/preview.tmpl.html');
+            $html    = str_replace('###TEXTILE###', rex_markitup_previewlinks(rex_a79_textile($textile)), $html);
+            rex_markitup_ajax_reply($html, 'text/html');
+          },
+          array(),
+          REX_EXTENSION_LATE
+        );
+      }else{
+        rex_markitup_ajax_reply('error: no markup data..', 'text/html');
+      }
+
       break;
 
     default:
@@ -71,6 +96,59 @@ function rex_markitup_ajax_reply($data = false, $content_type = 'application/jso
   echo $data;
   die();
 } // END ajax_reply
+
+function rex_markitup_previewlinks($content)
+{
+  global $REX;
+
+  // FIX CONTENT FROM POST
+  $content = str_replace("\n","\r\n",$content);
+  $content = $content.' ';
+
+  // Hier beachten, dass man auch ein Zeichen nach dem jeweiligen Link mitmatched,
+  // damit beim ersetzen von z.b. redaxo://11 nicht auch innerhalb von redaxo://112
+  // ersetzt wird
+  // siehe dazu: http://forum.redaxo.de/ftopic7563.html
+
+  // -- preg match redaxo://[ARTICLEID]-[CLANG] --
+  preg_match_all('@redaxo://([0-9]*)\-([0-9]*)(.){1}/?@im',$content,$matches,PREG_SET_ORDER);
+  foreach($matches as $match)
+  {
+    if(empty($match)) continue;
+
+    $url = rex_getURL($match[1], $match[2]);
+
+    if($REX['REDAXO'])
+    {
+      $content = str_replace($match[0],'../'.$url.$match[3],$content);
+    }
+    else
+    {
+      $content = str_replace($match[0],$url.$match[3],$content);
+    }
+
+  }
+
+  // -- preg match redaxo://[ARTICLEID] --
+  preg_match_all('@redaxo://([0-9]*)(.){1}/?@im',$content,$matches,PREG_SET_ORDER);
+  foreach($matches as $match)
+  {
+    if(empty($match)) continue;
+
+    $url = rex_getURL($match[1], $REX['CUR_CLANG']);
+
+    if($REX['REDAXO'])
+    {
+      $content = str_replace($match[0],'../'.$url.$match[2],$content);
+    }
+    else
+    {
+      $content = str_replace($match[0],$url.$match[2],$content);
+    }
+  }
+
+  return $content;
+}
 
 
 

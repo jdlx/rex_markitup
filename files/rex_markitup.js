@@ -48,6 +48,13 @@ var markitup_getURLParam = function(strParamName){
   return unescape(strReturn);
 };
 
+jQuery(function($){
+
+  $(document).on('dblclick','.markItUpFooter', function(e){
+    $(e.target).next('.markItUpPreviewFrame').remove();
+  });
+
+});
 
 ;(function ( $, window, document, undefined ) {
 
@@ -175,6 +182,8 @@ var markitup_getURLParam = function(strParamName){
                                 'code':         {
                                                   openWith:' @',
                                                   closeWith:'@ '
+                                'preview':      {
+                                                  call:'preview'
                                                 },
                                 'blockquote':   {
                                                   openWith:'\n\nbq(!(([![Class]!]))!). ',

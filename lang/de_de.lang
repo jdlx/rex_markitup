@@ -1,28 +1,40 @@
-# rex_markitup- de_de
+# rex_markitup - de_de
 
-markitup_h1                     = Überschrift 1. Ordnung
-markitup_h1_placeholder         = Überschrift 1. Ordnung hier..
+markitup_h1                     = Überschrift 1
+markitup_h1_placeholder         = Überschrift 1. Ordnung ..
 
-markitup_h2                     = Überschrift 2. Ordnung
-markitup_h2_placeholder         = Überschrift 2. Ordnung hier..
+markitup_h2                     = Überschrift 2
+markitup_h2_placeholder         = Überschrift 2. Ordnung ..
 
-markitup_h3                     = Überschrift 3. Ordnung
-markitup_h3_placeholder         = Überschrift 3. Ordnung hier..
+markitup_h3                     = Überschrift 3
+markitup_h3_placeholder         = Überschrift 3. Ordnung ..
 
-markitup_h4                     = Überschrift 4. Ordnung
-markitup_h4_placeholder         = Überschrift 4. Ordnung hier..
+markitup_h4                     = Überschrift 4
+markitup_h4_placeholder         = Überschrift 4. Ordnung ..
 
-markitup_h5                     = Überschrift 5. Ordnung
+markitup_h5                     = Überschrift 5
 markitup_h5_placeholder         = Überschrift 5. Ordnung hier..
 
-markitup_h6                     = Überschrift 6. Ordnung
-markitup_h6_placeholder         = Überschrift 6. Ordnung hier..
+markitup_h6                     = Überschrift 6
+markitup_h6_placeholder         = Überschrift 6. Ordnung ..
+
+markitup_p                      = Absatz
+markitup_p_placeholder          = Lore ipsum..
+
+markitup_blockquote             = Zitat (ganzer Absatz)
+markitup_blockquote_placeholder = Zitierter Absatz...
+
+markitup_bc                     = Code-Block
+markitup_bc_placeholder         = $foo = bar; ...
+
 
 markitup_bold                   = Fett
 
 markitup_italic                 = Kursiv
 
 markitup_stroke                 = Durchstrichen
+
+markitup_ins                    = Eingefügt
 
 markitup_listbullet             = Liste - ungeordnet
 
@@ -42,10 +54,8 @@ markitup_linkmailto_placeholder = Linktext hier
 
 markitup_code                   = Quellcode
 
-markitup_blockquote             = Zitat
-markitup_blockquote_placeholder = Zitat hier...
-
 markitup_preview                = Voransicht
 
 markitup_fullscreen             = Fullscreen
 
+markitup_clean                  = Markup säubern

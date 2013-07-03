@@ -377,19 +377,22 @@ jQuery(function($){ ////////////////////////////////////////////////////////////
               beforeInsert: $.proxy(function(h) {
                 console.group(h.className);
                   console.group('beforeInsert:');
-                    h.selection = this.selection($(h.textarea));
-                    console.log('selection.text():',h.selection.text());
-                    console.log('selection.surround():',h.selection.surround());
-                    console.log('selection.surround(2):',h.selection.surround(2));
-                    console.log('selection.cursor():',h.selection.cursor());
+                    h.sel = this.selection($(h.textarea));
+                    console.log('sel.text():',h.sel.text());
+                    console.log('sel.surround():',h.sel.surround());
+                    console.log('sel.surround(2):',h.sel.surround(2));
+                    console.log('sel.cursor():',h.sel.cursor());
+                    console.log('sel.line():',h.sel.line());
                   console.groupEnd();
               },this),
               afterInsert: $.proxy(function(h) {
                   console.group('afterInsert:');
-                    h.selection = this.selection($(h.textarea));
-                    console.log('selection.text():',h.selection.text());
-                    console.log('selection.surround():',h.selection.surround());
-                    console.log('selection.cursor():',h.selection.cursor());
+                    h.sel = this.selection($(h.textarea));
+                    console.log('sel.text():',h.sel.text());
+                    console.log('sel.surround():',h.sel.surround());
+                    console.log('sel.surround(2):',h.sel.surround(2));
+                    console.log('sel.cursor():',h.sel.cursor());
+                    console.log('sel.line():',h.sel.line());
                   console.groupEnd();
                 console.groupEnd();
 

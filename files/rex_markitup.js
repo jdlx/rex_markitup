@@ -18,19 +18,28 @@ jQuery(function($){ ////////////////////////////////////////////////////////////
 }); // jQuery(function($){ /////////////////////////////////////////////////////
 
 
-var insertFileLink = function(file){
-  jQuery.markItUp({
-    openWith:'"',
-    closeWith:'":'+file,
-    placeHolder:file
-  });
-};
+ var insertFileLink = function(file){
+   jQuery.markItUp({
+     openWith:'"',
+     closeWith:'":'+file,
+     placeHolder:file,
+     file:file,
+    className:'popup-linkmedia'
+   });
+ };
+
+// var insertLink = function(url,desc){
+//   jQuery.rexMarkItUp.insertFileLink(url,desc);
+// };
 
 var insertLink = function(url,desc){
   jQuery.markItUp({
     openWith:'"',
     closeWith:'":'+url,
-    placeHolder:desc
+    url: url,
+    desc: desc,
+    placeHolder:desc,
+    className:'popup-linkintern'
   });
 };
 
@@ -38,7 +47,10 @@ var insertImage = function(src, desc){
   // jQuery.markItUp({replaceWith:"!./"+ src +"!"});
   img = src.replace(/files\//, "");
   jQuery.markItUp({
-    replaceWith:"!index.php?rex_resize=[![Image Width]!]w__"+ img +"!"
+    replaceWith:"!index.php?rex_resize=[![Image Width]!]w__"+ img +"!",
+    src: src,
+    desc: desc,
+    className:'popup-image'
     });
 };
 
@@ -202,8 +214,8 @@ var markitup_getURLParam = function(strParamName){
                                                   }
                                                 },
                                 'image':        {
-                                                  openWith:' ',
-                                                  closeWith:' ',
+                                                  openWith:'',
+                                                  closeWith:'',
                                                   beforeInsert:function(h) {
                                                     openMediaPool('TINYIMG');
                                                   },
@@ -357,6 +369,12 @@ var markitup_getURLParam = function(strParamName){
                 if(typeof def.placeHolder === 'undefined' && typeof rex_markitup.i18n['markitup_'+key+'_placeholder'] != 'undefined'){
                   def.placeHolder = rex_markitup.i18n['markitup_'+key+'_placeholder'];
                 }
+                if(typeof def.openWith === 'undefined'){
+                  def.openWith = '';
+                }
+                if(typeof def.closeWith === 'undefined'){
+                  def.closeWith = '';
+                }
                 def.className = 'markitup-'+key;
                 if(typeof def.dropMenu !== 'undefined' && typeof def.dropMenuButtons !== 'undefined') {                 // console.log(def.dropMenu);
                   for(var i = 0; i < def.dropMenuButtons.length; i++) {
@@ -396,23 +414,32 @@ var markitup_getURLParam = function(strParamName){
             error: function(e){ console.warn('error:',e); }
           });
         },
-        beforeInsertCallback: function(h, rex_markitup){                                                                console.group('beforeInsertCallback: '+h.className); //console.group('beforeInsert:');
+        beforeInsertCallback: function(h, rex_markitup){                                                                console.group('beforeInsertCallback: '+h.className);
           if(!rex_markitup.options.autowhitespace || typeof h.className === 'undefined'){                               console.groupEnd();
             return;
           }
 
-          h.sel     = this.selection($(h.textarea));                                                                    //console.log('h:',h); console.log('rex_markitup:',rex_markitup); console.log('sel.text():',h.sel.text());console.log('sel.surround():',h.sel.surround());console.log('sel.surround(2):',h.sel.surround(2));console.log('sel.cursor():',h.sel.cursor());console.log('sel.line():',h.sel.line());
           className = h.className.replace('markitup-','');
-          def = rex_markitup.options.buttondefinitions[className];
+          h.sel     = this.selection($(h.textarea));
+          if(typeof h.openWith === 'undefined') {
+            h.openWith = '';
+          }
+          if(typeof h.closeWith === 'undefined') {
+            h.closeWith = '';
+          }                                                                                                             console.log('className:',className);console.log('openWith:',h.openWith);console.log('closeWith:',h.closeWith);console.groupCollapsed('rex_markitup');console.dir(rex_markitup);console.groupEnd(); console.groupCollapsed('h');console.dir(h);console.groupEnd(); console.groupCollapsed('h.sel');console.log('sel.text():',h.sel.text());console.log('sel.surround():',h.sel.surround());console.log('sel.surround(2):',h.sel.surround(2));console.log('sel.cursor():',h.sel.cursor());console.log('sel.line():',h.sel.line());console.groupEnd();
 
-          if(typeof def.defaults === 'undefined') {
-            def.defaults = {};
-          }
-          if(typeof def.defaults.openWith === 'undefined') {
-            def.defaults.openWith = def.openWith;
-          }
-          if(typeof h.defaults.closeWith === 'undefined') {
-            def.defaults.closeWith = def.closeWith;
+          if(typeof rex_markitup.options.buttondefinitions[className] !== 'undefined') {
+            def       = rex_markitup.options.buttondefinitions[className];
+
+            if(typeof def.defaults === 'undefined') {
+              def.defaults = {};
+            }
+            if(typeof def.defaults.openWith === 'undefined') {
+              def.defaults.openWith = def.openWith;
+            }
+            if(typeof def.defaults.closeWith === 'undefined') {
+              def.defaults.closeWith = def.closeWith;
+            }
           }
 
           switch(className)
@@ -422,8 +449,10 @@ var markitup_getURLParam = function(strParamName){
             case'stroke':
             case'ins':
             case'cite':
+            case'linkmailto':
+            case'linkextern':
               surround    = h.sel.surround();
-              h.openWith  = def.defaults.openWith;
+              h.openWith  = typeof h.openWith === 'undefined' ? '' : def.defaults.openWith;
               h.closeWith = def.defaults.closeWith;
               if(surround[0].match(/\w/) || surround[1].match(/\w/)) {
                 h.openWith  = '[' + def.defaults.openWith;
@@ -443,31 +472,40 @@ var markitup_getURLParam = function(strParamName){
             case'p':
             case'blockquote':
             case'bc':
-              surround = h.sel.surround(2);                                                                             console.log('surround:',surround);
-              h.openWith  = def.defaults.openWith;
-              h.closeWith = def.defaults.closeWith;
+              surround       = h.sel.surround(2);                                                                       //console.log('surround:',surround);
+              h.openWith     = def.defaults.openWith;
+              h.closeWith    = def.defaults.closeWith;
               if(surround[0] == '') {
                 leading = 0;
               }else{
-                leading  = surround[0].match(/(\n)/) ? 2 - surround[0].match(/(\n)/).length : 2;                        console.log('leading:',leading);
+                leading  = surround[0].match(/(\n)/) ? 2 - surround[0].match(/(\n)/).length : 2;                        //console.log('leading:',leading);
               }
-              trailing = surround[1].match(/(\n)/) ? 2 - surround[1].match(/(\n)/).length : 2;                          console.log('trailing:',trailing);
+              trailing = surround[1].match(/(\n)/) ? 2 - surround[1].match(/(\n)/).length : 2;                          //console.log('trailing:',trailing);
               h.openWith  = this.prependChar('\n', leading,  def.defaults.openWith);
               h.closeWith = this.appendChar('\n', trailing,  def.defaults.closeWith);
             break;
-          }                                                                                                             console.log('openWith:',h.openWith);console.log('closeWith:',h.closeWith);console.groupEnd();
+            case'popup-linkintern':
+            case'popup-linkmedia':
+            case'popup-image':
+              surround    = h.sel.surround();
+              if(surround[0].match(/\w/) || surround[1].match(/\w/)) {
+                h.openWith  = '[' + h.openWith;
+                h.closeWith =  h.closeWith + ']';
+              }
+            break;
+          }                                                                                                             console.log('selection:',h.selection); console.log('openWith:',h.openWith);console.log('closeWith:',h.closeWith);console.groupEnd();
         },
         afterInsertCallback: function(h, rex_markitup){                                                                 console.group('afterInsertCallback: '+h.className);
-//          if(!rex_markitup.options.autowhitespace || typeof h.className === 'undefined'){                               console.groupEnd();
-//            return;
-//          }
-//          h.sel = this.selection($(h.textarea)); console.log('sel.text():',h.sel.text());console.log('sel.surround():',h.sel.surround());console.log('sel.surround(2):',h.sel.surround(2));console.log('sel.cursor():',h.sel.cursor());console.log('sel.line():',h.sel.line());
-//          markup = $(h.textarea).val();                                                                                 console.log('markup:',markup);
-//          markup = this.sanitizeNewlines(markup);
-//          //this.insertText(h.sel, markup, h.sel.cursor[0], h.sel.cursor[0], 'right');
-//          $(h.textarea).val(markup);
+          if(!rex_markitup.options.autowhitespace || typeof h.className === 'undefined'){                               console.groupEnd();
+            return;
+          }
 
-                                                                                                                        console.groupEnd();
+          className = h.className.replace('markitup-','');
+          h.sel     = this.selection($(h.textarea));                                                                    console.log('className:',className);console.groupCollapsed('rex_markitup');console.dir(rex_markitup);console.groupEnd(); console.groupCollapsed('h');console.dir(h);console.groupEnd(); console.groupCollapsed('h.sel');console.log('sel.text():',h.sel.text());console.log('sel.surround():',h.sel.surround());console.log('sel.surround(2):',h.sel.surround(2));console.log('sel.cursor():',h.sel.cursor());console.log('sel.line():',h.sel.line());console.groupEnd();
+          //def       = rex_markitup.options.buttondefinitions[className];
+
+
+                                                                                                                        console.log('selection:',h.selection); console.log('openWith:',h.openWith);console.log('closeWith:',h.closeWith);console.groupEnd();
 
         },
         sanitizeNewlines: function(str)
@@ -485,6 +523,8 @@ var markitup_getURLParam = function(strParamName){
               str = str + char;
             }
             return str;
+        },
+        insertLink: function(url,desc) { console.log('url:',url);
         },
         // http://webmisterradixlecti.blogspot.de/2012/10/javascript-secondindexof-or-xindexof.html
         xIndexOf: function(Val, Str, x) {

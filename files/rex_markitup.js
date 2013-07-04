@@ -54,7 +54,7 @@ var insertImage = function(src, desc){
     });
 };
 
-var markitup_getURLParam = function(strParamName){
+var rex_markitup_getURLParam = function(strParamName){
   var strReturn = "";
   var strHref = window.location.href;
   if ( strHref.indexOf("?") > -1 ){
@@ -229,7 +229,7 @@ var markitup_getURLParam = function(strParamName){
                                                 },
                                 'linkintern':   {
                                                   beforeInsert:function() {
-                                                    openLinkMap('TINY','&clang='+markitup_getURLParam('clang'));
+                                                    openLinkMap('TINY','&clang='+rex_markitup_getURLParam('clang'));
                                                   },
                                                   key:'L'
                                                 },
@@ -395,7 +395,7 @@ var markitup_getURLParam = function(strParamName){
 
             return $(this.element).markItUp({
               beforeInsert:       $.proxy(function(h) { this.beforeInsertCallback(h,this); },this),
-//              afterInsert:        $.proxy(function(h) { this.afterInsertCallback(h,this);  },this),
+              //afterInsert:        $.proxy(function(h) { this.afterInsertCallback(h,this);  },this),
               nameSpace:          this.options.namespace,
               markupSet:          this.markupSet,
               previewParserPath:  'index.php?api=rex_markitup_api&func=parse_preview&uid='+this.guid,
@@ -415,7 +415,7 @@ var markitup_getURLParam = function(strParamName){
           });
         },
         beforeInsertCallback: function(h, rex_markitup){                                                                console.group('beforeInsertCallback: '+h.className);
-          if(!rex_markitup.options.smartinsert || typeof h.className === 'undefined'){                               console.groupEnd();
+          if(!rex_markitup.options.smartinsert || typeof h.className === 'undefined'){                                  console.groupEnd();
             return;
           }
 
@@ -459,10 +459,12 @@ var markitup_getURLParam = function(strParamName){
                 h.closeWith =  def.defaults.closeWith + ']';
               }
             break;
+
             case'code':
               h.openWith  = def.defaults.openWith;
               h.openWith  = surround[0] !== ' ' ? ' '+def.defaults.openWith  : def.defaults.openWith;
             break;
+
             case'h1':
             case'h2':
             case'h3':
@@ -484,6 +486,7 @@ var markitup_getURLParam = function(strParamName){
               h.openWith  = this.prependChar('\n', leading,  def.defaults.openWith);
               h.closeWith = this.appendChar('\n', trailing,  def.defaults.closeWith);
             break;
+
             case'popup-linkintern':
             case'popup-linkmedia':
             case'popup-image':
@@ -495,17 +498,17 @@ var markitup_getURLParam = function(strParamName){
             break;
           }                                                                                                             console.log('selection:',h.selection); console.log('openWith:',h.openWith);console.log('closeWith:',h.closeWith);console.groupEnd();
         },
-        afterInsertCallback: function(h, rex_markitup){                                                                 console.group('afterInsertCallback: '+h.className);
-          if(!rex_markitup.options.smartinsert || typeof h.className === 'undefined'){                               console.groupEnd();
+        afterInsertCallback: function(h, rex_markitup){                                                                 //console.group('afterInsertCallback: '+h.className);
+          if(!rex_markitup.options.smartinsert || typeof h.className === 'undefined'){                                  //console.groupEnd();
             return;
           }
 
           className = h.className.replace('markitup-','');
-          h.sel     = this.selection($(h.textarea));                                                                    console.log('className:',className);console.groupCollapsed('rex_markitup');console.dir(rex_markitup);console.groupEnd(); console.groupCollapsed('h');console.dir(h);console.groupEnd(); console.groupCollapsed('h.sel');console.log('sel.text():',h.sel.text());console.log('sel.surround():',h.sel.surround());console.log('sel.surround(2):',h.sel.surround(2));console.log('sel.cursor():',h.sel.cursor());console.log('sel.line():',h.sel.line());console.groupEnd();
+          h.sel     = this.selection($(h.textarea));                                                                    //console.log('className:',className);console.groupCollapsed('rex_markitup');console.dir(rex_markitup);console.groupEnd(); console.groupCollapsed('h');console.dir(h);console.groupEnd(); console.groupCollapsed('h.sel');console.log('sel.text():',h.sel.text());console.log('sel.surround():',h.sel.surround());console.log('sel.surround(2):',h.sel.surround(2));console.log('sel.cursor():',h.sel.cursor());console.log('sel.line():',h.sel.line());console.groupEnd();
           //def       = rex_markitup.options.buttondefinitions[className];
 
 
-                                                                                                                        console.log('selection:',h.selection); console.log('openWith:',h.openWith);console.log('closeWith:',h.closeWith);console.groupEnd();
+                                                                                                                        //console.log('selection:',h.selection); console.log('openWith:',h.openWith);console.log('closeWith:',h.closeWith);console.groupEnd();
 
         },
         sanitizeNewlines: function(str)

@@ -157,22 +157,22 @@ var rex_markitup_getURLParam = function(strParamName){
                                 // ALIGN
                                 ////////////////////////////////////////////////
                                 'aligncenter':  {
-                                                  openWith:'\np(!(([![Class]!])!)=. '
+                                                  openWith:'p(!(([![Class]!])!)=. '
                                                 },
                                 'alignjustify': {
-                                                  openWith:'\np(!(([![Class]!])!)<>. '
+                                                  openWith:'p(!(([![Class]!])!)<>. '
                                                 },
                                 'alignleft':    {
-                                                  openWith:'\np(!(([![Class]!])!)<. '
+                                                  openWith:'p(!(([![Class]!])!)<. '
                                                 },
                                 'alignright':   {
-                                                  openWith:'\np(!(([![Class]!])!)>. '
+                                                  openWith:'p(!(([![Class]!])!)>. '
                                                 },
 
                                 // LISTS
                                 ////////////////////////////////////////////////
                                 'listbullet':   {
-                                                  replaceWith: function(h) {    console.log('h.sel.cursor():',h.sel.cursor());
+                                                  replaceWith: function(h) {
                                                     var selection = h.selection;
                                                     var lines = selection.split(/\r?\n/);
                                                     var r = "";
@@ -474,15 +474,19 @@ var rex_markitup_getURLParam = function(strParamName){
             case'p':
             case'blockquote':
             case'bc':
-              surround       = h.sel.surround(2);                                                                       //console.log('surround:',surround);
+            case'alignleft':
+            case'alignright':
+            case'aligncenter':
+            case'alignjustify':
+              surround       = h.sel.surround(3);                                                                       //console.log('surround:',surround);
               h.openWith     = def.defaults.openWith;
               h.closeWith    = def.defaults.closeWith;
-              if(surround[0] == '') {
+              if(surround[0] === '') {
                 leading = 0;
-              }else{
-                leading  = surround[0].match(/(\n)/) ? 2 - surround[0].match(/(\n)/).length : 2;                        //console.log('leading:',leading);
+              }else{                                                                                                    //console.log('surround[0].match:',surround[0].match(/(\n)/g));
+                leading  = surround[0].match(/\n/g) ? 2 - surround[0].match(/\n/g).length : 2;                          //console.log('leading:',leading);
               }
-              trailing = surround[1].match(/(\n)/) ? 2 - surround[1].match(/(\n)/).length : 2;                          //console.log('trailing:',trailing);
+              trailing = surround[1].match(/\n/g) ? 2 - surround[1].match(/\n/g).length : 2;                            //console.log('surround[1].match:',surround[1].match(/(\n)/g)); console.log('trailing:',trailing);
               h.openWith  = this.prependChar('\n', leading,  def.defaults.openWith);
               h.closeWith = this.appendChar('\n', trailing,  def.defaults.closeWith);
             break;

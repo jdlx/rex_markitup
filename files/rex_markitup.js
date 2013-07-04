@@ -133,12 +133,12 @@ jQuery(function($){ ////////////////////////////////////////////////////////////
                                                   closeWith:'+'
                                                 },
                                 'cite':         {
-                                                  openWith:' ??',
-                                                  closeWith:'?? '
+                                                  openWith:'??',
+                                                  closeWith:'??'
                                                 },
                                 'code':         {
-                                                  openWith:' @',
-                                                  closeWith:'@ '
+                                                  openWith:'@',
+                                                  closeWith:'@'
                                                 },
 
                                 // ALIGN
@@ -159,7 +159,7 @@ jQuery(function($){ ////////////////////////////////////////////////////////////
                                 // LISTS
                                 ////////////////////////////////////////////////
                                 'listbullet':   {
-                                                  replaceWith: function(h) {
+                                                  replaceWith: function(h) {    console.log('h.sel.cursor():',h.sel.cursor());
                                                     var selection = h.selection;
                                                     var lines = selection.split(/\r?\n/);
                                                     var r = "";
@@ -374,29 +374,45 @@ jQuery(function($){ ////////////////////////////////////////////////////////////
             }
 
             return $(this.element).markItUp({
-              beforeInsert: $.proxy(function(h) {
-                console.group(h.className);
-                  console.group('beforeInsert:');
-                    h.sel = this.selection($(h.textarea));
-                    console.log('sel.text():',h.sel.text());
-                    console.log('sel.surround():',h.sel.surround());
-                    console.log('sel.surround(2):',h.sel.surround(2));
-                    console.log('sel.cursor():',h.sel.cursor());
-                    console.log('sel.line():',h.sel.line());
-                  console.groupEnd();
-              },this),
-              afterInsert: $.proxy(function(h) {
-                  console.group('afterInsert:');
-                    h.sel = this.selection($(h.textarea));
-                    console.log('sel.text():',h.sel.text());
-                    console.log('sel.surround():',h.sel.surround());
-                    console.log('sel.surround(2):',h.sel.surround(2));
-                    console.log('sel.cursor():',h.sel.cursor());
-                    console.log('sel.line():',h.sel.line());
-                  console.groupEnd();
-                console.groupEnd();
 
+              beforeInsert: $.proxy(function(h) {                               console.group(h.className+' beforeInsert:'); console.log('h:',h); //console.group('beforeInsert:');
+                h.sel     = this.selection($(h.textarea));                      //console.log('sel.text():',h.sel.text());console.log('sel.surround():',h.sel.surround());console.log('sel.surround(2):',h.sel.surround(2));console.log('sel.cursor():',h.sel.cursor());console.log('sel.line():',h.sel.line());
+                className = h.className.replace('markitup-','');
+                surround  = h.sel.surround();                                   console.log('surround:',surround);
+                if(typeof h.defaults === 'undefined') {
+                  h.defaults = {};
+                }
+                if(typeof h.defaults.openWith === 'undefined') {
+                  h.defaults.openWith = h.openWith;
+                }
+                if(typeof h.defaults.closeWith === 'undefined') {
+                  h.defaults.closeWith = h.closeWith;
+                }
+
+                // CONTEXT AWARE MARKUP PADDING
+                ////////////////////////////////////////////////////////////////
+                switch(className)
+                {
+                  case'bold':
+                  case'italic':
+                  case'stroke':
+                  case'ins':
+                  case'cite':
+                    if(surround[0].match(/\w/) || surround[1].match(/\w/)) {
+                      h.openWith  = '[' + h.defaults.openWith ;
+                      h.closeWith =  h.defaults.closeWith + ']';
+                    }
+                  break;
+                  case'code':
+                    h.openWith  = surround[0] !== ' ' ? ' '+h.defaults.openWith  : h.defaults.openWith;
+                  break;
+                }                                                               console.log('openWith:',h.openWith);console.log('closeWith:',h.closeWith);console.groupEnd();
               },this),
+
+              // afterInsert: $.proxy(function(h) {                                //console.group(h.className);console.group('afterInsert:');
+              //   h.sel = this.selection($(h.textarea));                          //console.log('sel.text():',h.sel.text());console.log('sel.surround():',h.sel.surround());console.log('sel.surround(2):',h.sel.surround(2));console.log('sel.cursor():',h.sel.cursor());console.log('sel.line():',h.sel.line());console.groupEnd();
+              // },this),
+
               nameSpace: this.options.namespace,
               markupSet: this.markupSet,
               previewParserPath: 'index.php?api=rex_markitup_api&func=parse_preview&uid='+this.guid,
@@ -415,6 +431,20 @@ jQuery(function($){ ////////////////////////////////////////////////////////////
             error: function(e){ console.warn('error:',e); }
           });
         },
+        xIndexOf: function(Val, Str, x) {
+          if (x <= (Str.split(Val).length - 1)) {
+            var Ot = Str.indexOf(Val);
+            if (x > 1) {
+              for (var i = 1; i < x; i++) {
+                Ot = Str.indexOf(Val, Ot + 1);
+              }
+            }
+            return Ot;
+          } else {
+            console.warn(Val + " Occurs less than " + x + " times");
+            return 0;
+          }
+        },
 
         // GUTTED SELECTION.JS FUNCS FROM HERE ON..
         ////////////////////////////////////////////////////////////////////////
@@ -432,12 +462,12 @@ jQuery(function($){ ////////////////////////////////////////////////////////////
           }
           if (tag && (tag === 'textarea' || tag === 'input')) {
             // if has inputor and inputor element is textarea or input
-            return new Selection(inputor, true);
+            return this.Selection(inputor, true);
           }
 
-          if (window.getSelection) return new DocumentSelection();
-          if (document.selection) return new DocumentSelection(true);
-          throw new Error('your browser is very weird');
+          if (window.getSelection) return this.DocumentSelection();
+          if (document.selection) return this.DocumentSelection(true);
+          console.error('your browser is very weird');
         },
         Selection: function (inputor, isIE) {
           this.element = inputor;
@@ -454,8 +484,8 @@ jQuery(function($){ ////////////////////////////////////////////////////////////
             // set cursor
             if (isArray(start)) {
               var _s = start;
-              start = _s[0];
-              end = _s[1];
+              start  = _s[0];
+              end    = _s[1];
             }
             if (typeof end === 'undefined') end = start;
             if (isIE) {
@@ -470,7 +500,7 @@ jQuery(function($){ ////////////////////////////////////////////////////////////
         // get or set selected text
         text: function(text, cur) {
           var inputor = this.element;
-          var cursor = this.cursor();
+          var cursor  = this.cursor();
           if (typeof text == 'undefined') {
             return inputor.value.slice(cursor[0], cursor[1]);
           }
@@ -479,7 +509,7 @@ jQuery(function($){ ////////////////////////////////////////////////////////////
         // get the surround words of the selection
         surround: function(count) {
           if (typeof count == 'undefined') count = 1;
-          var value = this.element.value;
+          var value  = this.element.value;
           var cursor = this.cursor();
           var before = value.slice(
             Math.max(0, cursor[0] - count),
@@ -509,10 +539,10 @@ jQuery(function($){ ////////////////////////////////////////////////////////////
           return insertText(this, text, start, start, cur);
         },
         line: function() {
-          var value = this.element.value;
+          var value  = this.element.value;
           var cursor = this.cursor();
           var before = value.slice(0, cursor[0]).lastIndexOf('\n');
-          var after = value.slice(cursor[1]).indexOf('\n');
+          var after  = value.slice(cursor[1]).indexOf('\n');
 
           // we don't need \n
           var start = before + 1;

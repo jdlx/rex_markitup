@@ -307,7 +307,7 @@ var markitup_getURLParam = function(strParamName){
               standard: 'h1,h2,h3,h4,|,bold,italic,stroke,|,listbullet,listnumeric,|,image,linkmedia,|,linkintern,linkextern,linkmailto,fullscreen',
               full:     'blockmenu,|,h1,h2,h3,h4,h5,h6,|,bold,italic,stroke,ins,cite,code,|,alignleft,alignright,aligncenter,alignjustify,|,listbullet,listnumeric,|,image,linkmedia,|,linkmenu,linkintern,linkextern,linkmailto,|,preview,fullscreen'
             },
-            autowhitespace: true
+            smartinsert: true
 
         }; // defaults
 
@@ -415,7 +415,7 @@ var markitup_getURLParam = function(strParamName){
           });
         },
         beforeInsertCallback: function(h, rex_markitup){                                                                console.group('beforeInsertCallback: '+h.className);
-          if(!rex_markitup.options.autowhitespace || typeof h.className === 'undefined'){                               console.groupEnd();
+          if(!rex_markitup.options.smartinsert || typeof h.className === 'undefined'){                               console.groupEnd();
             return;
           }
 
@@ -496,7 +496,7 @@ var markitup_getURLParam = function(strParamName){
           }                                                                                                             console.log('selection:',h.selection); console.log('openWith:',h.openWith);console.log('closeWith:',h.closeWith);console.groupEnd();
         },
         afterInsertCallback: function(h, rex_markitup){                                                                 console.group('afterInsertCallback: '+h.className);
-          if(!rex_markitup.options.autowhitespace || typeof h.className === 'undefined'){                               console.groupEnd();
+          if(!rex_markitup.options.smartinsert || typeof h.className === 'undefined'){                               console.groupEnd();
             return;
           }
 

@@ -7,8 +7,19 @@
  * @package redaxo 4.4.x/4.5.x
  */
 
+
+jQuery(function($){ ////////////////////////////////////////////////////////////
+
+  $(document).on('dblclick','.markItUpFooter', function(e){
+    $(e.target).next('.markItUpPreviewFrame').remove();
+  });
+
+
+}); // jQuery(function($){ /////////////////////////////////////////////////////
+
+
 var insertFileLink = function(file){
-  $.markItUp({
+  jQuery.markItUp({
     openWith:'"',
     closeWith:'":'+file,
     placeHolder:file
@@ -16,7 +27,7 @@ var insertFileLink = function(file){
 };
 
 var insertLink = function(url,desc){
-  $.markItUp({
+  jQuery.markItUp({
     openWith:'"',
     closeWith:'":'+url,
     placeHolder:desc
@@ -24,9 +35,9 @@ var insertLink = function(url,desc){
 };
 
 var insertImage = function(src, desc){
-  // $.markItUp({replaceWith:"!./"+ src +"!"});
+  // jQuery.markItUp({replaceWith:"!./"+ src +"!"});
   img = src.replace(/files\//, "");
-  $.markItUp({
+  jQuery.markItUp({
     replaceWith:"!index.php?rex_resize=[![Image Width]!]w__"+ img +"!"
     });
 };
@@ -47,16 +58,6 @@ var markitup_getURLParam = function(strParamName){
   }
   return unescape(strReturn);
 };
-
-
-jQuery(function($){ ////////////////////////////////////////////////////////////
-
-  $(document).on('dblclick','.markItUpFooter', function(e){
-    $(e.target).next('.markItUpPreviewFrame').remove();
-  });
-
-
-}); // jQuery(function($){ /////////////////////////////////////////////////////
 
 
 
@@ -402,7 +403,7 @@ jQuery(function($){ ////////////////////////////////////////////////////////////
 
           h.sel     = this.selection($(h.textarea));                                                                    //console.log('h:',h); console.log('rex_markitup:',rex_markitup); console.log('sel.text():',h.sel.text());console.log('sel.surround():',h.sel.surround());console.log('sel.surround(2):',h.sel.surround(2));console.log('sel.cursor():',h.sel.cursor());console.log('sel.line():',h.sel.line());
           className = h.className.replace('markitup-','');
-          def = rex_markitup.options.buttondefinitions[className]; console.log('def:',def);
+          def = rex_markitup.options.buttondefinitions[className];
 
           if(typeof def.defaults === 'undefined') {
             def.defaults = {};
@@ -485,6 +486,7 @@ jQuery(function($){ ////////////////////////////////////////////////////////////
             }
             return str;
         },
+        // http://webmisterradixlecti.blogspot.de/2012/10/javascript-secondindexof-or-xindexof.html
         xIndexOf: function(Val, Str, x) {
           if (x <= (Str.split(Val).length - 1)) {
             var Ot = Str.indexOf(Val);

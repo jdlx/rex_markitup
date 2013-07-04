@@ -28,10 +28,6 @@ jQuery(function($){ ////////////////////////////////////////////////////////////
    });
  };
 
-// var insertLink = function(url,desc){
-//   jQuery.rexMarkItUp.insertFileLink(url,desc);
-// };
-
 var insertLink = function(url,desc){
   jQuery.markItUp({
     openWith:'"',
@@ -246,6 +242,12 @@ var rex_markitup_getURLParam = function(strParamName){
                                 'preview':      {
                                                   call:'preview'
                                                 },
+                                'rex_a79_help': {
+                                                  name:'Textile Reference'
+                                                },
+                                'css_dummy':    {
+                                                  name:'CSS Dummy'
+                                                },
                                 'clean':        {
                                                   replaceWith: function(h) {
                                                     var s = h.selection;
@@ -414,19 +416,54 @@ var rex_markitup_getURLParam = function(strParamName){
             error: function(e){ console.warn('error:',e); }
           });
         },
-        beforeInsertCallback: function(h, rex_markitup){                                                                console.group('beforeInsertCallback: '+h.className);
-          if(!rex_markitup.options.smartinsert || typeof h.className === 'undefined'){                                  console.groupEnd();
+        showInPreview: function(className){
+          $.ajax({
+            type: 'POST',
+            url: 'index.php',
+            async: false,
+            dataType:'json',
+            data: {'rex_markitup_api': JSON.stringify({func:className})},
+            success: $.proxy(function(data) {
+              footer = $(this.element).next('.markItUpFooter'); console.log();
+              if($('.markItUpPreviewFrame').length === 0) {
+                preview = $('<div class="markItUpPreviewFrame">' + data.html + '</div>');
+                preview.insertAfter(footer);
+              }else{
+                $('.markItUpPreviewFrame').html(data.html);
+              }
+
+            },this),
+            error: function(e){ console.warn('error:',e); }
+          });
+
+        },
+        beforeInsertCallback: function(h, rex_markitup){
+          if (typeof h === 'undefined' || typeof h.className === 'undefined') {
+            return;
+          }                                                                                                             //console.group('beforeInsertCallback: '+h.className); console.log('h:',h);
+
+          className = h.className.replace('markitup-','');
+
+          switch(className)
+          {
+            case'css_dummy':
+            case'rex_a79_help':                                                                                         //console.log('h:',h); console.groupEnd();
+              this.showInPreview(className);
+              return;
+            break;
+          }
+
+          if(!rex_markitup.options.smartinsert || typeof h.className === 'undefined'){                                  //console.groupEnd();
             return;
           }
 
-          className = h.className.replace('markitup-','');
           h.sel     = this.selection($(h.textarea));
           if(typeof h.openWith === 'undefined') {
             h.openWith = '';
           }
           if(typeof h.closeWith === 'undefined') {
             h.closeWith = '';
-          }                                                                                                             console.log('className:',className);console.log('openWith:',h.openWith);console.log('closeWith:',h.closeWith);console.groupCollapsed('rex_markitup');console.dir(rex_markitup);console.groupEnd(); console.groupCollapsed('h');console.dir(h);console.groupEnd(); console.groupCollapsed('h.sel');console.log('sel.text():',h.sel.text());console.log('sel.surround():',h.sel.surround());console.log('sel.surround(2):',h.sel.surround(2));console.log('sel.cursor():',h.sel.cursor());console.log('sel.line():',h.sel.line());console.groupEnd();
+          }                                                                                                             //console.log('className:',className);console.log('openWith:',h.openWith);console.log('closeWith:',h.closeWith);console.groupCollapsed('rex_markitup');console.dir(rex_markitup);console.groupEnd(); console.groupCollapsed('h');console.dir(h);console.groupEnd(); console.groupCollapsed('h.sel');console.log('sel.text():',h.sel.text());console.log('sel.surround():',h.sel.surround());console.log('sel.surround(2):',h.sel.surround(2));console.log('sel.cursor():',h.sel.cursor());console.log('sel.line():',h.sel.line());console.groupEnd();
 
           if(typeof rex_markitup.options.buttondefinitions[className] !== 'undefined') {
             def       = rex_markitup.options.buttondefinitions[className];
@@ -500,24 +537,23 @@ var rex_markitup_getURLParam = function(strParamName){
                 h.closeWith =  h.closeWith + ']';
               }
             break;
-          }                                                                                                             console.log('selection:',h.selection); console.log('openWith:',h.openWith);console.log('closeWith:',h.closeWith);console.groupEnd();
+          }                                                                                                             //console.log('selection:',h.selection); console.log('openWith:',h.openWith);console.log('closeWith:',h.closeWith);console.groupEnd();
         },
         afterInsertCallback: function(h, rex_markitup){                                                                 //console.group('afterInsertCallback: '+h.className);
+
+
           if(!rex_markitup.options.smartinsert || typeof h.className === 'undefined'){                                  //console.groupEnd();
             return;
           }
 
           className = h.className.replace('markitup-','');
           h.sel     = this.selection($(h.textarea));                                                                    //console.log('className:',className);console.groupCollapsed('rex_markitup');console.dir(rex_markitup);console.groupEnd(); console.groupCollapsed('h');console.dir(h);console.groupEnd(); console.groupCollapsed('h.sel');console.log('sel.text():',h.sel.text());console.log('sel.surround():',h.sel.surround());console.log('sel.surround(2):',h.sel.surround(2));console.log('sel.cursor():',h.sel.cursor());console.log('sel.line():',h.sel.line());console.groupEnd();
-          //def       = rex_markitup.options.buttondefinitions[className];
-
 
                                                                                                                         //console.log('selection:',h.selection); console.log('openWith:',h.openWith);console.log('closeWith:',h.closeWith);console.groupEnd();
-
         },
-        sanitizeNewlines: function(str)
-        {
-          return str.replace(new RegExp('(\n){3,}', 'gim') , '\n\n');
+        sanitizeNewlines: function(str) {
+          str = str.replace(new RegExp('(\n){3,}', 'gim') , '\n\n');
+          return str;
         },
         prependChar: function(char, times, str) {
             for(var i = 0; i < times; i++) {

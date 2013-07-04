@@ -52,6 +52,33 @@ if( $data !== false || $api === 'rex_markitup_api')
       rex_markitup_ajax_reply($I18N->text);
       break;
 
+    case'rex_a79_help':
+        rex_register_extension('ADDONS_INCLUDED',
+          function($params) use($data,$REX)
+          {
+            ob_start();
+            rex_a79_help_overview();
+            $html = ob_get_flush();
+            rex_markitup_ajax_reply(array('html' =>$html));
+          },
+          array(),
+          REX_EXTENSION_LATE
+        );
+      break;
+
+    case'css_dummy':
+        rex_register_extension('ADDONS_INCLUDED',
+          function($params) use($data,$REX)
+          {
+            $markup = rex_get_file_contents($REX['INCLUDE_PATH'].'/addons/be_style/plugins/rex_markitup/files/custom/markitup/skins/rex_markitup/css_dummy.textile');
+            $html   = rex_markitup_previewlinks(rex_a79_textile($markup));
+            rex_markitup_ajax_reply(array('html' =>$html));
+          },
+          array(),
+          REX_EXTENSION_LATE
+        );
+      break;
+
     case'parse_preview':
       if(isset($data['rex_markitup_markup'])) {
         rex_register_extension('ADDONS_INCLUDED',

@@ -69,46 +69,46 @@ jQuery(function($){ ////////////////////////////////////////////////////////////
                                 // BLOCK MODIFIER
                                 ////////////////////////////////////////////////
                                 'h1':           {
-                                                  openWith:'\n\nh1(!(([![Class]!]))!). ',
-                                                  closeWith:'\n\n',
+                                                  openWith:'h1(!(([![Class]!]))!). ',
+                                                  closeWith:'',
                                                   key:'1'
                                                 },
                                 'h2':           {
-                                                  openWith:'\n\nh2(!(([![Class]!]))!). ',
-                                                  closeWith:'\n\n',
+                                                  openWith:'h2(!(([![Class]!]))!). ',
+                                                  closeWith:'',
                                                   key:'2'
                                                 },
                                 'h3':           {
-                                                  openWith:'\n\nh3(!(([![Class]!]))!). ',
-                                                  closeWith:'\n\n',
+                                                  openWith:'h3(!(([![Class]!]))!). ',
+                                                  closeWith:'',
                                                   key:'3'
                                                 },
                                 'h4':           {
-                                                  openWith:'\n\nh4(!(([![Class]!]))!). ',
-                                                  closeWith:'\n\n',
+                                                  openWith:'h4(!(([![Class]!]))!). ',
+                                                  closeWith:'',
                                                   key:'4'
                                                 },
                                 'h5':           {
-                                                  openWith:'\n\nh5(!(([![Class]!]))!). ',
-                                                  closeWith:'\n\n',
+                                                  openWith:'h5(!(([![Class]!]))!). ',
+                                                  closeWith:'',
                                                   key:'5'
                                                 },
                                 'h6':           {
-                                                  openWith:'\n\nh6(!(([![Class]!]))!). ',
-                                                  closeWith:'\n\n',
+                                                  openWith:'h6(!(([![Class]!]))!). ',
+                                                  closeWith:'',
                                                   key:'6'
                                                 },
                                 'p':            {
-                                                  openWith:'\n\np(!(([![Class]!]))!). ',
-                                                  closeWith:'\n\n'
+                                                  openWith:'p(!(([![Class]!]))!). ',
+                                                  closeWith:''
                                                 },
                                 'blockquote':   {
-                                                  openWith:'\n\nbq(!(([![Class]!]))!). ',
-                                                  closeWith:'\n\n'
+                                                  openWith:'bq(!(([![Class]!]))!). ',
+                                                  closeWith:''
                                                 },
                                 'bc':           {
-                                                  openWith:'\n\nbc(!(([![Class]!]))!). ',
-                                                  closeWith:'\n\n'
+                                                  openWith:'bc(!(([![Class]!]))!). ',
+                                                  closeWith:''
                                                 },
 
                                 // PHRASE MODIFIER
@@ -293,7 +293,8 @@ jQuery(function($){ ////////////////////////////////////////////////////////////
             buttonsets: {
               standard: 'h1,h2,h3,h4,|,bold,italic,stroke,|,listbullet,listnumeric,|,image,linkmedia,|,linkintern,linkextern,linkmailto,fullscreen',
               full:     'blockmenu,|,h1,h2,h3,h4,h5,h6,|,bold,italic,stroke,ins,cite,code,|,alignleft,alignright,aligncenter,alignjustify,|,listbullet,listnumeric,|,image,linkmedia,|,linkmenu,linkintern,linkextern,linkmailto,|,preview,fullscreen'
-            }
+            },
+            autowhitespace: true
 
         }; // defaults
 
@@ -374,49 +375,12 @@ jQuery(function($){ ////////////////////////////////////////////////////////////
             }
 
             return $(this.element).markItUp({
-
-              beforeInsert: $.proxy(function(h) {                               console.group(h.className+' beforeInsert:'); console.log('h:',h); //console.group('beforeInsert:');
-                h.sel     = this.selection($(h.textarea));                      //console.log('sel.text():',h.sel.text());console.log('sel.surround():',h.sel.surround());console.log('sel.surround(2):',h.sel.surround(2));console.log('sel.cursor():',h.sel.cursor());console.log('sel.line():',h.sel.line());
-                className = h.className.replace('markitup-','');
-                surround  = h.sel.surround();                                   console.log('surround:',surround);
-                if(typeof h.defaults === 'undefined') {
-                  h.defaults = {};
-                }
-                if(typeof h.defaults.openWith === 'undefined') {
-                  h.defaults.openWith = h.openWith;
-                }
-                if(typeof h.defaults.closeWith === 'undefined') {
-                  h.defaults.closeWith = h.closeWith;
-                }
-
-                // CONTEXT AWARE MARKUP PADDING
-                ////////////////////////////////////////////////////////////////
-                switch(className)
-                {
-                  case'bold':
-                  case'italic':
-                  case'stroke':
-                  case'ins':
-                  case'cite':
-                    if(surround[0].match(/\w/) || surround[1].match(/\w/)) {
-                      h.openWith  = '[' + h.defaults.openWith ;
-                      h.closeWith =  h.defaults.closeWith + ']';
-                    }
-                  break;
-                  case'code':
-                    h.openWith  = surround[0] !== ' ' ? ' '+h.defaults.openWith  : h.defaults.openWith;
-                  break;
-                }                                                               console.log('openWith:',h.openWith);console.log('closeWith:',h.closeWith);console.groupEnd();
-              },this),
-
-              // afterInsert: $.proxy(function(h) {                                //console.group(h.className);console.group('afterInsert:');
-              //   h.sel = this.selection($(h.textarea));                          //console.log('sel.text():',h.sel.text());console.log('sel.surround():',h.sel.surround());console.log('sel.surround(2):',h.sel.surround(2));console.log('sel.cursor():',h.sel.cursor());console.log('sel.line():',h.sel.line());console.groupEnd();
-              // },this),
-
-              nameSpace: this.options.namespace,
-              markupSet: this.markupSet,
-              previewParserPath: 'index.php?api=rex_markitup_api&func=parse_preview&uid='+this.guid,
-              previewParserVar: 'rex_markitup_markup',
+              beforeInsert:       $.proxy(function(h) { this.beforeInsertCallback(h,this); },this),
+//              afterInsert:        $.proxy(function(h) { this.afterInsertCallback(h,this);  },this),
+              nameSpace:          this.options.namespace,
+              markupSet:          this.markupSet,
+              previewParserPath:  'index.php?api=rex_markitup_api&func=parse_preview&uid='+this.guid,
+              previewParserVar:   'rex_markitup_markup',
               previewAutoRefresh: true
             });
         },
@@ -430,6 +394,90 @@ jQuery(function($){ ////////////////////////////////////////////////////////////
             success: $.proxy(function(data) { rex_markitup.i18n = data; /*console.log('data:',data);*/ },this),
             error: function(e){ console.warn('error:',e); }
           });
+        },
+        beforeInsertCallback: function(h, rex_markitup){                                                                console.group('beforeInsertCallback: '+h.className); //console.group('beforeInsert:');
+          if(!rex_markitup.options.autowhitespace || typeof h.className === 'undefined'){                               console.groupEnd();
+            return;
+          }
+
+          h.sel     = this.selection($(h.textarea));                                                                    // console.log('h:',h); console.log('rex_markitup:',rex_markitup); console.log('sel.text():',h.sel.text());console.log('sel.surround():',h.sel.surround());console.log('sel.surround(2):',h.sel.surround(2));console.log('sel.cursor():',h.sel.cursor());console.log('sel.line():',h.sel.line());
+          className = h.className.replace('markitup-','');
+
+          if(typeof h.defaults === 'undefined') {
+            h.defaults = {};
+          }
+          if(typeof h.defaults.openWith === 'undefined') {
+            h.defaults.openWith = h.openWith;
+          }
+          if(typeof h.defaults.closeWith === 'undefined') {
+            h.defaults.closeWith = h.closeWith;
+          }
+
+          switch(className)
+          {
+            case'bold':
+            case'italic':
+            case'stroke':
+            case'ins':
+            case'cite':
+              surround  = h.sel.surround();
+              if(surround[0].match(/\w/) || surround[1].match(/\w/)) {
+                h.openWith  = '[' + h.defaults.openWith ;
+                h.closeWith =  h.defaults.closeWith + ']';
+              }
+            break;
+            case'code':
+              h.openWith  = surround[0] !== ' ' ? ' '+h.defaults.openWith  : h.defaults.openWith;
+            break;
+            case'h1':
+            case'h2':
+            case'h3':
+            case'h4':
+            case'h5':
+            case'h6':
+            case'p':
+            case'blockquote':
+            case'bc':
+              surround = h.sel.surround(2);                                                                             console.log('surround:',surround);
+              if(surround[0] == '') {
+                leading = 0;
+              }else{
+                leading  = surround[0].match(/(\n)/) ? 2 - surround[0].match(/(\n)/).length : 2;                        console.log('leading:',leading);
+              }
+              trailing = surround[1].match(/(\n)/) ? 2 - surround[1].match(/(\n)/).length : 2;                          console.log('trailing:',trailing);
+              h.openWith  = this.prependChar('\n', leading,  h.defaults.openWith);
+              h.closeWith = this.appendChar('\n', trailing, h.defaults.closeWith);
+            break;
+          }                                                                                                             console.log('openWith:',h.openWith);console.log('closeWith:',h.closeWith);console.groupEnd();
+        },
+        afterInsertCallback: function(h, rex_markitup){                                                                 console.group('afterInsertCallback: '+h.className);
+//          if(!rex_markitup.options.autowhitespace || typeof h.className === 'undefined'){                               console.groupEnd();
+//            return;
+//          }
+//          h.sel = this.selection($(h.textarea)); console.log('sel.text():',h.sel.text());console.log('sel.surround():',h.sel.surround());console.log('sel.surround(2):',h.sel.surround(2));console.log('sel.cursor():',h.sel.cursor());console.log('sel.line():',h.sel.line());
+//          markup = $(h.textarea).val();                                                                                 console.log('markup:',markup);
+//          markup = this.sanitizeNewlines(markup);
+//          //this.insertText(h.sel, markup, h.sel.cursor[0], h.sel.cursor[0], 'right');
+//          $(h.textarea).val(markup);
+
+                                                                                                                        console.groupEnd();
+
+        },
+        sanitizeNewlines: function(str)
+        {
+          return str.replace(new RegExp('(\n){3,}', 'gim') , '\n\n');
+        },
+        prependChar: function(char, times, str) {
+            for(var i = 0; i < times; i++) {
+              str = char + str;
+            }
+            return str;
+        },
+        appendChar: function(char, times, str) {
+            for(var i = 0; i < times; i++) {
+              str = str + char;
+            }
+            return str;
         },
         xIndexOf: function(Val, Str, x) {
           if (x <= (Str.split(Val).length - 1)) {

@@ -1,61 +1,73 @@
 # rex_markitup - de_de
 
-markitup_h1                     = Überschrift 1
-markitup_h1_placeholder         = Dies ist eine Überschrift 1. Ordnung (benötigt wie jedes "Blocklevel" Element je eine Leerzeile ober & unterhalb)
+markitup_h1                       = Überschrift 1
+markitup_h1_placeholder           = Dies ist eine Überschrift 1. Ordnung (benötigt wie jedes "Blocklevel" Element je eine Leerzeile ober & unterhalb)
 
-markitup_h2                     = Überschrift 2
-markitup_h2_placeholder         = Dies ist eine Überschrift 2. Ordnung (benötigt wie jedes "Blocklevel" Element je eine Leerzeile ober & unterhalb)
+markitup_h2                       = Überschrift 2
+markitup_h2_placeholder           = Dies ist eine Überschrift 2. Ordnung (benötigt wie jedes "Blocklevel" Element je eine Leerzeile ober & unterhalb)
 
-markitup_h3                     = Überschrift 3
-markitup_h3_placeholder         = Dies ist eine Überschrift 3. Ordnung (benötigt wie jedes "Blocklevel" Element je eine Leerzeile ober & unterhalb)
+markitup_h3                       = Überschrift 3
+markitup_h3_placeholder           = Dies ist eine Überschrift 3. Ordnung (benötigt wie jedes "Blocklevel" Element je eine Leerzeile ober & unterhalb)
 
-markitup_h4                     = Überschrift 4
-markitup_h4_placeholder         = Dies ist eine Überschrift 4. Ordnung (benötigt wie jedes "Blocklevel" Element je eine Leerzeile ober & unterhalb)
+markitup_h4                       = Überschrift 4
+markitup_h4_placeholder           = Dies ist eine Überschrift 4. Ordnung (benötigt wie jedes "Blocklevel" Element je eine Leerzeile ober & unterhalb)
 
-markitup_h5                     = Überschrift 5
-markitup_h5_placeholder         = Dies ist eine Überschrift 5. Ordnung (benötigt wie jedes "Blocklevel" Element je eine Leerzeile ober & unterhalb)
+markitup_h5                       = Überschrift 5
+markitup_h5_placeholder           = Dies ist eine Überschrift 5. Ordnung (benötigt wie jedes "Blocklevel" Element je eine Leerzeile ober & unterhalb)
 
-markitup_h6                     = Überschrift 6
-markitup_h6_placeholder         = Dies ist eine Überschrift 6. Ordnung (benötigt wie jedes "Blocklevel" Element je eine Leerzeile ober & unterhalb)
+markitup_h6                       = Überschrift 6
+markitup_h6_placeholder           = Dies ist eine Überschrift 6. Ordnung (benötigt wie jedes "Blocklevel" Element je eine Leerzeile ober & unterhalb)
 
-markitup_p                      = Absatz
-markitup_p_placeholder          = Dies ist eine Absatz (benötigt wie jedes "Blocklevel" Element je eine Leerzeile ober & unterhalb)
+markitup_p                        = Absatz
+markitup_p_placeholder            = Dies ist eine Absatz (benötigt wie jedes "Blocklevel" Element je eine Leerzeile ober & unterhalb)
 
-markitup_blockquote             = Zitat (ganzer Absatz)
-markitup_blockquote_placeholder = Dies ist eine zitierter Absatz (benötigt wie jedes "Blocklevel" Element je eine Leerzeile ober & unterhalb)
+markitup_blockquote               = Zitat (ganzer Absatz)
+markitup_blockquote_placeholder   = Dies ist eine zitierter Absatz (benötigt wie jedes "Blocklevel" Element je eine Leerzeile ober & unterhalb)
 
-markitup_bc                     = Code-Block
-markitup_bc_placeholder         = $foo = bar; // Dies ist eine Code-Block (benötigt wie jedes "Blocklevel" Element je eine Leerzeile ober & unterhalb)
+markitup_bc                       = Code-Block
+markitup_bc_placeholder           = $foo = bar; // Dies ist eine Code-Block (benötigt wie jedes "Blocklevel" Element je eine Leerzeile ober & unterhalb)
+
+markitup_alignleft                = Linksbündiger Absatz
+markitup_alignleft_placeholder    = Dies ist eine linksbündiger Absatz (benötigt wie jedes "Blocklevel" Element je eine Leerzeile ober & unterhalb)
+
+markitup_alignright               = Rechtsbündger Absatz
+markitup_alignright_placeholder   = Dies ist eine rechtsbündiger Absatz (benötigt wie jedes "Blocklevel" Element je eine Leerzeile ober & unterhalb)
+
+markitup_aligncenter              = Zentrierter Absatz
+markitup_aligncenter_placeholder  = Dies ist eine zentrierter Absatz (benötigt wie jedes "Blocklevel" Element je eine Leerzeile ober & unterhalb)
+
+markitup_alignjustify             = Blocksatz Absatz
+markitup_alignjustify_placeholder = Dies ist eine Blocksatz Absatz (benötigt wie jedes "Blocklevel" Element je eine Leerzeile ober & unterhalb)
 
 
-markitup_bold                   = Fett
+markitup_bold                     = Fett
 
-markitup_italic                 = Kursiv
+markitup_italic                   = Kursiv
 
-markitup_stroke                 = Durchstrichen
+markitup_stroke                   = Durchstrichen
 
-markitup_ins                    = Eingefügt
+markitup_ins                      = Eingefügt
 
-markitup_listbullet             = Liste - ungeordnet
+markitup_listbullet               = Liste - ungeordnet
 
-markitup_listnumeric            = Liste - geordnet
+markitup_listnumeric              = Liste - geordnet
 
-markitup_image                  = Bild
+markitup_image                    = Bild
 
-markitup_linkmedia              = Datei verlinken
+markitup_linkmedia                = Datei verlinken
 
-markitup_linkintern             = Interner Link
+markitup_linkintern               = Interner Link
 
-markitup_linkextern             = Externer Link
-markitup_linkextern_placeholder = Linktext hier
+markitup_linkextern               = Externer Link
+markitup_linkextern_placeholder   = Linktext hier
 
-markitup_linkmailto             = Mailto-Link
-markitup_linkmailto_placeholder = Linktext hier
+markitup_linkmailto               = Mailto-Link
+markitup_linkmailto_placeholder   = Linktext hier
 
-markitup_code                   = Quellcode
+markitup_code                     = Quellcode
 
-markitup_preview                = Voransicht
+markitup_preview                  = Voransicht
 
-markitup_fullscreen             = Fullscreen
+markitup_fullscreen               = Fullscreen
 
-markitup_clean                  = Markup säubern
+markitup_clean                    = Markup säubern

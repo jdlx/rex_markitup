@@ -1,61 +1,74 @@
 # rex_markitup - de_de
 
-markitup_h1                     = headline 1
-markitup_h1_placeHolder         = headline 1st order (requires, as any blockelement, a newline above & below)
+markitup_h1                       = headline 1
+markitup_h1_placeHolder           = headline 1st order (requires, as any blockelement, a newline above & below)
 
-markitup_h2                     = headline 2
-markitup_h2_placeHolder         = headline 2nd order (requires, as any blockelement, a newline above & below)
+markitup_h2                       = headline 2
+markitup_h2_placeHolder           = headline 2nd order (requires, as any blockelement, a newline above & below)
 
-markitup_h3                     = headline 3
-markitup_h3_placeHolder         = headline 3rd order (requires, as any blockelement, a newline above & below)
+markitup_h3                       = headline 3
+markitup_h3_placeHolder           = headline 3rd order (requires, as any blockelement, a newline above & below)
 
-markitup_h4                     = headline 4
-markitup_h4_placeHolder         = headline 4th order (requires, as any blockelement, a newline above & below)
+markitup_h4                       = headline 4
+markitup_h4_placeHolder           = headline 4th order (requires, as any blockelement, a newline above & below)
 
-markitup_h5                     = headline 5
-markitup_h5_placeHolder         = headline 5th order (requires, as any blockelement, a newline above & below)
+markitup_h5                       = headline 5
+markitup_h5_placeHolder           = headline 5th order (requires, as any blockelement, a newline above & below)
 
-markitup_h6                     = headline 6
-markitup_h6_placeHolder         = headline 6th order (requires, as any blockelement, a newline above & below)
+markitup_h6                       = headline 6
+markitup_h6_placeHolder           = headline 6th order (requires, as any blockelement, a newline above & below)
 
-markitup_p                      = paragraph
-markitup_p_placeholder          = paragrah text.. (requires, as any blockelement, a newline above & below)
+markitup_p                        = paragraph
+markitup_p_placeholder            = paragrah text.. (requires, as any blockelement, a newline above & below)
 
-markitup_blockquote             = blockquote
-markitup_blockquote_placeholder = blockquoted paragraph..  (requires, as any blockelement, a newline above & below)
+markitup_blockquote               = blockquote
+markitup_blockquote_placeholder   = blockquoted paragraph..  (requires, as any blockelement, a newline above & below)
 
-markitup_bc                     = code-block
-markitup_bc_placeholder         = $foo = bar; // requires, as any blockelement, a newline above & below
+markitup_bc                       = code-block
+markitup_bc_placeholder           = $foo = bar; // requires, as any blockelement, a newline above & below
+
+markitup_alignleft                = left aligned paragraph
+markitup_alignleft_placeholder    = left aligned paragraph text.. (requires, as any blockelement, a newline above & below)
+
+markitup_alignright               = right aligned paragraph
+markitup_alignright_placeholder   = right aligned paragraph text.. (requires, as any blockelement, a newline above & below)
+
+markitup_aligncenter              = centered Absatz
+markitup_aligncenter_placeholder  = centered paragraph text.. (requires, as any blockelement, a newline above & below)
+
+markitup_alignjustify             = justified Absatz
+markitup_alignjustify_placeholder = justified paragraph text.. (requires, as any blockelement, a newline above & below)
 
 
-markitup_bold                   = bold
 
-markitup_italic                 = italic
+markitup_bold                     = bold
 
-markitup_stroke                 = stroke
+markitup_italic                   = italic
 
-markitup_ins                    = inserted
+markitup_stroke                   = stroke
 
-markitup_listbullet             = list - unsorted
+markitup_ins                      = inserted
 
-markitup_listnumeric            = list - numeric
+markitup_listbullet               = list - unsorted
 
-markitup_image                  = image
+markitup_listnumeric              = list - numeric
 
-markitup_linkmedia              = file link
+markitup_image                    = image
 
-markitup_linkintern             = internal link
+markitup_linkmedia                = file link
 
-markitup_linkextern             = external link
-markitup_linkextern_placeHolder = linktext here
+markitup_linkintern               = internal link
 
-markitup_linkmailto             = mailto link
-markitup_linkmailto_placeHolder = linktext here
+markitup_linkextern               = external link
+markitup_linkextern_placeHolder   = linktext here
 
-markitup_code                   = code
+markitup_linkmailto               = mailto link
+markitup_linkmailto_placeHolder   = linktext here
 
-markitup_preview                = preview
+markitup_code                     = code
 
-markitup_fullscreen             = fullscreen
+markitup_preview                  = preview
 
-markitup_clean                  = clean markup
+markitup_fullscreen               = fullscreen
+
+markitup_clean                    = clean markup

@@ -400,17 +400,18 @@ jQuery(function($){ ////////////////////////////////////////////////////////////
             return;
           }
 
-          h.sel     = this.selection($(h.textarea));                                                                    // console.log('h:',h); console.log('rex_markitup:',rex_markitup); console.log('sel.text():',h.sel.text());console.log('sel.surround():',h.sel.surround());console.log('sel.surround(2):',h.sel.surround(2));console.log('sel.cursor():',h.sel.cursor());console.log('sel.line():',h.sel.line());
+          h.sel     = this.selection($(h.textarea));                                                                    //console.log('h:',h); console.log('rex_markitup:',rex_markitup); console.log('sel.text():',h.sel.text());console.log('sel.surround():',h.sel.surround());console.log('sel.surround(2):',h.sel.surround(2));console.log('sel.cursor():',h.sel.cursor());console.log('sel.line():',h.sel.line());
           className = h.className.replace('markitup-','');
+          def = rex_markitup.options.buttondefinitions[className]; console.log('def:',def);
 
-          if(typeof h.defaults === 'undefined') {
-            h.defaults = {};
+          if(typeof def.defaults === 'undefined') {
+            def.defaults = {};
           }
-          if(typeof h.defaults.openWith === 'undefined') {
-            h.defaults.openWith = h.openWith;
+          if(typeof def.defaults.openWith === 'undefined') {
+            def.defaults.openWith = def.openWith;
           }
           if(typeof h.defaults.closeWith === 'undefined') {
-            h.defaults.closeWith = h.closeWith;
+            def.defaults.closeWith = def.closeWith;
           }
 
           switch(className)
@@ -420,14 +421,17 @@ jQuery(function($){ ////////////////////////////////////////////////////////////
             case'stroke':
             case'ins':
             case'cite':
-              surround  = h.sel.surround();
+              surround    = h.sel.surround();
+              h.openWith  = def.defaults.openWith;
+              h.closeWith = def.defaults.closeWith;
               if(surround[0].match(/\w/) || surround[1].match(/\w/)) {
-                h.openWith  = '[' + h.defaults.openWith ;
-                h.closeWith =  h.defaults.closeWith + ']';
+                h.openWith  = '[' + def.defaults.openWith;
+                h.closeWith =  def.defaults.closeWith + ']';
               }
             break;
             case'code':
-              h.openWith  = surround[0] !== ' ' ? ' '+h.defaults.openWith  : h.defaults.openWith;
+              h.openWith  = def.defaults.openWith;
+              h.openWith  = surround[0] !== ' ' ? ' '+def.defaults.openWith  : def.defaults.openWith;
             break;
             case'h1':
             case'h2':
@@ -439,14 +443,16 @@ jQuery(function($){ ////////////////////////////////////////////////////////////
             case'blockquote':
             case'bc':
               surround = h.sel.surround(2);                                                                             console.log('surround:',surround);
+              h.openWith  = def.defaults.openWith;
+              h.closeWith = def.defaults.closeWith;
               if(surround[0] == '') {
                 leading = 0;
               }else{
                 leading  = surround[0].match(/(\n)/) ? 2 - surround[0].match(/(\n)/).length : 2;                        console.log('leading:',leading);
               }
               trailing = surround[1].match(/(\n)/) ? 2 - surround[1].match(/(\n)/).length : 2;                          console.log('trailing:',trailing);
-              h.openWith  = this.prependChar('\n', leading,  h.defaults.openWith);
-              h.closeWith = this.appendChar('\n', trailing, h.defaults.closeWith);
+              h.openWith  = this.prependChar('\n', leading,  def.defaults.openWith);
+              h.closeWith = this.appendChar('\n', trailing,  def.defaults.closeWith);
             break;
           }                                                                                                             console.log('openWith:',h.openWith);console.log('closeWith:',h.closeWith);console.groupEnd();
         },

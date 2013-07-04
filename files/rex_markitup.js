@@ -7,49 +7,49 @@
  * @package redaxo 4.4.x/4.5.x
  */
 
+var insertFileLink = function(file){
+  $.markItUp({
+    openWith:'"',
+    closeWith:'":'+file,
+    placeHolder:file
+  });
+};
 
-jQuery(function($){ ////////////////////////////////////////////////////////////
+var insertLink = function(url,desc){
+  $.markItUp({
+    openWith:'"',
+    closeWith:'":'+url,
+    placeHolder:desc
+  });
+};
 
-  var insertFileLink = function(file){
-    $.markItUp({
-      openWith:'"',
-      closeWith:'":'+file,
-      placeHolder:file
+var insertImage = function(src, desc){
+  // $.markItUp({replaceWith:"!./"+ src +"!"});
+  img = src.replace(/files\//, "");
+  $.markItUp({
+    replaceWith:"!index.php?rex_resize=[![Image Width]!]w__"+ img +"!"
     });
-  };
+};
 
-  var insertLink = function(url,desc){
-    $.markItUp({
-      openWith:'"',
-      closeWith:'":'+url,
-      placeHolder:desc
-    });
-  };
-
-  var insertImage = function(src, desc){
-    // $.markItUp({replaceWith:"!./"+ src +"!"});
-    img = src.replace(/files\//, "");
-    $.markItUp({
-      replaceWith:"!index.php?rex_resize=[![Image Width]!]w__"+ img +"!"
-      });
-  };
-
-  var markitup_getURLParam = function(strParamName){
-    var strReturn = "";
-    var strHref = window.location.href;
-    if ( strHref.indexOf("?") > -1 ){
-      var strQueryString = strHref.substr(strHref.indexOf("?")).toLowerCase();
-      var aQueryString = strQueryString.split("&");
-      for ( var iParam = 0; iParam < aQueryString.length; iParam++ ){
-        if( aQueryString[iParam].indexOf(strParamName.toLowerCase() + "=") > -1 ){
-          var aParam = aQueryString[iParam].split("=");
-          strReturn = aParam[1];
-          break;
-        }
+var markitup_getURLParam = function(strParamName){
+  var strReturn = "";
+  var strHref = window.location.href;
+  if ( strHref.indexOf("?") > -1 ){
+    var strQueryString = strHref.substr(strHref.indexOf("?")).toLowerCase();
+    var aQueryString = strQueryString.split("&");
+    for ( var iParam = 0; iParam < aQueryString.length; iParam++ ){
+      if( aQueryString[iParam].indexOf(strParamName.toLowerCase() + "=") > -1 ){
+        var aParam = aQueryString[iParam].split("=");
+        strReturn = aParam[1];
+        break;
       }
     }
-    return unescape(strReturn);
-  };
+  }
+  return unescape(strReturn);
+};
+
+
+jQuery(function($){ ////////////////////////////////////////////////////////////
 
   $(document).on('dblclick','.markItUpFooter', function(e){
     $(e.target).next('.markItUpPreviewFrame').remove();

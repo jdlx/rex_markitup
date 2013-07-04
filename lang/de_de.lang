@@ -1,31 +1,31 @@
 # rex_markitup - de_de
 
 markitup_h1                     = Überschrift 1
-markitup_h1_placeholder         = Überschrift 1. Ordnung ..
+markitup_h1_placeholder         = Dies ist eine Überschrift 1. Ordnung (benötigt wie jedes "Blocklevel" Element je eine Leerzeile ober & unterhalb)
 
 markitup_h2                     = Überschrift 2
-markitup_h2_placeholder         = Überschrift 2. Ordnung ..
+markitup_h2_placeholder         = Dies ist eine Überschrift 2. Ordnung (benötigt wie jedes "Blocklevel" Element je eine Leerzeile ober & unterhalb)
 
 markitup_h3                     = Überschrift 3
-markitup_h3_placeholder         = Überschrift 3. Ordnung ..
+markitup_h3_placeholder         = Dies ist eine Überschrift 3. Ordnung (benötigt wie jedes "Blocklevel" Element je eine Leerzeile ober & unterhalb)
 
 markitup_h4                     = Überschrift 4
-markitup_h4_placeholder         = Überschrift 4. Ordnung ..
+markitup_h4_placeholder         = Dies ist eine Überschrift 4. Ordnung (benötigt wie jedes "Blocklevel" Element je eine Leerzeile ober & unterhalb)
 
 markitup_h5                     = Überschrift 5
-markitup_h5_placeholder         = Überschrift 5. Ordnung hier..
+markitup_h5_placeholder         = Dies ist eine Überschrift 5. Ordnung (benötigt wie jedes "Blocklevel" Element je eine Leerzeile ober & unterhalb)
 
 markitup_h6                     = Überschrift 6
-markitup_h6_placeholder         = Überschrift 6. Ordnung ..
+markitup_h6_placeholder         = Dies ist eine Überschrift 6. Ordnung (benötigt wie jedes "Blocklevel" Element je eine Leerzeile ober & unterhalb)
 
 markitup_p                      = Absatz
-markitup_p_placeholder          = Lore ipsum..
+markitup_p_placeholder          = Dies ist eine Absatz (benötigt wie jedes "Blocklevel" Element je eine Leerzeile ober & unterhalb)
 
 markitup_blockquote             = Zitat (ganzer Absatz)
-markitup_blockquote_placeholder = Zitierter Absatz...
+markitup_blockquote_placeholder = Dies ist eine zitierter Absatz (benötigt wie jedes "Blocklevel" Element je eine Leerzeile ober & unterhalb)
 
 markitup_bc                     = Code-Block
-markitup_bc_placeholder         = $foo = bar; ...
+markitup_bc_placeholder         = $foo = bar; // Dies ist eine Code-Block (benötigt wie jedes "Blocklevel" Element je eine Leerzeile ober & unterhalb)
 
 
 markitup_bold                   = Fett

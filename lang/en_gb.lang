@@ -1,31 +1,31 @@
 # rex_markitup - de_de
 
 markitup_h1                     = headline 1
-markitup_h1_placeHolder         = headline 1st order ..
+markitup_h1_placeHolder         = headline 1st order (requires, as any blockelement, a newline above & below)
 
 markitup_h2                     = headline 2
-markitup_h2_placeHolder         = headline 2nd order ..
+markitup_h2_placeHolder         = headline 2nd order (requires, as any blockelement, a newline above & below)
 
 markitup_h3                     = headline 3
-markitup_h3_placeHolder         = headline 3rd order ..
+markitup_h3_placeHolder         = headline 3rd order (requires, as any blockelement, a newline above & below)
 
 markitup_h4                     = headline 4
-markitup_h4_placeHolder         = headline 4th order ..
+markitup_h4_placeHolder         = headline 4th order (requires, as any blockelement, a newline above & below)
 
 markitup_h5                     = headline 5
-markitup_h5_placeHolder         = headline 5th order ..
+markitup_h5_placeHolder         = headline 5th order (requires, as any blockelement, a newline above & below)
 
 markitup_h6                     = headline 6
-markitup_h6_placeHolder         = headline 6th order ..
+markitup_h6_placeHolder         = headline 6th order (requires, as any blockelement, a newline above & below)
 
 markitup_p                      = paragraph
-markitup_p_placeholder          = Lore ipsum..
+markitup_p_placeholder          = paragrah text.. (requires, as any blockelement, a newline above & below)
 
 markitup_blockquote             = blockquote
-markitup_blockquote_placeholder = blockquoted paragraph...
+markitup_blockquote_placeholder = blockquoted paragraph..  (requires, as any blockelement, a newline above & below)
 
 markitup_bc                     = code-block
-markitup_bc_placeholder         = $foo = bar; ...
+markitup_bc_placeholder         = $foo = bar; // requires, as any blockelement, a newline above & below
 
 
 markitup_bold                   = bold

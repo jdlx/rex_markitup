@@ -100,7 +100,7 @@ if( $data !== false || $api === 'rex_markitup_api')
       break;
 
     default:
-      rex_markitup_ajax_reply(array('error'=>'unknown value for "func" param'));
+      rex_markitup_ajax_reply(array('error'=>'unknown value for "func" param','html'=>'unknown value for "func" param'));
 
   }
 }

@@ -293,8 +293,8 @@ var rex_markitup_getURLParam = function(strParamName){
                                                   }
                                                 },
                                 'fullscreen':   {
-                                                  beforeInsert: function(markItUp) {
-                                                    p = $(markItUp.textarea).parents("div.markItUpContainer");
+                                                  beforeInsert: function(h) {
+                                                    p = $(h.textarea).parents("div.markItUpContainer");
                                                     if(p.hasClass("fullscreen")){
                                                       p.removeClass("fullscreen");
                                                     }else{

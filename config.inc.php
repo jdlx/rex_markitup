@@ -177,6 +177,17 @@ function rex_markitup_previewlinks($content)
   return $content;
 }
 
+function rex_markitup_imm_imgtypes()
+{
+  global $REX;
+  $REX['ADDON']['image_manager']['types'] = array();
+  $db = rex_sql::factory();
+  foreach($db->getArray('SELECT `name` FROM '.$REX['TABLE_PREFIX'].'679_types ORDER BY `name` ASC') as $type) {
+    $REX['ADDON']['image_manager']['types'][] = $type['name'];
+  }
+}
+
+
 
 
 // BACKEND ONLY
@@ -208,7 +219,7 @@ $REX['ADDON']['BE_STYLE_PAGE_CONTENT'][$mypage] = '
 $REX["rex_markitup"]["settings"] = array (
   'buttoncss' => '',
   'buttondefinitions' => '',
-  'buttonsets' => 'standard: 
+  'buttonsets' => 'standard:
 \'h1,h2,h3,h4,|,bold,italic,stroke,|,listbullet,listnumeric,|,image,linkmedia,|,linkintern,linkextern,linkmailto,fullscreen\',
 
 full:
@@ -226,6 +237,10 @@ rex_register_extension('OUTPUT_FILTER',
       return;
     }
 
+    if(!isset($REX['ADDON']['image_manager']['types'])) {
+      rex_markitup_imm_imgtypes();
+    }
+
     // EP
     ////////////////////////////////////////////////////////////////////////////
     $ep = rex_register_extension_point('REX_MARKITUP_BUTTONS',
@@ -233,11 +248,14 @@ rex_register_extension('OUTPUT_FILTER',
                                               'buttondefinitions' => stripslashes($REX["rex_markitup"]["settings"]["buttondefinitions"]),
                                               'buttonsets'        => stripslashes($REX["rex_markitup"]["settings"]["buttonsets"]),
                                               'buttoncss'         => stripslashes($REX["rex_markitup"]["settings"]["buttoncss"]),
+                                              'immtypes'          =>              $REX['ADDON']['image_manager']['types'],
                                              )
                                       );
     $buttondefinitions = $ep['buttondefinitions'];
     $buttonsets        = $ep['buttonsets'];
     $buttoncss         = $ep['buttoncss'];
+    $immtypes          = $ep['immtypes'];
+
 
 
     // CSS @ HEAD
@@ -262,7 +280,9 @@ rex_register_extension('OUTPUT_FILTER',
   <script type="text/javascript">
     if(typeof rex_markitup === "undefined") { var rex_markitup = {}; }
     rex_markitup.buttondefinitions = {'.PHP_EOL.$buttondefinitions.PHP_EOL.'} // buttondefinitions
-    rex_markitup.buttonsets = {'.PHP_EOL.$buttonsets.PHP_EOL.'} // buttonsets
+    rex_markitup.buttonsets        = {'.PHP_EOL.$buttonsets.PHP_EOL.'} // buttonsets
+    rex_markitup.immtypes          = ["'.implode('","',$immtypes).'"] // immtypes
+    rex_markitup.chosen_imm_type   = "" // last chosen imm type
   </script>
   <script src="../files/addons/be_style/plugins/rex_markitup/rex_markitup.js"></script>
   <script type="text/javascript">

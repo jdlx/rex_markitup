@@ -236,7 +236,7 @@ var rex_markitup_getURLParam = function(strParamName){
                                                 },
                                 'linkmailto':   {
                                                   openWith:'"',
-                                                  closeWith:'":[![E-Mail-Link eingeben:!:mailto:]!]',
+                                                  closeWith:'":mailto:[![Email Address:]!]',
                                                   key:'M'
                                                 },
                                 'preview':      {

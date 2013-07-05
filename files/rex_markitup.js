@@ -39,14 +39,22 @@ var insertLink = function(url,desc){
   });
 };
 
-var insertImage = function(src, desc){
-  // jQuery.markItUp({replaceWith:"!./"+ src +"!"});
-  img = src.replace(/files\//, "");
+
+var insertImage = function(src, desc) { console.log('rex_markitup.i18n.markitup_prompt_align_markup:',rex_markitup.i18n.markitup_prompt_align_markup);
+
+  switch(rex_markitup.caller) {
+    case'immimagemenu':
+      replaceWith = '![![' + rex_markitup.i18n.markitup_prompt_align_markup.replace(/\<br\>/g,"\n") + ']!]index.php?rex_img_type=' + rex_markitup.chosen_imm_type + '&rex_img_file=' + src.replace(/files\//, '') +'!';
+      break;
+    default:
+      replaceWith = '!index.php?rex_resize=[![Image Width]!]w__' + src.replace(/files\//, '') + '!';
+  }
+
   jQuery.markItUp({
-    replaceWith:"!index.php?rex_resize=[![Image Width]!]w__"+ img +"!",
+    replaceWith: replaceWith,
     src: src,
     desc: desc,
-    className:'popup-image'
+    className:   'popup-immimage'
     });
 };
 
@@ -213,6 +221,7 @@ var rex_markitup_getURLParam = function(strParamName){
                                                   openWith:'',
                                                   closeWith:'',
                                                   beforeInsert:function(h) {
+                                                    rex_markitup.caller = 'image';
                                                     openMediaPool('TINYIMG');
                                                   },
                                                   key:'P'
@@ -301,6 +310,10 @@ var rex_markitup_getURLParam = function(strParamName){
                                 'linkmenu':     {
                                                   dropMenuButtons: ['linkintern','linkextern','linkmailto'],
                                                   dropMenu: []
+                                                },
+                                'immimagemenu': {
+                                                  dropMenuButtons: [],
+                                                  dropMenu: []
                                                 }
 
             }, // buttondefinitions
@@ -379,13 +392,30 @@ var rex_markitup_getURLParam = function(strParamName){
                   def.closeWith = '';
                 }
                 def.className = 'markitup-'+key;
-                if(typeof def.dropMenu !== 'undefined' && typeof def.dropMenuButtons !== 'undefined') {                 // console.log(def.dropMenu);
+                if(typeof def.dropMenu !== 'undefined' && typeof def.dropMenuButtons !== 'undefined') {                 console.log(def.dropMenu);
+                  if(key === 'immimagemenu') {
+                    for(var i = 0; i < rex_markitup.immtypes.length; i++) {
+                      subdef = {
+                        name: rex_markitup.immtypes[i],
+                        openWith: '',
+                        closeWith: '',
+                        beforeInsert: function(h) {
+                          rex_markitup.caller = key;
+                          rex_markitup.chosen_imm_type = h.name;
+                          openMediaPool('TINYIMG');
+                        }
+                      };                                                        console.log('subdef:',subdef);
+                      def.dropMenu.push(subdef);
+                    }
+
+                  }else{
                   for(var i = 0; i < def.dropMenuButtons.length; i++) {
-                    subdef = buttonPrepare(def.dropMenuButtons[i]);                                                     //console.log('subdef:',subdef);
+                      subdef = buttonPrepare(def.dropMenuButtons[i]);                                                   console.log('subdef:',subdef);
                     def.dropMenu.push(subdef);
                   }
                 }
-              }                                                                                                         //console.groupEnd();
+                }
+              }                                                                                                         console.groupEnd();
               return def;
             },this);
 
@@ -532,6 +562,7 @@ var rex_markitup_getURLParam = function(strParamName){
             case'popup-linkintern':
             case'popup-linkmedia':
             case'popup-image':
+            case'popup-immimage':
               surround    = h.sel.surround();
               if(surround[0].match(/\w/) || surround[1].match(/\w/)) {
                 h.openWith  = '[' + h.openWith;

@@ -140,6 +140,12 @@
 }
 
 
+.markItUpButton.markitup-immimagemenu {
+    background: none !important;
+}
+.markItUpButton.markitup-immimagemenu a {
+    background-position: -3px -960px;
+}
 
 /* FULLSCREEN */
 li.markItUpButton.markitup-fullscreen {

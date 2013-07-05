@@ -73,4 +73,8 @@ markitup_fullscreen               = fullscreen
 
 markitup_clean                    = clean markup
 
-markitup_prompt_align_markup      = type "<" to align left,\ntype ">" to align right,\n\nleave empty for no align..
+markitup_prompt_align_markup      = Alignment (optional):<br><br>"<" for left-aligned,<br>">" for right-aligned..
+
+markitup_prompt_linkextern        = enter URL:
+
+markitup_prompt_linkmailto        = enter email address:

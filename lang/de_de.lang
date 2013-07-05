@@ -73,3 +73,7 @@ markitup_fullscreen               = Fullscreen
 markitup_clean                    = Markup säubern
 
 markitup_prompt_align_markup      = Ausrichtung (optional):<br><br>"<" für linksbündig,<br>">" für rechtsbündig..
+
+markitup_prompt_linkextern        = URL eingeben:
+
+markitup_prompt_linkmailto        = Email Adresse eingeben:

@@ -79,6 +79,16 @@ var rex_markitup_getURLParam = function(strParamName){
 
 ;(function ( $, window, document, undefined ) {
 
+    $.ajax({
+      type:     'POST',
+      url:      'index.php',
+      async:    false,
+      dataType: 'json',
+      data:     {'rex_markitup_api': JSON.stringify({func:'get_i18n'})},
+      success:  $.proxy(function(data) { rex_markitup.i18n = data; /*console.log('data:',data);*/ },this),
+      error:    function(e){ console.warn('error:',e); }
+    });
+
     var pluginName = "rexMarkItUp",
         defaults = {
             namespace: 'textile',
@@ -240,12 +250,12 @@ var rex_markitup_getURLParam = function(strParamName){
                                                 },
                                 'linkextern':   {
                                                   openWith:'"',
-                                                  closeWith:'":[![Link eingeben:!:http://]!]',
+                                                  closeWith:'":[![' + rex_markitup.i18n.markitup_prompt_linkextern + ':!:http://]!]',
                                                   key:'E'
                                                 },
                                 'linkmailto':   {
                                                   openWith:'"',
-                                                  closeWith:'":mailto:[![Email Address:]!]',
+                                                  closeWith:'":mailto:[![' + rex_markitup.i18n.markitup_prompt_linkmailto + ']!]',
                                                   key:'M'
                                                 },
                                 'preview':      {

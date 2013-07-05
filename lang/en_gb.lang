@@ -72,3 +72,5 @@ markitup_preview                  = preview
 markitup_fullscreen               = fullscreen
 
 markitup_clean                    = clean markup
+
+markitup_prompt_align_markup      = type "<" to align left,\ntype ">" to align right,\n\nleave empty for no align..

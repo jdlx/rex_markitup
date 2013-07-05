@@ -455,12 +455,17 @@ var rex_markitup_getURLParam = function(strParamName){
             dataType:'json',
             data: {'rex_markitup_api': JSON.stringify({func:className})},
             success: $.proxy(function(data) {
-              footer = $(this.element).next('.markItUpFooter'); console.log();
-              if($('.markItUpPreviewFrame').length === 0) {
+              footer = $(this.element).next('.markItUpFooter');
+              iframe = $('iframe.markItUpPreviewFrame');
+              div    = $('div.markItUpPreviewFrame');
+              if(iframe.length !== 0) {
+                iframe.remove();
+              }
+              if(div.length === 0) {
                 preview = $('<div class="markItUpPreviewFrame">' + data.html + '</div>');
                 preview.insertAfter(footer);
               }else{
-                $('.markItUpPreviewFrame').html(data.html);
+                div.html(data.html);
               }
 
             },this),

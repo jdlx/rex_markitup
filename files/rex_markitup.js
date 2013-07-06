@@ -96,45 +96,45 @@ var rex_markitup_getURLParam = function(strParamName){
                                 // BLOCK MODIFIER
                                 ////////////////////////////////////////////////
                                 'h1':           {
-                                                  openWith:'h1(!(([![Class]!]))!). ',
+                                                  openWith:'h1. ',
                                                   closeWith:'',
                                                   key:'1'
                                                 },
                                 'h2':           {
-                                                  openWith:'h2(!(([![Class]!]))!). ',
+                                                  openWith:'h2. ',
                                                   closeWith:'',
                                                   key:'2'
                                                 },
                                 'h3':           {
-                                                  openWith:'h3(!(([![Class]!]))!). ',
+                                                  openWith:'h3. ',
                                                   closeWith:'',
                                                   key:'3'
                                                 },
                                 'h4':           {
-                                                  openWith:'h4(!(([![Class]!]))!). ',
+                                                  openWith:'h4. ',
                                                   closeWith:'',
                                                   key:'4'
                                                 },
                                 'h5':           {
-                                                  openWith:'h5(!(([![Class]!]))!). ',
+                                                  openWith:'h5. ',
                                                   closeWith:'',
                                                   key:'5'
                                                 },
                                 'h6':           {
-                                                  openWith:'h6(!(([![Class]!]))!). ',
+                                                  openWith:'h6. ',
                                                   closeWith:'',
                                                   key:'6'
                                                 },
                                 'p':            {
-                                                  openWith:'p(!(([![Class]!]))!). ',
+                                                  openWith:'p. ',
                                                   closeWith:''
                                                 },
                                 'blockquote':   {
-                                                  openWith:'bq(!(([![Class]!]))!). ',
+                                                  openWith:'bq. ',
                                                   closeWith:''
                                                 },
                                 'bc':           {
-                                                  openWith:'bc(!(([![Class]!]))!). ',
+                                                  openWith:'bc. ',
                                                   closeWith:''
                                                 },
 
@@ -171,16 +171,16 @@ var rex_markitup_getURLParam = function(strParamName){
                                 // ALIGN
                                 ////////////////////////////////////////////////
                                 'aligncenter':  {
-                                                  openWith:'p(!(([![Class]!])!)=. '
+                                                  openWith:'p=. '
                                                 },
                                 'alignjustify': {
-                                                  openWith:'p(!(([![Class]!])!)<>. '
+                                                  openWith:'p<>. '
                                                 },
                                 'alignleft':    {
-                                                  openWith:'p(!(([![Class]!])!)<. '
+                                                  openWith:'p<. '
                                                 },
                                 'alignright':   {
-                                                  openWith:'p(!(([![Class]!])!)>. '
+                                                  openWith:'p>. '
                                                 },
 
                                 // LISTS

@@ -53,7 +53,7 @@ markitup_listbullet               = list - unsorted
 markitup_listbullet_placeholder   = * this is a list item of an unordered list..\n* each list item requires a line,\n* the list itself requires, as any blockelement, a newline above & below..
 
 markitup_listnumeric              = list - numeric
-markitup_listbullet_placeholder   = * this is a list item of an ordere list..\n* each list item requires line,\n* the list itself requires, as any blockelement, a newline above & below..
+markitup_listnumeric_placeholder  = * this is a list item of an ordere list..\n* each list item requires line,\n* the list itself requires, as any blockelement, a newline above & below..
 
 markitup_image                    = image
 

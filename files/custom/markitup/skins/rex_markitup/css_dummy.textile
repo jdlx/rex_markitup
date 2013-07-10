@@ -1,95 +1,3 @@
-
- <style>
- #rex_markitup_preview {
-  background:linear-gradient(to right, #DDDDDD 0%, #EEEEEE 14%, #EFEFEF 51%, #E0E0E0 88%, #DADADA 100%) repeat scroll 0 0 transparent;
-  font-size:120%;
-  padding:10px;
-  }
- #rex_markitup_preview h1 {
-  font-size:1.4em;
-  margin:1em 0 0.2em 0;
-  padding-bottom:0.2em;
-  color:#5F5F5F;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-  }
-  #rex_markitup_preview h1.rex-title {
-    color:#4F97D9;
-    margin:1em 0 0.7em 0;
-  }
-  #rex_markitup_preview h1.rex-title:first-child {
-    margin:1.3em 0 0.7em 0;
-  }
-  #rex_markitup_preview h2 {
-    font-size:1.25em;
-    margin:0.7em 0 0.5em 0;
-    color:#4E4E4E;
-  }
-  #rex_markitup_preview h3 {
-      color: #393939;
-      font-size: 1.1em;
-      margin: 1em 0 0.4em;
-  }
-  #rex_markitup_preview h4 {
-    font-size:1em;
-    margin:0.7em 0 0.3em 0;
-    color:#393939;
-  }
-  #rex_markitup_preview h5 {
-    font-size:0.8em;
-    margin:0.6em 0 0.3em 0;
-    color:#393939;
-  }
-  #rex_markitup_preview h6 {
-    font-size:0.7em;
-    margin:0.6em 0 0.3em 0;
-    color:#393939;
-  }
-  #rex_markitup_preview li,
-  #rex_markitup_preview p {
-    font-size:0.8em;
-    line-height:1.2em;
-    margin:0.2em 0;
-  }
-  #rex_markitup_preview ul,
-  #rex_markitup_preview ol {
-  }
-  #rex_markitup_preview ul,
-  #rex_markitup_preview ol,
-  #rex_markitup_preview li {
-    margin:0.2em 0.8em !important;
-  }
-  #rex_markitup_preview hr {
-    border:0;
-    height:0;
-    border-top: 1px solid #cbcbcb;
-  }
-  #rex_markitup_preview code {
-    font-size: 1.2em;
-    color:black;
-    background-color: #F8F8F8;
-    border: 1px solid #EAEAEA;
-    border-radius: 3px;
-    margin: 0 2px;
-    padding: 0 5px;
-    display:inline-block;
-  }
-  #rex_markitup_preview pre code {
-    background: #eff9f9;
-    color:#DD1144;
-    font-size: 1em;
-    padding:6px;
-    margin:6px 0 6px 0;
-    border-radius: 4px;
-  }
-  #rex_markitup_preview a:hover {
-    text-decoration: underline;
-  }
- </style>
-
-
- <div id="rex_markitup_preview">
-<!-- Block Modifiers -->
-
 h1(rex-title). headline h1(rex-title)
 
 h1. headline h1
@@ -121,7 +29,7 @@ interner Redaxo link: "blah":redaxo://8
 Redaxo: "http://www.redaxo.de/180-0-addon-details.html?addon_id=720":http://www.redaxo.de/180-0-addon-details.html?addon_id=720
 SVN Versionen: "http://svn.rexdev.de/redmine/projects/addon-template/activity":http://svn.rexdev.de/redmine/projects/addon-template/activity
 
-<!-- Lists -->
+ <!-- Lists -->
 
 # Item one
 # Item two
@@ -137,7 +45,4 @@ SVN Versionen: "http://svn.rexdev.de/redmine/projects/addon-template/activity":h
 ** Item three two
 ** Item three three
 
-<!-- property blocks: -->
-
- </div>
-
+ <!-- property blocks: -->

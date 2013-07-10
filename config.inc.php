@@ -182,8 +182,8 @@ function rex_markitup_imm_imgtypes()
   global $REX;
   $REX['ADDON']['image_manager']['types'] = array();
   $db = rex_sql::factory();
-  foreach($db->getArray('SELECT `name` FROM '.$REX['TABLE_PREFIX'].'679_types ORDER BY `name` ASC') as $type) {
-    $REX['ADDON']['image_manager']['types'][] = $type['name'];
+  foreach($db->getArray('SELECT * FROM '.$REX['TABLE_PREFIX'].'679_types ORDER BY `name` ASC') as $type) {
+    $REX['ADDON']['image_manager']['types'][$type['name']] = $type['description'];
   }
 }
 
@@ -281,7 +281,7 @@ rex_register_extension('OUTPUT_FILTER',
     if(typeof rex_markitup === "undefined") { var rex_markitup = {}; }
     rex_markitup.buttondefinitions = {'.PHP_EOL.$buttondefinitions.PHP_EOL.'} // buttondefinitions
     rex_markitup.buttonsets        = {'.PHP_EOL.$buttonsets.PHP_EOL.'} // buttonsets
-    rex_markitup.immtypes          = ["'.implode('","',$immtypes).'"] // immtypes
+    rex_markitup.immtypes          = '.json_encode($immtypes).' // immtypes
     rex_markitup.chosen_imm_type   = "" // last chosen imm type
   </script>
   <script src="../files/addons/be_style/plugins/rex_markitup/rex_markitup.js"></script>

@@ -18,7 +18,7 @@ jQuery(function($){ ////////////////////////////////////////////////////////////
 }); // jQuery(function($){ /////////////////////////////////////////////////////
 
 
- var insertFileLink = function(file){
+ var insertFileLink = function(file) {
    jQuery.markItUp({
      openWith:'"',
      closeWith:'":'+file,
@@ -28,7 +28,7 @@ jQuery(function($){ ////////////////////////////////////////////////////////////
    });
  };
 
-var insertLink = function(url,desc){
+var insertLink = function(url,desc) {
   jQuery.markItUp({
     openWith:'"',
     closeWith:'":'+url,
@@ -141,30 +141,30 @@ var rex_markitup_getURLParam = function(strParamName) {
                                 // PHRASE MODIFIER
                                 ////////////////////////////////////////////////
                                 'bold':         {
-                                                  openWith:'*',
+                                                  openWith:'*(!(([![Class]!]))!)',
                                                   closeWith:'*',
                                                   key:'B'
                                                 },
                                 'italic':       {
-                                                  openWith:'_',
+                                                  openWith:'_(!(([![Class]!]))!)',
                                                   closeWith:'_',
                                                   key:'I'
                                                 },
                                 'stroke':       {
-                                                  openWith:'-',
+                                                  openWith:'-(!(([![Class]!]))!)',
                                                   closeWith:'-',
                                                   key:'S'
                                                 },
                                 'ins':          {
-                                                  openWith:'+',
+                                                  openWith:'+(!(([![Class]!]))!)',
                                                   closeWith:'+'
                                                 },
                                 'cite':         {
-                                                  openWith:'??',
+                                                  openWith:'??(!(([![Class]!]))!)',
                                                   closeWith:'??'
                                                 },
                                 'code':         {
-                                                  openWith:'@',
+                                                  openWith:'@(!(([![Class]!]))!)',
                                                   closeWith:'@'
                                                 },
 
@@ -191,6 +191,9 @@ var rex_markitup_getURLParam = function(strParamName) {
                                 'listnumeric':  {
                                                   openWith:'# '
                                                 },
+
+                                // MEDIA
+                                ////////////////////////////////////////////////
                                 'image':        {
                                                   openWith:'',
                                                   closeWith:'',
@@ -202,26 +205,34 @@ var rex_markitup_getURLParam = function(strParamName) {
                                                 },
                                 'linkmedia':    {
                                                   beforeInsert:function(h) {
+                                                    rex_markitup.caller = 'linkmedia';
                                                     openMediaPool('TINY');
                                                   },
                                                   key:'M'
                                                 },
+
+                                // LINKS
+                                ////////////////////////////////////////////////
                                 'linkintern':   {
-                                                  beforeInsert:function() {
+                                                  beforeInsert:function(h) {
+                                                    rex_markitup.caller = 'linkintern';
                                                     openLinkMap('TINY','&clang='+rex_markitup_getURLParam('clang'));
                                                   },
                                                   key:'L'
                                                 },
                                 'linkextern':   {
-                                                  openWith:'"',
+                                                  openWith:'"(!(([![Class]!]))!)',
                                                   closeWith:'":[![' + rex_markitup.i18n.markitup_prompt_linkextern + ':!:http://]!]',
                                                   key:'E'
                                                 },
                                 'linkmailto':   {
-                                                  openWith:'"',
+                                                  openWith:'"(!(([![Class]!]))!)',
                                                   closeWith:'":mailto:[![' + rex_markitup.i18n.markitup_prompt_linkmailto + ']!]',
                                                   key:'M'
                                                 },
+
+                                // OTHERS
+                                ////////////////////////////////////////////////
                                 'preview':      {
                                                   call:'preview'
                                                 },
@@ -559,10 +570,10 @@ var rex_markitup_getURLParam = function(strParamName) {
                   case false:
                     if(h.sel.line(-1).charAt(0) === markup) {
                       h.openWith = '';
-                    };
+                    }
                     if(h.sel.line(1).charAt(0) === markup) {
                       h.closeWith = '';
-                    };
+                    }
                     prepend = h.selection.charAt(0) === markup ? markup : markup + ' ';
                     h.replaceWith = prepend + h.selection;
                     break;

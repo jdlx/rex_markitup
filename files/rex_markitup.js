@@ -171,16 +171,16 @@ var rex_markitup_getURLParam = function(strParamName) {
                                 // ALIGN
                                 ////////////////////////////////////////////////
                                 'aligncenter':  {
-                                                  openWith:'p(!(([![Class]!])!)=. '
+                                                  openWith:'p(!(([![Class]!]))!)=. '
                                                 },
                                 'alignjustify': {
-                                                  openWith:'p(!(([![Class]!])!)<>. '
+                                                  openWith:'p(!(([![Class]!]))!)<>. '
                                                 },
                                 'alignleft':    {
-                                                  openWith:'p(!(([![Class]!])!)<. '
+                                                  openWith:'p(!(([![Class]!]))!)<. '
                                                 },
                                 'alignright':   {
-                                                  openWith:'p(!(([![Class]!])!)>. '
+                                                  openWith:'p(!(([![Class]!]))!)>. '
                                                 },
 
                                 // LISTS

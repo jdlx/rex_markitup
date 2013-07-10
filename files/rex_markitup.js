@@ -40,7 +40,7 @@ var insertLink = function(url,desc){
 };
 
 
-var insertImage = function(src, desc) { console.log('rex_markitup.i18n.markitup_prompt_align_markup:',rex_markitup.i18n.markitup_prompt_align_markup);
+var insertImage = function(src, desc) {
 
   switch(rex_markitup.caller) {
     case'immimagemenu':
@@ -52,13 +52,13 @@ var insertImage = function(src, desc) { console.log('rex_markitup.i18n.markitup_
 
   jQuery.markItUp({
     replaceWith: replaceWith,
-    src: src,
-    desc: desc,
+    src:         src,
+    desc:        desc,
     className:   'popup-immimage'
-    });
+  });
 };
 
-var rex_markitup_getURLParam = function(strParamName){
+var rex_markitup_getURLParam = function(strParamName) {
   var strReturn = "";
   var strHref = window.location.href;
   if ( strHref.indexOf("?") > -1 ){
@@ -186,46 +186,10 @@ var rex_markitup_getURLParam = function(strParamName){
                                 // LISTS
                                 ////////////////////////////////////////////////
                                 'listbullet':   {
-                                                  replaceWith: function(h) {
-                                                    var selection = h.selection;
-                                                    var lines = selection.split(/\r?\n/);
-                                                    var r = "";
-                                                    var start = "* ";
-                                                    for (var i=0; i < lines.length; i++) {
-                                                      line = lines[i];
-                                                      if (line.substr(0,1) == "*" || line.substr(0,1) == "#") {
-                                                        start = "*";
-                                                        if (i != lines.length - 1) {
-                                                          line = line + "\n";
-                                                        }
-                                                      } else {
-                                                        line = line + "\n";
-                                                      }
-                                                      r = r + start + line;
-                                                    }
-                                                    return r;
-                                                  }
+                                                  openWith:'* '
                                                 },
                                 'listnumeric':  {
-                                                  replaceWith: function(h) {
-                                                    var selection = h.selection;
-                                                    var lines = selection.split(/\r?\n/);
-                                                    var r = "";
-                                                    var start = "# ";
-                                                    for (var i=0; i < lines.length; i++) {
-                                                      line = lines[i];
-                                                      if (line.substr(0,1) == "*" || line.substr(0,1) == "#") {
-                                                        start = "*";
-                                                        if (i != lines.length - 1) {
-                                                          line = line + "\n";
-                                                        }
-                                                      } else {
-                                                        line = line + "\n";
-                                                      }
-                                                      r = r + start + line;
-                                                    }
-                                                    return r;
-                                                  }
+                                                  openWith:'# '
                                                 },
                                 'image':        {
                                                   openWith:'',
@@ -393,7 +357,7 @@ var rex_markitup_getURLParam = function(strParamName){
                   def.name = rex_markitup.i18n['markitup_'+key];
                 }
                 if(typeof def.placeHolder === 'undefined' && typeof rex_markitup.i18n['markitup_'+key+'_placeholder'] != 'undefined'){
-                  def.placeHolder = rex_markitup.i18n['markitup_'+key+'_placeholder'];
+                  def.placeHolder = rex_markitup.i18n['markitup_'+key+'_placeholder'].replace(/\\n/g,'\n');
                 }
                 if(typeof def.openWith === 'undefined'){
                   def.openWith = '';
@@ -402,11 +366,14 @@ var rex_markitup_getURLParam = function(strParamName){
                   def.closeWith = '';
                 }
                 def.className = 'markitup-'+key;
-                if(typeof def.dropMenu !== 'undefined' && typeof def.dropMenuButtons !== 'undefined') {                 console.log(def.dropMenu);
+
+                if(typeof def.dropMenu !== 'undefined' && typeof def.dropMenuButtons !== 'undefined') {                 //console.log(def.dropMenu);
+
                   if(key === 'immimagemenu') {
-                    for(var i = 0; i < rex_markitup.immtypes.length; i++) {
+                    $.each(rex_markitup.immtypes, function(name,desc) {
                       subdef = {
-                        name: rex_markitup.immtypes[i],
+                        name: name,
+                        desc: desc,
                         openWith: '',
                         closeWith: '',
                         beforeInsert: function(h) {
@@ -414,18 +381,18 @@ var rex_markitup_getURLParam = function(strParamName){
                           rex_markitup.chosen_imm_type = h.name;
                           openMediaPool('TINYIMG');
                         }
-                      };                                                        console.log('subdef:',subdef);
+                      };                                                                                                //console.log('subdef:',subdef);
                       def.dropMenu.push(subdef);
-                    }
+                    });
 
                   }else{
-                  for(var i = 0; i < def.dropMenuButtons.length; i++) {
-                      subdef = buttonPrepare(def.dropMenuButtons[i]);                                                   console.log('subdef:',subdef);
-                    def.dropMenu.push(subdef);
+                    for(var i = 0; i < def.dropMenuButtons.length; i++) {
+                      subdef = buttonPrepare(def.dropMenuButtons[i]);                                                   //console.log('subdef:',subdef);
+                      def.dropMenu.push(subdef);
+                    }
                   }
                 }
-                }
-              }                                                                                                         console.groupEnd();
+              }                                                                                                         //console.groupEnd();
               return def;
             },this);
 
@@ -436,15 +403,20 @@ var rex_markitup_getURLParam = function(strParamName){
               }
             }
 
-            return $(this.element).markItUp({
-              beforeInsert:       $.proxy(function(h) { this.beforeInsertCallback(h,this); },this),
-              //afterInsert:        $.proxy(function(h) { this.afterInsertCallback(h,this);  },this),
+            options = {
               nameSpace:          this.options.namespace,
               markupSet:          this.markupSet,
               previewParserPath:  'index.php?api=rex_markitup_api&func=parse_preview&uid='+this.guid,
               previewParserVar:   'rex_markitup_markup',
               previewAutoRefresh: true
-            });
+            };
+
+            if(this.options.smartinsert) {
+              options.beforeInsert = $.proxy(function(h) { this.beforeInsertCallback(h, this); }, this);
+              //options.afterInsert  = $.proxy(function(h) { this.afterInsertCallback(h, this);  }, this);
+            }
+
+            return $(this.element).markItUp(options);
         },
         getI18n: function(){
           $.ajax({
@@ -486,14 +458,14 @@ var rex_markitup_getURLParam = function(strParamName){
         beforeInsertCallback: function(h, rex_markitup){
           if (typeof h === 'undefined' || typeof h.className === 'undefined') {
             return;
-          }                                                                                                             //console.group('beforeInsertCallback: '+h.className); console.log('h:',h);
+          }
 
-          className = h.className.replace('markitup-','');
+          className = h.className.replace('markitup-','');                                                              //console.clear();console.group('beforeInsertCallback: '+className); //console.log('h:',h);
 
           switch(className)
           {
             case'css_dummy':
-            case'rex_a79_help':                                                                                         //console.log('h:',h); console.groupEnd();
+            case'rex_a79_help':                                                                                         //console.log('h:',h);console.groupEnd();
               this.showInPreview(className);
               return;
             break;
@@ -509,7 +481,7 @@ var rex_markitup_getURLParam = function(strParamName){
           }
           if(typeof h.closeWith === 'undefined') {
             h.closeWith = '';
-          }                                                                                                             //console.log('className:',className);console.log('openWith:',h.openWith);console.log('closeWith:',h.closeWith);console.groupCollapsed('rex_markitup');console.dir(rex_markitup);console.groupEnd(); console.groupCollapsed('h');console.dir(h);console.groupEnd(); console.groupCollapsed('h.sel');console.log('sel.text():',h.sel.text());console.log('sel.surround():',h.sel.surround());console.log('sel.surround(2):',h.sel.surround(2));console.log('sel.cursor():',h.sel.cursor());console.log('sel.line():',h.sel.line());console.groupEnd();
+          }                                                                                                             /*console.log('className:',className);console.log('openWith:',h.openWith);console.log('closeWith:',h.closeWith);console.groupCollapsed('rex_markitup');console.dir(rex_markitup);console.groupEnd();*/ //console.groupCollapsed('h');console.dir(h);console.groupEnd(); console.groupCollapsed('h.sel');console.log('sel.text():',h.sel.text());console.log('sel.surround():',h.sel.surround());console.log('sel.surround(2):',h.sel.surround(2));console.log('sel.cursor():',h.sel.cursor());console.log('sel.line():',h.sel.line());console.groupEnd();
 
           if(typeof rex_markitup.options.buttondefinitions[className] !== 'undefined') {
             def       = rex_markitup.options.buttondefinitions[className];
@@ -546,6 +518,57 @@ var rex_markitup_getURLParam = function(strParamName){
             case'code':
               h.openWith  = def.defaults.openWith;
               h.openWith  = surround[0] !== ' ' ? ' '+def.defaults.openWith  : def.defaults.openWith;
+            break;
+
+            case'listbullet':
+            case'listnumeric':
+              text      = h.sel.text();                                                                                 //console.log('text:',text);
+              surround  = h.sel.surround(3);                                                                            //console.log('surround:',surround);
+              multiline = h.sel.multiline();                                                                            //console.log('multiline:',multiline);
+              lines     = h.sel.lines();                                                                                //console.log('lines:',lines);
+
+              markup    = className == 'listbullet' ? '*' : '#';
+              delete h.replaceWith;
+
+              h.openWith = def.defaults.openWith = '';
+
+              if(surround[0] === '') {
+                leading = 0;
+              }else{                                                                                                    //console.log('surround[0].match:',surround[0].match(/(\n)/g));
+                leading  = surround[0].match(/\n/g) ? 2 - surround[0].match(/\n/g).length : 2;                          //console.log('leading:',leading);
+              }
+              trailing = surround[1].match(/\n/g) ? 2 - surround[1].match(/\n/g).length : 2;                            //console.log('surround[1].match:',surround[1].match(/(\n)/g)); console.log('trailing:',trailing); console.log('h.selection.charAt(0):',h.selection.charAt(h.selection.length-2));
+              leading  = h.selection.charAt(0)                    === '\n' ? leading-1 : leading;
+              trailing = h.selection.charAt(h.selection.length-1) === '\n' ? trailing-1 : trailing;
+
+              h.openWith  = this.prependChar('\n', leading,  def.defaults.openWith);
+              h.closeWith = this.appendChar('\n', trailing,  def.defaults.closeWith);                                   //console.log('openWith:',h.openWith);console.log('closeWith:',h.closeWith);
+
+              if(text !== '')
+              {
+                switch(multiline)
+                {
+                  case true:
+                    $(lines).each(function(i){
+                      prepend = lines[i].charAt(0) === markup ? markup : markup + ' ';
+                      lines[i] = prepend + lines[i];
+                    });                                                                                                 //console.log('lines:',lines);
+                    h.replaceWith = lines.join('\n');                                                                   //console.log('h.selection:',h.selection);
+                  break;
+
+                  case false:
+                    if(h.sel.line(-1).charAt(0) === markup) {
+                      h.openWith = '';
+                    };
+                    if(h.sel.line(1).charAt(0) === markup) {
+                      h.closeWith = '';
+                    };
+                    prepend = h.selection.charAt(0) === markup ? markup : markup + ' ';
+                    h.replaceWith = prepend + h.selection;
+                    break;
+                }
+              }
+
             break;
 
             case'h1':
@@ -727,19 +750,49 @@ var rex_markitup_getURLParam = function(strParamName){
           var start = this.cursor()[0];
           return insertText(this, text, start, start, cur);
         },
-        line: function() {
-          var value  = this.element.value;
-          var cursor = this.cursor();
-          var before = value.slice(0, cursor[0]).lastIndexOf('\n');
-          var after  = value.slice(cursor[1]).indexOf('\n');
+        // get whole line of selected text
+        line: function(offset) {                                                //console.group('line:');
+          offset = typeof offset === 'undefined' ? 0 : offset;                  //console.log('offset:',offset);
+          var value      = this.element.value;
+          var cursor     = this.cursor();
+          var val_before = value.slice(0, cursor[0]);                           // console.log('val_before:',val_before);
+          var val_after  = value.slice(cursor[1]);                              // console.log('val_after:',val_after);
+          var before     = val_before.lastIndexOf('\n');                        // console.log('before:',before);
+          var after      = val_after.indexOf('\n');                             // console.log('after:',after);
 
-          // we don't need \n
-          var start = before + 1;
-          if (after === -1) {
-            return value.slice(start);
+          if(offset === 0)
+          {
+            // we don't need \n
+            var start = before + 1;
+            if (after === -1) {
+              return value.slice(start);
+            }
+            var end = cursor[1] + after;                                        //console.groupEnd();
+            return value.slice(start, end);
           }
-          var end = cursor[1] + after;
-          return value.slice(start, end);
+          else if (offset < 0)
+          {
+            val_before = val_before.split('\n');                                //console.log('val_before:',val_before);
+            i = val_before.length + offset;                                     //console.log('i:',i);
+            while(val_before[i] === '') {
+              i--;
+            }                                                                   //console.log('i:',i);console.groupEnd();
+            return val_before[i];
+          }
+          else
+          {
+            val_after  = val_after.split('\n');                                 //console.log('val_after:',val_after);
+            while(val_after[offset] === '\n') {
+              offset++;
+            }                                                                   //console.groupEnd();
+            return val_after[offset];
+          }
+        },
+        lines: function() {
+          return this.line().split(/\n/);
+        },
+        multiline: function() {
+          return this.line().match(/\n/g) !== null ? true : false;
         },
         // Selection on document
         // TODO: should it support this feature ?

@@ -65,6 +65,10 @@ h5. Editor @ agk_skin => fixed with parent elem
 
 !http://rexdev.de/index.php?rex_img_type=github_readme&rex_img_file=lnk_rex_markitup_editor_agk_skin.png!
 
+h5. Editor @ fullscreen mode
+
+!http://rexdev.de/index.php?rex_img_type=github_readme&rex_img_file=lnk_rex_markitup_editor_fullscreen.png!
+
 h5. Editor @ rexdev_skin => fluid with parent elem
 
 !http://rexdev.de/index.php?rex_img_type=github_readme&rex_img_file=lnk_rex_markitup_editor_rexdev_skin.png!

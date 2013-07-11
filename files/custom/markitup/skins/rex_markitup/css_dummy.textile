@@ -14,22 +14,12 @@ h6. headline h6
 
  <hr />
 
+*RexMarkitup*: "https://github.com/jdlx/rex_markitup#readme":github.com/jdlx/rex_markitup
+
 p.. Lorem *strong text* is **italic text** dummy ??some citation?? text -deleted text- of the +inserted text+ printing ^superscript^ and ~subscript~ typesetting industry. @some code@ Lorem %(bob)span% Ipsum ==notextile area== has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type h1 specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
 
-bq. A block quotation.
-
-bq.:http://thresholdstate.com/ A cited quotation.
-
-bc. <script>
-// a Javascript example
-alert("Hello World");
-</script>
-
-interner Redaxo link: "blah":redaxo://8
-Redaxo: "http://www.redaxo.de/180-0-addon-details.html?addon_id=720":http://www.redaxo.de/180-0-addon-details.html?addon_id=720
-SVN Versionen: "http://svn.rexdev.de/redmine/projects/addon-template/activity":http://svn.rexdev.de/redmine/projects/addon-template/activity
-
- <!-- Lists -->
+|_. Id|_. Name|
+|1|Peter|
 
 # Item one
 # Item two
@@ -45,4 +35,11 @@ SVN Versionen: "http://svn.rexdev.de/redmine/projects/addon-template/activity":h
 ** Item three two
 ** Item three three
 
- <!-- property blocks: -->
+bq. A block quotation.
+
+bq.:http://thresholdstate.com/ A cited quotation.
+
+bc. <script>
+// a Javascript example
+alert("Hello World");
+</script>

@@ -59,29 +59,30 @@ if( $data !== false || $api === 'rex_markitup_api')
       rex_markitup_ajax_reply($I18N->text);
       break;
 
+
+    case'css_dummy':
     case'rex_a79_help':
         rex_register_extension('ADDONS_INCLUDED',
           function($params) use($data,$REX)
           {
-            ob_start();
-            rex_a79_help_overview();
-            $html = ob_get_flush();
-            $html = '<div id="rex_markitup_preview"><h1 class="rex-title">Textile Markup Reference</h1>'.$html.'</div>';
-            rex_markitup_ajax_reply(array('html' => $html));
-          },
-          array(),
-          REX_EXTENSION_LATE
-        );
-      break;
+            $tmpl = rex_get_file_contents($REX['INCLUDE_PATH'].'/addons/be_style/plugins/rex_markitup/files/custom/markitup/skins/rex_markitup/preview.tmpl.html');
 
-    case'css_dummy':
-        rex_register_extension('ADDONS_INCLUDED',
-          function($params) use($data,$REX)
-          {
-            $markup = rex_get_file_contents($REX['INCLUDE_PATH'].'/addons/be_style/plugins/rex_markitup/files/custom/markitup/skins/rex_markitup/css_dummy.textile');
-            $html   = rex_markitup_previewlinks(rex_a79_textile($markup));
-            $html = '<div id="rex_markitup_preview">'.$html.'</div>';
-            rex_markitup_ajax_reply(array('html' => $html));
+            switch($data['func']) {
+              case'css_dummy':
+                $content = rex_get_file_contents($REX['INCLUDE_PATH'].'/addons/be_style/plugins/rex_markitup/files/custom/markitup/skins/rex_markitup/css_dummy.textile');
+                $content = rex_markitup_previewlinks(rex_a79_textile($content));
+              break;
+
+              case'rex_a79_help':
+                ob_start();
+                rex_a79_help_overview();
+                $content = ob_get_flush();
+                $content = '<h3>Textile Reference</h3>'.$content;
+              break;
+            }
+
+            $html = str_replace('###CONTENT###', $content, $tmpl);
+            rex_markitup_ajax_reply($html, 'text/html');
           },
           array(),
           REX_EXTENSION_LATE
@@ -96,7 +97,7 @@ if( $data !== false || $api === 'rex_markitup_api')
             $textile = stripslashes($data['rex_markitup_markup']);
             $textile = str_replace('<br />','',$textile);
             $html    = rex_get_file_contents($REX['INCLUDE_PATH'].'/addons/be_style/plugins/rex_markitup/files/custom/markitup/skins/rex_markitup/preview.tmpl.html');
-            $html    = str_replace('###TEXTILE###', rex_markitup_previewlinks(rex_a79_textile($textile)), $html);
+            $html    = str_replace('###CONTENT###', rex_markitup_previewlinks(rex_a79_textile($textile)), $html);
             rex_markitup_ajax_reply($html, 'text/html');
           },
           array(),
@@ -105,7 +106,6 @@ if( $data !== false || $api === 'rex_markitup_api')
       }else{
         rex_markitup_ajax_reply('error: no markup data..', 'text/html');
       }
-
       break;
 
     default:

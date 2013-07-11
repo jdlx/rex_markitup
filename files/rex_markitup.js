@@ -292,7 +292,7 @@ var rex_markitup_getURLParam = function(strParamName) {
                                                   key:"F"
                                                 },
                                 'blockmenu':    {
-                                                  dropMenuButtons: ['h1','h2','h3','h4','h5','h6','|','p','blockquote','bc','|','alignleft','alignright','aligncenter','alignjustify'],
+                                                  dropMenuButtons: ['h1','h2','h3','h4','h5','h6','|','p','alignright','aligncenter','alignjustify','|','blockquote','bc'],
                                                   dropMenu: []
                                                 },
                                 'linkmenu':     {
@@ -449,21 +449,27 @@ var rex_markitup_getURLParam = function(strParamName) {
             type: 'POST',
             url: 'index.php',
             async: false,
-            dataType:'json',
+            //dataType:'json',
             data: {'rex_markitup_api': JSON.stringify({func:className})},
             success: $.proxy(function(data) {
               footer = $(this.element).next('.markItUpFooter');
-              iframe = $('iframe.markItUpPreviewFrame');
-              div    = $('div.markItUpPreviewFrame');
-              if(iframe.length !== 0) {
-                iframe.remove();
+              iFrame = $('iframe.markItUpPreviewFrame.rex_markitup');
+
+              if(iFrame.length === 0) {
+                iFrame = $('<iframe class="markItUpPreviewFrame rex_markitup"></iframe>');
+                iFrame.insertAfter(footer);
               }
-              if(div.length === 0) {
-                preview = $('<div class="markItUpPreviewFrame">' + data.html + '</div>');
-                preview.insertAfter(footer);
-              }else{
-                div.html(data.html);
+
+              previewWindow = iFrame[iFrame.length - 1].contentWindow || frame[iFrame.length - 1];
+              try {
+                sp = iFrame.document.documentElement.scrollTop;
+              } catch(e) {
+                sp = 0;
               }
+              previewWindow.document.open();
+              previewWindow.document.write(data);
+              previewWindow.document.close();
+              previewWindow.document.documentElement.scrollTop = sp;
 
             },this),
             error: function(e){ console.warn('error:',e); }
@@ -480,9 +486,9 @@ var rex_markitup_getURLParam = function(strParamName) {
           switch(className)
           {
             case'css_dummy':
-            case'rex_a79_help':                                                                                         console.log('h:',h);console.groupEnd();
+            case'rex_a79_help':                                                                                         //console.log('h:',h);console.groupEnd();
               if(h.altKey) {
-                $('div.markItUpPreviewFrame').remove();
+                $('iframe.markItUpPreviewFrame.rex_markitup').remove();
               } else {
                 this.showInPreview(className);
                 return;

@@ -6,3 +6,20 @@
  * @author Redaxo be_style plugin: rexdev.de
  * @package redaxo 4.4.x/4.5.x
  */
+
+body {
+  background:transparent;
+}
+
+#rex_markitup_preview {
+  margin:0 10px 0 10px;
+  font-family:Arial,​Verdana,​sans-serif;
+}
+.rex-title {
+  color:#14568A;
+  }
+
+/* a79_help_overview */
+div.a79_help_overview table {background:#EFF9F9;}
+div.a79_help_overview {margin-top:4px;}
+div.a79_help_overview>h3.a79 {display:none;}

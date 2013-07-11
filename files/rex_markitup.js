@@ -285,6 +285,7 @@ var rex_markitup_getURLParam = function(strParamName) {
                                                       $('body').removeClass("markitup_fullscreen");
                                                     }else{
                                                       p.addClass("fullscreen");
+                                                      $(h.textarea).css('height','50%');
                                                       $('body').addClass("markitup_fullscreen");
                                                     }
                                                   },

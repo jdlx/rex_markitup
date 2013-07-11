@@ -20,6 +20,6 @@ body {
   }
 
 /* a79_help_overview */
-div.a79_help_overview table {background:#EFF9F9;}
+div.a79_help_overview table thead {background:#EFF9F9;}
 div.a79_help_overview {margin-top:4px;}
 div.a79_help_overview>h3.a79 {display:none;}

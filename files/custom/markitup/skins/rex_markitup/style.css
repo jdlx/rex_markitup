@@ -193,38 +193,46 @@
 }
 
 
+/* FULLSCREEN *****************************************************************/
 
+body.markitup_fullscreen {
+  overflow:hidden;
+}
 
-.markItUpContainer.fullscreen {
+.markItUp.fullscreen {
     position:fixed;
     top:0;
     left:0;
     right:0;
     bottom:0;
     width:auto;
-    height:auto;
+    height:99.99%;
     z-index:9999;
+    background:white;
 }
-.markItUpContainer.fullscreen .markItUpFooter {
-    display:none;
+.markItUp.fullscreen .markItUpContainer {
+  height:99.99%;
 }
-.markItUpContainer.fullscreen textarea {
-    height:100% !important;
+.markItUp.fullscreen .markItUpPreviewFrame {
+    overflow:auto;
 }
 
 /* PREVIEW CSS ****************************************************************/
 
+.markItUpPreviewFrame {
+  background:url('images/bg-editor-plain.png') repeat-x #fff;
+}
+
 #rex_markitup_preview {
-background:#fff;
-font-size:120%;
-padding:10px;
+  font-size:120%;
+  padding:10px;
 }
 #rex_markitup_preview h1 {
-font-size:1.4em;
-margin:1em 0 0.2em 0;
-padding-bottom:0.2em;
-color:#5F5F5F;
-border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  font-size:1.4em;
+  margin:1em 0 0.2em 0;
+  padding-bottom:0.2em;
+  color:#5F5F5F;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 }
 #rex_markitup_preview h1.rex-title {
   color:#4F97D9;

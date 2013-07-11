@@ -279,11 +279,13 @@ var rex_markitup_getURLParam = function(strParamName) {
                                                 },
                                 'fullscreen':   {
                                                   beforeInsert: function(h) {
-                                                    p = $(h.textarea).parents("div.markItUpContainer");
+                                                    p = $(h.textarea).parents("div.markItUp");
                                                     if(p.hasClass("fullscreen")){
                                                       p.removeClass("fullscreen");
+                                                      $('body').removeClass("markitup_fullscreen");
                                                     }else{
                                                       p.addClass("fullscreen");
+                                                      $('body').addClass("markitup_fullscreen");
                                                     }
                                                   },
                                                   key:"F"
@@ -305,8 +307,8 @@ var rex_markitup_getURLParam = function(strParamName) {
 
             buttonsets: {
               standard: 'h1,h2,h3,h4,|,bold,italic,stroke,|,listbullet,listnumeric,|,image,linkmedia,|,linkintern,linkextern,linkmailto,fullscreen',
-              full:     'blockmenu,|,h1,h2,h3,h4,h5,h6,|,bold,italic,stroke,ins,cite,code,|,alignleft,alignright,aligncenter,alignjustify,|,listbullet,listnumeric,|,image,linkmedia,|,linkmenu,linkintern,linkextern,linkmailto,|,preview,fullscreen',
-              dev:      'blockmenu,|,h1,h2,h3,h4,h5,h6,|,bold,italic,stroke,ins,cite,code,|,alignleft,alignright,aligncenter,alignjustify,|,listbullet,listnumeric,|,immimagemenu,image,linkmedia,|,linkmenu,linkintern,linkextern,linkmailto,|,preview,|,rex_a79_help,css_dummy,fullscreen'
+              full:     'blockmenu,|,h1,h2,h3,h4,h5,h6,|,bold,italic,stroke,ins,cite,code,|,alignleft,alignright,aligncenter,alignjustify,|,listbullet,listnumeric,|,image,linkmedia,|,linkmenu,linkintern,linkextern,linkmailto,|,preview,rex_a79_help,fullscreen',
+              dev:      'blockmenu,|,h1,h2,h3,h4,h5,h6,|,bold,italic,stroke,ins,cite,code,|,alignleft,alignright,aligncenter,alignjustify,|,listbullet,listnumeric,|,immimagemenu,image,linkmedia,|,linkmenu,linkintern,linkextern,linkmailto,|,preview,rex_a79_help,|,css_dummy,fullscreen'
             },
             smartinsert: true
 
@@ -476,9 +478,13 @@ var rex_markitup_getURLParam = function(strParamName) {
           switch(className)
           {
             case'css_dummy':
-            case'rex_a79_help':                                                                                         //console.log('h:',h);console.groupEnd();
-              this.showInPreview(className);
-              return;
+            case'rex_a79_help':                                                                                         console.log('h:',h);console.groupEnd();
+              if(h.altKey) {
+                $('div.markItUpPreviewFrame').remove();
+              } else {
+                this.showInPreview(className);
+                return;
+              }
             break;
           }
 

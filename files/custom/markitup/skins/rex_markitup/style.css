@@ -107,7 +107,7 @@
 }
 .markItUpHeader ul .markItUpDropMenu {
   background:transparent url(images/menu.png) no-repeat 115% 50%;
-  margin-right:5px;
+  margin-right:0;
 }
 .markItUpHeader ul .markItUpDropMenu li {
   margin-right:0px;
@@ -118,6 +118,7 @@
   height:22px;
   overflow:hidden;
   background-color:#CCC;
+  color:#ccc;
 }
 .markItUpHeader ul ul .markItUpSeparator {
   width:auto; height:1px;

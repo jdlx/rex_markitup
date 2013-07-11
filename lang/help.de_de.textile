@@ -5,12 +5,14 @@ Kompletter rewrite des bisherigen Markitup Addons mit modernerer/flexiblerer Cod
 h2. Features
 
 * Aktuelle MarkItUp Lib v.1.1.14
+* ImageManager Unterstützung
+* "smartinsert" Mode minimiert linebreak/whitespace Problematik für Einsteiger deutlich
+* Fullscreen Mode(Button)
 * Backend UI zum definieren eigener Buttons
 * EP zum programmatischen injizieren eigener Buttons aus anderen Addons/Plugins oder Modulen heraus
-* Mehrsprachigkeit – gekoppelt an Redaxo backend Sprache - lang strings per i18n und *.lang Datei
 * Definition einer Markitup textareas lediglich über eine CSS Klasse – kein PHP Code notwendig.
 * Auswahl von Buttons/Buttonsets per @data@ Attribut der textarea
-* Fullscreen Mode(Button)
+* Mehrsprachigkeit – gekoppelt an Redaxo backend Sprache - lang strings per i18n und *.lang Datei
 * Fluid Editor Layout..
 * ..und ein klein wenig aufgehübscht das ganze
 

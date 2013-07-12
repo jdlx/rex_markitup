@@ -210,7 +210,7 @@ if(!$REX['REDAXO'] || (rex_request('page','string')=='markitup' && rex_request('
 
 // REX COMMONS
 ////////////////////////////////////////////////////////////////////////////////
-$REX['ADDON']['version'][$mypage]     = '0.9.8';
+$REX['ADDON']['version'][$mypage]     = '0.9.8.1';
 $REX['ADDON']['author'][$mypage]      = 'jdlx';
 $REX['ADDON']['supportpage'][$mypage] = 'forum.redaxo.de';
 

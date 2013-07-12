@@ -89,6 +89,7 @@ if( $data !== false || $api === 'rex_markitup_api')
         );
       break;
 
+    case'preview':
     case'parse_preview':
       if(isset($data['rex_markitup_markup'])) {
         rex_register_extension('ADDONS_INCLUDED',

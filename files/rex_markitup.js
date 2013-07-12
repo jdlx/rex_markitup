@@ -8,16 +8,6 @@
  */
 
 
-jQuery(function($){ ////////////////////////////////////////////////////////////
-
-  $(document).on('dblclick','.markItUpFooter', function(e){
-    $(e.target).next('.markItUpPreviewFrame').remove();
-  });
-
-
-}); // jQuery(function($){ /////////////////////////////////////////////////////
-
-
  var insertFileLink = function(file) {
    jQuery.markItUp({
      openWith:'"',
@@ -234,7 +224,7 @@ var rex_markitup_getURLParam = function(strParamName) {
                                 // OTHERS
                                 ////////////////////////////////////////////////
                                 'preview':      {
-                                                  call:'preview'
+                                                  name:'Preview'
                                                 },
                                 'rex_a79_help': {
                                                   name:'Textile Reference'
@@ -282,10 +272,13 @@ var rex_markitup_getURLParam = function(strParamName) {
                                                     p = $(h.textarea).parents("div.markItUp");
                                                     if(p.hasClass("fullscreen")){
                                                       p.removeClass("fullscreen");
+                                                      $(h.textarea).css('height','200px');
+                                                      $(h.textarea).nextAll('.markItUpPreviewFrame').css('height','200px');
                                                       $('body').removeClass("markitup_fullscreen");
                                                     }else{
                                                       p.addClass("fullscreen");
                                                       $(h.textarea).css('height','50%');
+                                                      $(h.textarea).nextAll('.markItUpPreviewFrame').css('height','50%');
                                                       $('body').addClass("markitup_fullscreen");
                                                     }
                                                   },
@@ -331,6 +324,14 @@ var rex_markitup_getURLParam = function(strParamName) {
     Plugin.prototype = {
 
         init: function() {                                                                                                       //console.log('this.options:',this.options);
+
+            $(document).on('dblclick','.markItUpFooter', function(e){
+              $(e.target).next('.markItUpPreviewFrame').remove();
+            });
+
+            $(document).on('click','div.markItUp.fullscreen .markItUpFooter', $.proxy(function(e){
+              this.setIframeHeight(e);
+            },this));
 
             // (SELECTION.JS) HELPERS
             var toString = Object.prototype.toString;
@@ -444,19 +445,26 @@ var rex_markitup_getURLParam = function(strParamName) {
             error: function(e){ console.warn('error:',e); }
           });
         },
-        showInPreview: function(className){
+        showInPreview: function(className, h){
+          var data = {
+            func: className
+          };
+          if(className === 'preview') {
+            data.rex_markitup_markup = h.textarea.value;
+          }
           $.ajax({
             type: 'POST',
             url: 'index.php',
             async: false,
             //dataType:'json',
-            data: {'rex_markitup_api': JSON.stringify({func:className})},
+            data: {'rex_markitup_api': JSON.stringify(data)},
             success: $.proxy(function(data) {
               footer = $(this.element).next('.markItUpFooter');
               iFrame = $('iframe.markItUpPreviewFrame.rex_markitup');
+              style = $(this.element).parents('div.markItUp').hasClass('fullscreen') ? ' style="height:50%" ' : '';
 
               if(iFrame.length === 0) {
-                iFrame = $('<iframe class="markItUpPreviewFrame rex_markitup"></iframe>');
+                iFrame = $('<iframe class="markItUpPreviewFrame rex_markitup"'+style+'></iframe>');
                 iFrame.insertAfter(footer);
               }
 
@@ -485,12 +493,13 @@ var rex_markitup_getURLParam = function(strParamName) {
 
           switch(className)
           {
+            case'preview':
             case'css_dummy':
             case'rex_a79_help':                                                                                         //console.log('h:',h);console.groupEnd();
               if(h.altKey) {
                 $('iframe.markItUpPreviewFrame.rex_markitup').remove();
               } else {
-                this.showInPreview(className);
+                this.showInPreview(className, h);
                 return;
               }
             break;
@@ -666,6 +675,15 @@ var rex_markitup_getURLParam = function(strParamName) {
             return str;
         },
         insertLink: function(url,desc) { console.log('url:',url);
+        },
+        setIframeHeight: function(e) {
+          p = $(e.target).parents('div.markItUpContainer');
+          h = p.children('div.markItUpHeader').height();
+          a = p.children('textarea.markItUpEditor').height();
+          f = p.children('div.markItUpFooter').height();
+          var w=window,d=document,e=d.documentElement,g=d.getElementsByTagName("body")[0],x=w.innerWidth||e.clientWidth||g.clientWidth,y=w.innerHeight||e.clientHeight||g.clientHeight;
+          r = y-h-a-f;
+          p.children('iframe.markItUpPreviewFrame').css('height', r);
         },
         // http://webmisterradixlecti.blogspot.de/2012/10/javascript-secondindexof-or-xindexof.html
         xIndexOf: function(Val, Str, x) {

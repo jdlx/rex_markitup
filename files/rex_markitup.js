@@ -506,7 +506,7 @@ var rex_markitup_getURLParam = function(strParamName) {
                 iFrame.insertAfter(footer);
               }
 
-              if(this.options.previewfrontend) {
+              if(className === 'preview' && this.options.previewfrontend) {
                 $(iFrame).attr('src',this.frontendUrl);
                 return;
               }

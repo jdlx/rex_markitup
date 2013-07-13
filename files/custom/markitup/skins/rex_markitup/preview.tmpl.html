@@ -14,11 +14,6 @@
   <script>
     jQuery('table').addClass('table').addClass('table-bordered');
     jQuery("a").attr("target","_blank");
-    jQuery('.a79_help_overview table').addClass('table').addClass('table-bordered table-striped');
-    jQuery(".a79_help_overview a").removeAttr('href').removeAttr('onclick').css('cursor','pointer');
-    jQuery(".a79_help_overview").on('click','a',function(e){
-       $(e.target).parents('thead').next('tbody').toggle();
-    });
   </script>
 </body>
 </html>

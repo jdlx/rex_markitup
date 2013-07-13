@@ -1,0 +1,279 @@
+Addendum: <a class="trigger" data-target="#textile_class_comments">Textile Class Comments</a>
+
+ <div id="textile_class_comments" style="display:none">
+
+h3. Block modifier syntax:
+
+bc.. Header: h(1-6).
+  Paragraphs beginning with 'hn. ' (where n is 1-6) are wrapped in header tags.
+  Example: h1. Header... -> <h1>Header...</h1>
+
+  Paragraph: p. (also applied by default)
+  Example: p. Text -> <p>Text</p>
+
+  Blockquote: bq.
+  Example: bq. Block quotation... -> <blockquote>Block quotation...</blockquote>
+
+  Blockquote with citation: bq.:http://citation.url
+  Example: bq.:http://textism.com/ Text...
+  ->    <blockquote cite="http://textism.com">Text...</blockquote>
+
+  Footnote: fn(1-100).
+  Example: fn1. Footnote... -> <p id="fn1">Footnote...</p>
+
+  Numeric list: #, ##
+  Consecutive paragraphs beginning with # are wrapped in ordered list tags.
+  Example: <ol><li>ordered list</li></ol>
+
+  Bulleted list: *, **
+  Consecutive paragraphs beginning with * are wrapped in unordered list tags.
+  Example: <ul><li>unordered list</li></ul>
+
+  Definition list:
+      Terms ;, ;;
+      Definitions :, ::
+  Consecutive paragraphs beginning with ; or : are wrapped in definition list tags.
+  Example: <dl><dt>term</dt><dd>definition</dd></dl>
+
+  Redcloth-style Definition list:
+      - Term1 := Definition1
+      - Term2 := Extended
+        definition =:
+
+h3. Phrase modifier syntax:
+
+bc..            _emphasis_    ->     <em>emphasis</em>
+           __italic__    ->     <i>italic</i>
+             *strong*    ->     <strong>strong</strong>
+             **bold**    ->     <b>bold</b>
+         ??citation??    ->     <cite>citation</cite>
+       -deleted text-    ->     <del>deleted</del>
+      +inserted text+    ->     <ins>inserted</ins>
+        ^superscript^    ->     <sup>superscript</sup>
+          ~subscript~    ->     <sub>subscript</sub>
+               @code@    ->     <code>computer code</code>
+          %(bob)span%    ->     <span class="bob">span</span>
+
+        ==notextile==    ->     leave text alone (do not format)
+
+       "linktext":url    ->     <a href="url">linktext</a>
+"linktext(title)":url    ->     <a href="url" title="title">linktext</a>
+              "$":url    ->     <a href="url">url</a>
+       "$(title)":url    ->     <a href="url" title="title">url</a>
+
+           !imageurl!    ->     <img src="imageurl" />
+ !imageurl(alt text)!    ->     <img src="imageurl" alt="alt text" />
+   !imageurl!:linkurl    ->     <a href="linkurl"><img src="imageurl" /></a>
+
+ABC(Always Be Closing)   ->     <acronym title="Always Be Closing">ABC</acronym>
+
+
+h4. Linked Notes:
+
+Allows the generation of an automated list of notes with links.
+
+Linked notes are composed of three parts, a set of named _definitions_, a set of
+_references_ to those definitions and one or more _placeholders_ indicating where
+the consolidated list of notes is to be placed in your document.
+
+h4. Definitions.
+
+Each note definition must occur in its own paragraph and should look like this...
+
+@note#mynotelabel. Your definition text here.@
+
+You are free to use whatever label you wish after the # as long as it is made up
+of letters, numbers, colon(:) or dash(-).
+
+h4. References.
+
+Each note reference is marked in your text like this @[#mynotelabel]@ and
+it will be replaced with a superscript reference that links into the list of
+note definitions.
+
+h4. List Placeholder(s).
+
+The note list can go anywhere in your document. You have to indicate where
+like this: @notelist.@ .. notelist can take attributes (class#id) like this: @notelist(class#id)@
+
+By default, the note list will show each definition in the order that they
+are referenced in the text by the _references_. It will show each definition with
+a full list of backlinks to each reference. If you do not want this, you can choose
+to override the backlinks like this:
+
+bc. notelist(class#id)!.    Produces a list with no backlinks.
+notelist(class#id)^.    Produces a list with only the first backlink.
+
+Should you wish to have a specific definition display backlinks differently to this
+then you can override the backlink method by appending a link override to the
+_definition_ you wish to customise.
+
+bc. note#label.    Uses the citelist's setting for backlinks.
+note#label!.   Causes that definition to have no backlinks.
+note#label^.   Causes that definition to have one backlink (to the first ref.)
+note#label*.   Causes that definition to have all backlinks.
+
+Any unreferenced notes will be left out of the list unless you explicitly state
+you want them by adding a '+'. Like this...
+
+bc. notelist(class#id)!+. Giving a list of all notes without any backlinks.
+
+You can mix and match the list backlink control and unreferenced links controls
+but the backlink control (if any) must go first. Like so: notelist^+. , not
+like this: @notelist+^@
+
+*Example:*
+
+bc.. Scientists say[#lavader] the moon is small.
+
+note#other. An unreferenced note.
+
+note#lavader(myliclass). "Proof":url of a small moon.
+
+notelist(myclass#myid)+.
+
+p. Would output (the actual IDs used would be randomised)...
+
+bc.. <p>Scientists say<sup><a href="#def_id_1" id="ref_id_1a">1</sup> the moon is small.</p>
+
+<ol class="myclass" id="myid">
+    <li class="myliclass"><a href="#ref_id_1a"><sup>a</sup></a><span id="def_id_1"> </span><a href="url">Proof</a> of a small moon.</li>
+    <li>An unreferenced note.</li>
+</ol>
+
+p. The 'a b c' backlink characters can be altered too.
+For example if you wanted the notes to have numeric backlinks starting from 1:
+
+bc. notelist:1.
+
+h3. Table syntax:
+
+Simple tables:
+
+bc. |a|simple|table|row|
+|And|Another|table|row|
+|With an||empty|cell|
+
+bc. |=. My table caption goes here  (NB. Table captions *must* be the first line of the table else treated as a center-aligned cell.)
+|_. A|_. table|_. header|_.row|
+|A|simple|table|row|
+
+h5. Tables with attributes:
+
+bc. table{border:1px solid black}. My table summary here
+{background:#ddd;color:red}. |{}| | | |
+
+To specify thead / tfoot / tbody groups, add one of these on its own line
+above the row(s) you wish to wrap (you may specify attributes before the dot):
+
+bc. |^.     # thead
+|-.     # tbody
+|~.     # tfoot
+
+h5. Column groups:
+
+bc. |:\3. 100|
+
+Becomes:
+
+bc. <colgroup span="3" width="100"></colgroup>
+
+You can omit either or both of the \N or width values. You may also
+add cells after the colgroup definition to specify col elements with
+span, width, or standard Textile attributes:
+
+bc. |:. 50|(firstcol). |\2. 250||300|
+
+Becomes:
+
+bc. <colgroup width="50">
+    <col class="firstcol" />
+    <col span="2" width="250" />
+    <col />
+    <col width="300" />
+</colgroup>
+
+(Note that, per the HTML specification, you should not add span
+to the colgroup if specifying col elements.)
+
+h3. Applying Attributes:
+
+Most anywhere Textile code is used, attributes such as arbitrary css style,
+css classes, and ids can be applied. The syntax is fairly consistent.
+
+The following characters quickly alter the alignment of block elements:
+
+bc. <  ->  left align     ex. p<. left-aligned para
+>  ->  right align         h3>. right-aligned header 3
+=  ->  centred             h4=. centred header 4
+<> ->  justified         p<>. justified paragraph
+
+These will change vertical alignment in table cells:
+
+bc. ^  ->  top           ex. |^. top-aligned table cell|
+-  ->  middle           |-. middle aligned|
+~  ->  bottom           |~. bottom aligned cell|
+
+Plain (parentheses) inserted between block syntax and the closing dot-space
+indicate classes and ids:
+
+bc. p(hector). paragraph -> <p class="hector">paragraph</p>
+
+bc. p(#fluid). paragraph -> <p id="fluid">paragraph</p>
+
+classes and ids can be combined
+
+bc. p(hector#fluid). paragraph -> <p class="hector" id="fluid">paragraph</p>
+
+Curly {brackets} insert arbitrary css style
+
+bc. p{line-height:18px}. paragraph -> <p style="line-height:18px">paragraph</p>
+
+bc. h3{color:red}. header 3 -> <h3 style="color:red">header 3</h3>
+
+Square [brackets] insert language attributes
+
+bc. p[no]. paragraph -> <p lang="no">paragraph</p>
+
+bc. %[fr]phrase%@ -> <span lang="fr">phrase</span>
+
+Usually Textile block element syntax requires a dot and space before the block
+begins, but since lists don't, they can be styled just using braces
+
+bc. #{color:blue} one  ->  <ol style="color:blue">
+# big                    <li>one</li>
+# list                    <li>big</li>
+                        <li>list</li>
+                       </ol>
+
+Using the span tag to style a phrase
+
+bc. It goes like this, %{color:red}the fourth the fifth%
+-> It goes like this, <span style="color:red">the fourth the fifth</span>
+
+h4. Ordered List Start & Continuation:
+
+You can control the start attribute of an ordered list like so;
+
+bc. #5 Item 5
+# Item 6
+
+You can resume numbering list items after some intervening anonymous block like so...
+
+bc. #_ Item 7
+# Item 8
+
+  </div>
+
+==
+<script>
+  jQuery('.a79_help_overview table').addClass('table').addClass('table-bordered table-striped');
+  jQuery('.a79_help_overview a').removeAttr('href').removeAttr('onclick').css('cursor','pointer');
+  jQuery('.a79_help_overview').on('click','a',function(e){
+     jQuery(e.target).parents('thead').next('tbody').toggle();
+  });
+  jQuery('a.trigger').click(function(){
+    jQuery(jQuery(this).data().target).toggle();
+  });
+</script>
+==

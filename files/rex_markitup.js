@@ -83,220 +83,223 @@ var rex_markitup_getURLParam = function(strParamName) {
         defaults = {
             namespace: 'textile',
             buttondefinitions: {
-                                // BLOCK MODIFIER
-                                ////////////////////////////////////////////////
-                                'h1':           {
-                                                  openWith:'h1(!(([![Class]!]))!). ',
-                                                  closeWith:'',
-                                                  key:'1'
-                                                },
-                                'h2':           {
-                                                  openWith:'h2(!(([![Class]!]))!). ',
-                                                  closeWith:'',
-                                                  key:'2'
-                                                },
-                                'h3':           {
-                                                  openWith:'h3(!(([![Class]!]))!). ',
-                                                  closeWith:'',
-                                                  key:'3'
-                                                },
-                                'h4':           {
-                                                  openWith:'h4(!(([![Class]!]))!). ',
-                                                  closeWith:'',
-                                                  key:'4'
-                                                },
-                                'h5':           {
-                                                  openWith:'h5(!(([![Class]!]))!). ',
-                                                  closeWith:'',
-                                                  key:'5'
-                                                },
-                                'h6':           {
-                                                  openWith:'h6(!(([![Class]!]))!). ',
-                                                  closeWith:'',
-                                                  key:'6'
-                                                },
-                                'p':            {
-                                                  openWith:'p(!(([![Class]!]))!). ',
-                                                  closeWith:''
-                                                },
-                                'blockquote':   {
-                                                  openWith:'bq(!(([![Class]!]))!). ',
-                                                  closeWith:''
-                                                },
-                                'bc':           {
-                                                  openWith:'bc(!(([![Class]!]))!). ',
-                                                  closeWith:''
-                                                },
+              // BLOCK MODIFIER
+              ////////////////////////////////////////////////
+              'h1':           {
+                                openWith:'h1(!(([![Class]!]))!). ',
+                                closeWith:'',
+                                key:'1'
+                              },
+              'h2':           {
+                                openWith:'h2(!(([![Class]!]))!). ',
+                                closeWith:'',
+                                key:'2'
+                              },
+              'h3':           {
+                                openWith:'h3(!(([![Class]!]))!). ',
+                                closeWith:'',
+                                key:'3'
+                              },
+              'h4':           {
+                                openWith:'h4(!(([![Class]!]))!). ',
+                                closeWith:'',
+                                key:'4'
+                              },
+              'h5':           {
+                                openWith:'h5(!(([![Class]!]))!). ',
+                                closeWith:'',
+                                key:'5'
+                              },
+              'h6':           {
+                                openWith:'h6(!(([![Class]!]))!). ',
+                                closeWith:'',
+                                key:'6'
+                              },
+              'p':            {
+                                openWith:'p(!(([![Class]!]))!). ',
+                                closeWith:''
+                              },
+              'blockquote':   {
+                                openWith:'bq(!(([![Class]!]))!). ',
+                                closeWith:''
+                              },
+              'bc':           {
+                                openWith:'bc(!(([![Class]!]))!). ',
+                                closeWith:''
+                              },
 
-                                // PHRASE MODIFIER
-                                ////////////////////////////////////////////////
-                                'bold':         {
-                                                  openWith:'*(!(([![Class]!]))!)',
-                                                  closeWith:'*',
-                                                  key:'B'
-                                                },
-                                'italic':       {
-                                                  openWith:'_(!(([![Class]!]))!)',
-                                                  closeWith:'_',
-                                                  key:'I'
-                                                },
-                                'stroke':       {
-                                                  openWith:'-(!(([![Class]!]))!)',
-                                                  closeWith:'-',
-                                                  key:'S'
-                                                },
-                                'ins':          {
-                                                  openWith:'+(!(([![Class]!]))!)',
-                                                  closeWith:'+'
-                                                },
-                                'cite':         {
-                                                  openWith:'??(!(([![Class]!]))!)',
-                                                  closeWith:'??'
-                                                },
-                                'code':         {
-                                                  openWith:'@(!(([![Class]!]))!)',
-                                                  closeWith:'@'
-                                                },
+              // PHRASE MODIFIER
+              ////////////////////////////////////////////////
+              'bold':         {
+                                openWith:'*(!(([![Class]!]))!)',
+                                closeWith:'*',
+                                key:'B'
+                              },
+              'italic':       {
+                                openWith:'_(!(([![Class]!]))!)',
+                                closeWith:'_',
+                                key:'I'
+                              },
+              'stroke':       {
+                                openWith:'-(!(([![Class]!]))!)',
+                                closeWith:'-',
+                                key:'S'
+                              },
+              'ins':          {
+                                openWith:'+(!(([![Class]!]))!)',
+                                closeWith:'+'
+                              },
+              'cite':         {
+                                openWith:'??(!(([![Class]!]))!)',
+                                closeWith:'??'
+                              },
+              'code':         {
+                                openWith:'@(!(([![Class]!]))!)',
+                                closeWith:'@'
+                              },
 
-                                // ALIGN
-                                ////////////////////////////////////////////////
-                                'aligncenter':  {
-                                                  openWith:'p(!(([![Class]!]))!)=. '
-                                                },
-                                'alignjustify': {
-                                                  openWith:'p(!(([![Class]!]))!)<>. '
-                                                },
-                                'alignleft':    {
-                                                  openWith:'p(!(([![Class]!]))!)<. '
-                                                },
-                                'alignright':   {
-                                                  openWith:'p(!(([![Class]!]))!)>. '
-                                                },
+              // ALIGNED PARAGRAPHS
+              ////////////////////////////////////////////////
+              'aligncenter':  {
+                                openWith:'p(!(([![Class]!]))!)=. '
+                              },
+              'alignjustify': {
+                                openWith:'p(!(([![Class]!]))!)<>. '
+                              },
+              'alignleft':    {
+                                openWith:'p(!(([![Class]!]))!)<. '
+                              },
+              'alignright':   {
+                                openWith:'p(!(([![Class]!]))!)>. '
+                              },
 
-                                // LISTS
-                                ////////////////////////////////////////////////
-                                'listbullet':   {
-                                                  openWith:'* '
-                                                },
-                                'listnumeric':  {
-                                                  openWith:'# '
-                                                },
+              // LISTS
+              ////////////////////////////////////////////////
+              'listbullet':   {
+                                openWith:'* '
+                              },
+              'listnumeric':  {
+                                openWith:'# '
+                              },
 
-                                // MEDIA
-                                ////////////////////////////////////////////////
-                                'image':        {
-                                                  openWith:'',
-                                                  closeWith:'',
-                                                  beforeInsert:function(h) {
-                                                    rex_markitup.caller = 'image';
-                                                    openMediaPool('TINYIMG');
-                                                  },
-                                                  key:'P'
-                                                },
-                                'linkmedia':    {
-                                                  beforeInsert:function(h) {
-                                                    rex_markitup.caller = 'linkmedia';
-                                                    openMediaPool('TINY');
-                                                  },
-                                                  key:'M'
-                                                },
+              // MEDIA
+              ////////////////////////////////////////////////
+              'image':        {
+                                openWith:'',
+                                closeWith:'',
+                                beforeInsert:function(h) {
+                                  rex_markitup.caller = 'image';
+                                  openMediaPool('TINYIMG');
+                                },
+                                key:'P'
+                              },
+              'linkmedia':    {
+                                beforeInsert:function(h) {
+                                  rex_markitup.caller = 'linkmedia';
+                                  openMediaPool('TINY');
+                                },
+                                key:'M'
+                              },
 
-                                // LINKS
-                                ////////////////////////////////////////////////
-                                'linkintern':   {
-                                                  beforeInsert:function(h) {
-                                                    rex_markitup.caller = 'linkintern';
-                                                    openLinkMap('TINY','&clang='+rex_markitup_getURLParam('clang'));
-                                                  },
-                                                  key:'L'
-                                                },
-                                'linkextern':   {
-                                                  openWith:'"(!(([![Class]!]))!)',
-                                                  closeWith:'":[![' + rex_markitup.i18n.markitup_prompt_linkextern + ':!:http://]!]',
-                                                  key:'E'
-                                                },
-                                'linkmailto':   {
-                                                  openWith:'"(!(([![Class]!]))!)',
-                                                  closeWith:'":mailto:[![' + rex_markitup.i18n.markitup_prompt_linkmailto + ']!]',
-                                                  key:'M'
-                                                },
+              // LINKS
+              ////////////////////////////////////////////////
+              'linkintern':   {
+                                beforeInsert:function(h) {
+                                  rex_markitup.caller = 'linkintern';
+                                  openLinkMap('TINY','&clang='+rex_markitup_getURLParam('clang'));
+                                },
+                                key:'L'
+                              },
+              'linkextern':   {
+                                openWith:'"(!(([![Class]!]))!)',
+                                closeWith:'":[![' + rex_markitup.i18n.markitup_prompt_linkextern + ':!:http://]!]',
+                                key:'E'
+                              },
+              'linkmailto':   {
+                                openWith:'"(!(([![Class]!]))!)',
+                                closeWith:'":mailto:[![' + rex_markitup.i18n.markitup_prompt_linkmailto + ']!]',
+                                key:'M'
+                              },
 
-                                // OTHERS
-                                ////////////////////////////////////////////////
-                                'preview':      {
-                                                  name:'Preview',
+              // OTHERS
+              ////////////////////////////////////////////////
+              'preview':      {
+                                name:'Preview',
                                 key:'Enter'
-                                                },
-                                'rex_a79_help': {
-                                                  name:'Textile Reference'
-                                                },
-                                'css_dummy':    {
-                                                  name:'CSS Dummy'
-                                                },
-                                'clean':        {
-                                                  replaceWith: function(h) {
-                                                    var s = h.selection;
-                                                    // link intern / extern / mailto / linkfiles
-                                                    s = s.replace(/"(.*?)":(https?|redaxo|mailto|files)(:|\/)(\/\/)?.+?\s/g, '$1 ');
-                                                    // files
-                                                    s = s.replace(/!files\/.*?!/g, '');
-                                                    // p
-                                                    s = s.replace(/p.*?\.\s(.*?)/g, '$1');
-                                                    // h(1-9)
-                                                    s = s.replace(/h\d+.*?\.\s(.*?)/g, '$1');
-                                                    // strong
-                                                    s = s.replace(/\s\*(.*?)\*\s/g, ' $1 ');
-                                                    // italic
-                                                    s = s.replace(/\s\_(.*?)\_\s/g, ' $1 ');
-                                                    // stroke
-                                                    s = s.replace(/\s\-(.*?)\-\s/g, ' $1 ');
-                                                    // underline
-                                                    s = s.replace(/\s\+(.*?)\+\s/g, ' $1 ');
-                                                    // superscript
-                                                    s = s.replace(/\s\^(.*?)\^\s/g, ' $1 ');
-                                                    // subscript
-                                                    s = s.replace(/\s\~(.*?)\~\s/g, ' $1 ');
-                                                    // code
-                                                    s = s.replace(/\s\@(.*?)\@\s/g, ' $1 ');
-                                                    // blockquote
-                                                    s = s.replace(/bq.*?\.\s(.*?)/g, '$1');
-                                                    // ul
-                                                    s = s.replace(/\*\s(.*?)/g, '$1');
-                                                    // ol
-                                                    s = s.replace(/\#\s(.*?)/g, '$1');
+                              },
+              'rex_a79_help': {
+                                name:'Textile Reference'
+                              },
+              'css_dummy':    {
+                                name:'CSS Dummy'
+                              },
+              'clean':        {
+                                replaceWith: function(h) {
+                                  var s = h.selection;
+                                  // link intern / extern / mailto / linkfiles
+                                  s = s.replace(/"(.*?)":(https?|redaxo|mailto|files)(:|\/)(\/\/)?.+?\s/g, '$1 ');
+                                  // files
+                                  s = s.replace(/!files\/.*?!/g, '');
+                                  // p
+                                  s = s.replace(/p.*?\.\s(.*?)/g, '$1');
+                                  // h(1-9)
+                                  s = s.replace(/h\d+.*?\.\s(.*?)/g, '$1');
+                                  // strong
+                                  s = s.replace(/\s\*(.*?)\*\s/g, ' $1 ');
+                                  // italic
+                                  s = s.replace(/\s\_(.*?)\_\s/g, ' $1 ');
+                                  // stroke
+                                  s = s.replace(/\s\-(.*?)\-\s/g, ' $1 ');
+                                  // underline
+                                  s = s.replace(/\s\+(.*?)\+\s/g, ' $1 ');
+                                  // superscript
+                                  s = s.replace(/\s\^(.*?)\^\s/g, ' $1 ');
+                                  // subscript
+                                  s = s.replace(/\s\~(.*?)\~\s/g, ' $1 ');
+                                  // code
+                                  s = s.replace(/\s\@(.*?)\@\s/g, ' $1 ');
+                                  // blockquote
+                                  s = s.replace(/bq.*?\.\s(.*?)/g, '$1');
+                                  // ul
+                                  s = s.replace(/\*\s(.*?)/g, '$1');
+                                  // ol
+                                  s = s.replace(/\#\s(.*?)/g, '$1');
 
-                                                    return s;
-                                                  }
-                                                },
-                                'fullscreen':   {
-                                                  beforeInsert: function(h) {
-                                                    p = $(h.textarea).parents("div.markItUp");
-                                                    if(p.hasClass("fullscreen")){
-                                                      p.removeClass("fullscreen");
-                                                      $(h.textarea).css('height','200px');
-                                                      $(h.textarea).nextAll('.markItUpPreviewFrame').css('height','200px');
-                                                      $('body').removeClass("markitup_fullscreen");
-                                                    }else{
-                                                      p.addClass("fullscreen");
-                                                      $(h.textarea).css('height','50%');
-                                                      $(h.textarea).nextAll('.markItUpPreviewFrame').css('height','50%');
-                                                      $('body').addClass("markitup_fullscreen");
-                                                    }
-                                                  },
-                                                  key:"F"
-                                                },
-                                'blockmenu':    {
-                                                  dropMenuButtons: ['h1','h2','h3','h4','h5','h6','|','p','alignright','aligncenter','alignjustify','|','blockquote','bc'],
-                                                  dropMenu: []
-                                                },
-                                'linkmenu':     {
-                                                  dropMenuButtons: ['linkintern','linkextern','linkmailto'],
-                                                  dropMenu: []
-                                                },
-                                'immimagemenu': {
-                                                  dropMenuButtons: [],
-                                                  dropMenu: []
-                                                }
+                                  return s;
+                                }
+                              },
+              'fullscreen':   {
+                                beforeInsert: function(h) {
+                                  p = $(h.textarea).parents("div.markItUp");
+                                  if(p.hasClass("fullscreen")){
+                                    p.removeClass("fullscreen");
+                                    $(h.textarea).css('height','200px');
+                                    $(h.textarea).nextAll('.markItUpPreviewFrame').css('height','200px');
+                                    $('body').removeClass("markitup_fullscreen");
+                                  }else{
+                                    p.addClass("fullscreen");
+                                    $(h.textarea).css('height','50%');
+                                    $(h.textarea).nextAll('.markItUpPreviewFrame').css('height','50%');
+                                    $('body').addClass("markitup_fullscreen");
+                                  }
+                                },
+                                key:"F"
+                              },
+
+              // MENUS
+              ////////////////////////////////////////////////
+              'blockmenu':    {
+                                dropMenuButtons: ['h1','h2','h3','h4','h5','h6','|','p','alignright','aligncenter','alignjustify','|','blockquote','bc'],
+                                dropMenu: []
+                              },
+              'linkmenu':     {
+                                dropMenuButtons: ['linkintern','linkextern','linkmailto'],
+                                dropMenu: []
+                              },
+              'immimagemenu': {
+                                dropMenuButtons: [],
+                                dropMenu: []
+                              }
 
             }, // buttondefinitions
 
@@ -311,7 +314,7 @@ var rex_markitup_getURLParam = function(strParamName) {
 
         }; // defaults
 
-    // The actual plugin constructor
+
     function Plugin( element, options ) {
         this.element = element;
 
@@ -322,6 +325,7 @@ var rex_markitup_getURLParam = function(strParamName) {
 
         this.init();
     }
+
 
     Plugin.prototype = {
 

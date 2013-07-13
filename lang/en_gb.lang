@@ -49,6 +49,8 @@ markitup_stroke                   = stroke
 
 markitup_ins                      = inserted
 
+markitup_cite                     = citation
+
 markitup_listbullet               = list - unsorted
 markitup_listbullet_placeholder   = * this is a list item of an unordered list..\n* each list item requires a line,\n* the list itself requires, as any blockelement, a newline above & below..
 

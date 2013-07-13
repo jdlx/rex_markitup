@@ -48,6 +48,8 @@ markitup_stroke                   = Durchstrichen
 
 markitup_ins                      = Eingefügt
 
+markitup_cite                     = Zitat
+
 markitup_listbullet               = Liste - ungeordnet
 markitup_listbullet_placeholder   = * Dies ist ein Listenpunkt einer ungeordneten Liste..\n* Listenpunkte werden in je einer Zeile notiert,\n* die Liste selbst benötigt wie jedes "Blocklevel" Element je eine Leerzeile ober & unterhalb..
 

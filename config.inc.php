@@ -195,16 +195,16 @@ function rex_markitup_previewlinks($content)
   return $content;
 }
 
-function rex_markitup_preview($slice_id, $markup, $instance, $decode = true)
+function rex_markitup_preview($slice_id, $instance, $textile, $decode = true)
 {
   global $REX;
-  $markup = $decode
-          ? htmlspecialchars_decode($markup, ENT_QUOTES)
-          : $markup;
-  $markup = isset($_SESSION[$REX['INSTNAME']]['rex_markitup'][$slice_id][$instance])
-          ? $_SESSION[$REX['INSTNAME']]['rex_markitup'][$slice_id][$instance]
-          : $markup;
-  return $markup;
+  $textile = $decode
+           ? htmlspecialchars_decode($textile, ENT_QUOTES)
+           : $textile;
+  $textile = isset($_SESSION[$REX['INSTNAME']]['rex_markitup'][$slice_id][$instance])
+           ? $_SESSION[$REX['INSTNAME']]['rex_markitup'][$slice_id][$instance]
+           : $textile;
+  return $textile;
 }
 
 function rex_markitup_clear_session()

@@ -225,7 +225,7 @@ var rex_markitup_getURLParam = function(strParamName) {
                                 ////////////////////////////////////////////////
                                 'preview':      {
                                                   name:'Preview',
-                                                  key:'V'
+                                key:'Enter'
                                                 },
                                 'rex_a79_help': {
                                                   name:'Textile Reference'
@@ -454,6 +454,7 @@ var rex_markitup_getURLParam = function(strParamName) {
             }
 
             options = {
+              onCtrlEnter:        {className:'preview'},
               nameSpace:          this.options.namespace,
               markupSet:          this.markupSet,
               previewParserPath:  'index.php?api=rex_markitup_api&func=parse_preview&uid='+this.guid,

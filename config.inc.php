@@ -55,7 +55,12 @@ if( $data !== false || $api === 'rex_markitup_api')
 
   switch($data['func'])
   {
+    case'clear_session':
+      rex_markitup_clear_session();
+      break;
+
     case'get_i18n':
+      rex_markitup_clear_session();
       rex_markitup_ajax_reply($I18N->text);
       break;
 
@@ -96,6 +101,9 @@ if( $data !== false || $api === 'rex_markitup_api')
           function($params) use($data,$REX)
           {
             $textile = stripslashes($data['rex_markitup_markup']);
+            if(isset($data['slice_id']) && isset($data['textarea_name'])) {
+              $_SESSION[$REX['INSTNAME']]['rex_markitup'][$data['slice_id']][$data['textarea_name']] = $textile;
+            }
             $textile = str_replace('<br />','',$textile);
             $html    = rex_get_file_contents($REX['INCLUDE_PATH'].'/addons/be_style/plugins/rex_markitup/files/custom/markitup/skins/rex_markitup/preview.tmpl.html');
             $html    = str_replace('###CONTENT###', rex_markitup_previewlinks(rex_a79_textile($textile)), $html);
@@ -187,15 +195,22 @@ function rex_markitup_previewlinks($content)
   return $content;
 }
 
-function rex_markitup_imm_imgtypes()
+function rex_markitup_preview($slice_id, $markup, $instance, $decode = true)
 {
   global $REX;
-  $REX['ADDON']['image_manager']['types'] = array();
-  $db = rex_sql::factory();
-  $query = rex_register_extension_point('REX_MARKITUP_IMAGE_TYPES_QUERY', 'SELECT * FROM '.$REX['TABLE_PREFIX'].'679_types ORDER BY `name` ASC');
-  foreach($db->getArray($query) as $type) {
-    $REX['ADDON']['image_manager']['types'][$type['name']] = $type['description'];
-  }
+  $markup = $decode
+          ? htmlspecialchars_decode($markup, ENT_QUOTES)
+          : $markup;
+  $markup = isset($_SESSION[$REX['INSTNAME']]['rex_markitup'][$slice_id][$instance])
+          ? $_SESSION[$REX['INSTNAME']]['rex_markitup'][$slice_id][$instance]
+          : $markup;
+  return $markup;
+}
+
+function rex_markitup_clear_session()
+{
+  global $REX;
+  unset($_SESSION[$REX['INSTNAME']]['rex_markitup']);
 }
 
 
@@ -210,7 +225,7 @@ if(!$REX['REDAXO'] || (rex_request('page','string')=='markitup' && rex_request('
 
 // REX COMMONS
 ////////////////////////////////////////////////////////////////////////////////
-$REX['ADDON']['version'][$mypage]     = '0.9.8.1';
+$REX['ADDON']['version'][$mypage]     = '0.9.8.3';
 $REX['ADDON']['author'][$mypage]      = 'jdlx';
 $REX['ADDON']['supportpage'][$mypage] = 'forum.redaxo.de';
 
@@ -228,6 +243,7 @@ $REX['ADDON']['BE_STYLE_PAGE_CONTENT'][$mypage] = '
 ////////////////////////////////////////////////////////////////////////////////
 // --- DYN
 $REX["rex_markitup"]["settings"] = array (
+  'imm_sql_where' => 'WHERE `name` NOT LIKE "rex_%"',
   'buttoncss' => '',
   'buttondefinitions' => '',
   'buttonsets' => 'standard:
@@ -236,8 +252,20 @@ compact:
 \'blockmenu,|,bold,italic,stroke,ins,cite,code,|,listbullet,listnumeric,|,immimagemenu,linkmedia,|,linkmenu,|,preview,fullscreen\',
 full:
 \'blockmenu,|,h1,h2,h3,h4,h5,h6,|,bold,italic,stroke,ins,cite,code,|,alignleft,alignright,aligncenter,alignjustify,|,listbullet,listnumeric,|,image,linkmedia,|,linkmenu,linkintern,linkextern,linkmailto,|,preview,rex_a79_help,fullscreen\'',
+  'options' => 'smartinsert: true',
 );
 // --- /DYN
+
+function rex_markitup_imm_imgtypes()
+{
+  global $REX;
+  $REX['ADDON']['image_manager']['types'] = array();
+  $db = rex_sql::factory();
+  $query = rex_register_extension_point('REX_MARKITUP_IMAGE_TYPES_QUERY', 'SELECT * FROM '.$REX['TABLE_PREFIX'].'679_types '.$REX['rex_markitup']['settings']['imm_sql_where'].' ORDER BY `name` ASC');
+  foreach($db->getArray($query) as $type) {
+    $REX['ADDON']['image_manager']['types'][$type['name']] = $type['description'];
+  }
+}
 
 
 // INCLUDE ASSETS @ OPF
@@ -260,6 +288,7 @@ rex_register_extension('OUTPUT_FILTER',
                                               'buttondefinitions' => stripslashes($REX["rex_markitup"]["settings"]["buttondefinitions"]),
                                               'buttonsets'        => stripslashes($REX["rex_markitup"]["settings"]["buttonsets"]),
                                               'buttoncss'         => stripslashes($REX["rex_markitup"]["settings"]["buttoncss"]),
+                                              'options'           => stripslashes($REX["rex_markitup"]["settings"]["options"]),
                                               'immtypes'          =>              $REX['ADDON']['image_manager']['types'],
                                              )
                                       );
@@ -267,6 +296,7 @@ rex_register_extension('OUTPUT_FILTER',
     $buttonsets        = $ep['buttonsets'];
     $buttoncss         = $ep['buttoncss'];
     $immtypes          = $ep['immtypes'];
+    $options           = $ep['options'];
 
 
 
@@ -293,6 +323,7 @@ rex_register_extension('OUTPUT_FILTER',
     if(typeof rex_markitup === "undefined") { var rex_markitup = {}; }
     rex_markitup.buttondefinitions = {'.PHP_EOL.$buttondefinitions.PHP_EOL.'} // buttondefinitions
     rex_markitup.buttonsets        = {'.PHP_EOL.$buttonsets.PHP_EOL.'} // buttonsets
+    rex_markitup.options           = {'.PHP_EOL.$options.PHP_EOL.'} // buttonsets
     rex_markitup.immtypes          = '.json_encode($immtypes).' // immtypes
     rex_markitup.chosen_imm_type   = "" // last chosen imm type
   </script>

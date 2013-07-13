@@ -224,7 +224,8 @@ var rex_markitup_getURLParam = function(strParamName) {
                                 // OTHERS
                                 ////////////////////////////////////////////////
                                 'preview':      {
-                                                  name:'Preview'
+                                                  name:'Preview',
+                                                  key:'V'
                                                 },
                                 'rex_a79_help': {
                                                   name:'Textile Reference'
@@ -305,7 +306,8 @@ var rex_markitup_getURLParam = function(strParamName) {
               full:     'blockmenu,|,h1,h2,h3,h4,h5,h6,|,bold,italic,stroke,ins,cite,code,|,alignleft,alignright,aligncenter,alignjustify,|,listbullet,listnumeric,|,image,linkmedia,|,linkmenu,linkintern,linkextern,linkmailto,|,preview,rex_a79_help,fullscreen',
               dev:      'blockmenu,|,h1,h2,h3,h4,h5,h6,|,bold,italic,stroke,ins,cite,code,|,alignleft,alignright,aligncenter,alignjustify,|,listbullet,listnumeric,|,immimagemenu,image,linkmedia,|,linkmenu,linkintern,linkextern,linkmailto,|,preview,rex_a79_help,|,css_dummy,fullscreen'
             },
-            smartinsert: true
+            smartinsert: true,
+            previewfrontend: false
 
         }; // defaults
 
@@ -323,7 +325,7 @@ var rex_markitup_getURLParam = function(strParamName) {
 
     Plugin.prototype = {
 
-        init: function() {                                                                                                       //console.log('this.options:',this.options);
+        init: function() {                                                                                              //console.log('this.options:',this.options);
 
             $(document).on('dblclick','.markItUpFooter', function(e){
               $(e.target).next('.markItUpPreviewFrame').remove();
@@ -339,7 +341,7 @@ var rex_markitup_getURLParam = function(strParamName) {
             if (!isArray) {
               isArray = function(val) {
                 return toString.call(val) === '[object Array]';
-              }
+              };
             }
 
             this.guid = $(this.element).constructor.guid;
@@ -349,11 +351,14 @@ var rex_markitup_getURLParam = function(strParamName) {
             }
 
             if(typeof rex_markitup !== 'undefined') {
+              if(typeof rex_markitup.options !== 'undefined') {
+                this.options = $.extend( {}, this.options, rex_markitup.options );                                      //console.log('this.options:',this.options);
+              }
               if(typeof rex_markitup.buttonsets !== 'undefined') {
-                this.options.buttonsets = $.extend( {}, this.options.buttonsets, rex_markitup.buttonsets );                      // console.log('this.options.buttonsets:',this.options.buttonsets);
+                this.options.buttonsets = $.extend( {}, this.options.buttonsets, rex_markitup.buttonsets );             //console.log('this.options:',this.options);
               }
               if(typeof rex_markitup.buttondefinitions !== 'undefined') {
-                this.options.buttondefinitions = $.extend( {}, this.options.buttondefinitions, rex_markitup.buttondefinitions ); // console.log('this.options.buttondefinitions:',this.options.buttondefinitions);
+                this.options.buttondefinitions = $.extend( {}, this.options.buttondefinitions, rex_markitup.buttondefinitions ); //console.log('this.options:',this.options);
               }
             }
 
@@ -419,6 +424,35 @@ var rex_markitup_getURLParam = function(strParamName) {
               }
             }
 
+            if(this.options.previewfrontend) {
+
+              rex_markitup.sessionCleared = false;
+              $(document).on('click','.rex-form-content-editmode-edit-slice input.rex-form-submit', $.proxy(function(e){
+                if(!rex_markitup.sessionCleared) { console.log('clearing session..');
+                  $.ajax({
+                    type: 'POST',
+                    url: 'index.php',
+                    async: false,
+                    data: {'rex_markitup_api': JSON.stringify({func:'clear_session'})},
+                    success: $.proxy(function(data) {
+                      rex_markitup.sessionCleared = true;
+                    },this),
+                    error: function(e){ console.warn('error:',e); }
+                  });
+                }
+              },this));
+
+              if(typeof rex_markitup.backendUrl === 'undefined') {
+                rex_markitup.backendUrl = this.parseURL();
+              }
+              this.backendUrl = rex_markitup.backendUrl;
+
+              if(typeof rex_markitup.frontendUrl === 'undefined') {
+                rex_markitup.frontendUrl = 'http://' + window.location.hostname + $('ul.rex-navi-content li:last-child a').attr('href').replace('../','/');
+              }
+              this.frontendUrl = rex_markitup.frontendUrl;
+            }
+
             options = {
               nameSpace:          this.options.namespace,
               markupSet:          this.markupSet,
@@ -451,6 +485,10 @@ var rex_markitup_getURLParam = function(strParamName) {
           };
           if(className === 'preview') {
             data.rex_markitup_markup = h.textarea.value;
+            if(this.options.previewfrontend) {
+              data.textarea_name       = h.textarea.name;
+              data.slice_id            = rex_markitup.backendUrl.params.slice_id;
+            }
           }
           $.ajax({
             type: 'POST',
@@ -460,12 +498,17 @@ var rex_markitup_getURLParam = function(strParamName) {
             data: {'rex_markitup_api': JSON.stringify(data)},
             success: $.proxy(function(data) {
               footer = $(this.element).next('.markItUpFooter');
-              iFrame = $('iframe.markItUpPreviewFrame.rex_markitup');
-              style = $(this.element).parents('div.markItUp').hasClass('fullscreen') ? ' style="height:50%" ' : '';
+              iFrame = $(this.element).nextAll('iframe.markItUpPreviewFrame.rex_markitup');
+              style  = $(this.element).parents('div.markItUp').hasClass('fullscreen') ? ' style="height:50%" ' : '';
 
               if(iFrame.length === 0) {
                 iFrame = $('<iframe class="markItUpPreviewFrame rex_markitup"'+style+'></iframe>');
                 iFrame.insertAfter(footer);
+              }
+
+              if(this.options.previewfrontend) {
+                $(iFrame).attr('src',this.frontendUrl);
+                return;
               }
 
               previewWindow = iFrame[iFrame.length - 1].contentWindow || frame[iFrame.length - 1];
@@ -591,10 +634,10 @@ var rex_markitup_getURLParam = function(strParamName) {
                   break;
 
                   case false:
-                    if(h.sel.line(-1).charAt(0) === markup) {
+                    if(typeof h.sel.line(-1) === 'undefined' || h.sel.line(-1).charAt(0) === markup) {
                       h.openWith = '';
                     }
-                    if(h.sel.line(1).charAt(0) === markup) {
+                    if(typeof h.sel.line(1) === 'undefined' || h.sel.line(1).charAt(0) === markup) {
                       h.closeWith = '';
                     }
                     prepend = h.selection.charAt(0) === markup ? markup : markup + ' ';
@@ -647,15 +690,11 @@ var rex_markitup_getURLParam = function(strParamName) {
           }                                                                                                             //console.log('selection:',h.selection); console.log('openWith:',h.openWith);console.log('closeWith:',h.closeWith);console.groupEnd();
         },
         afterInsertCallback: function(h, rex_markitup){                                                                 //console.group('afterInsertCallback: '+h.className);
-
-
           if(!rex_markitup.options.smartinsert || typeof h.className === 'undefined'){                                  //console.groupEnd();
             return;
           }
-
           className = h.className.replace('markitup-','');
           h.sel     = this.selection($(h.textarea));                                                                    //console.log('className:',className);console.groupCollapsed('rex_markitup');console.dir(rex_markitup);console.groupEnd(); console.groupCollapsed('h');console.dir(h);console.groupEnd(); console.groupCollapsed('h.sel');console.log('sel.text():',h.sel.text());console.log('sel.surround():',h.sel.surround());console.log('sel.surround(2):',h.sel.surround(2));console.log('sel.cursor():',h.sel.cursor());console.log('sel.line():',h.sel.line());console.groupEnd();
-
                                                                                                                         //console.log('selection:',h.selection); console.log('openWith:',h.openWith);console.log('closeWith:',h.closeWith);console.groupEnd();
         },
         sanitizeNewlines: function(str) {
@@ -682,7 +721,7 @@ var rex_markitup_getURLParam = function(strParamName) {
           a = p.children('textarea.markItUpEditor').height();
           f = p.children('div.markItUpFooter').height();
           var w=window,d=document,e=d.documentElement,g=d.getElementsByTagName("body")[0],x=w.innerWidth||e.clientWidth||g.clientWidth,y=w.innerHeight||e.clientHeight||g.clientHeight;
-          r = y-h-a-f;
+          r = y-h-a-f-26;
           p.children('iframe.markItUpPreviewFrame').css('height', r);
         },
         // http://webmisterradixlecti.blogspot.de/2012/10/javascript-secondindexof-or-xindexof.html
@@ -699,6 +738,57 @@ var rex_markitup_getURLParam = function(strParamName) {
             console.warn(Val + " Occurs less than " + x + " times");
             return 0;
           }
+        },
+        parseURL: function(url)
+        {                                                                                                                     //console.group('parseUrl:',url);
+          if(typeof url == 'undefined') {
+            url = window.location.href;
+          }
+
+          var a =  document.createElement('a');
+          a.href = url;                                                                                                       //console.log('url:',url);
+          var parsed = {
+              source: url,
+              protocol: a.protocol.replace(':',''),
+              host: a.hostname,
+              port: a.port,
+              query: a.search,
+              file: (a.pathname.match(/\/([^\/?#]+)$/i) || [,''])[1],
+              hash: a.hash.replace('#',''),
+              path: a.pathname.replace(/^([^\/])/,'/$1'),
+              relative: (a.href.match(/tps?:\/\/[^\/]+(.+)/) || [,''])[1],
+              segments: a.pathname.replace(/^\//,'').split('/')
+          };
+          parsed.params = (function(){
+            var ret = {},
+                seg = a.search.replace(/^\?/,'').split('&'),
+                len = seg.length, i = 0, s;
+            for (;i<len;i++) {
+                if (!seg[i]) { continue; }
+                s = seg[i].split('=');
+                ret[s[0]] = s[1];
+            }
+            return ret;
+          })();
+          parsed.redaxo = (function(){
+            if(parsed.protocol !== 'redaxo'){
+              return false;
+            }
+            var rex = {};
+            p = url.match(/redaxo\:\/\/(\d+)(?:-(\d*))*/i);
+            rex.article_id = +p[1];
+            rex.clang = (typeof p[2] == 'undefined')  ? 0 : +p[2];
+            return rex;
+          })();
+          parsed.anchor_only = (function(){
+            var loc = self.location.href.replace(/#.*/i,'');
+            return url.replace(loc,'').search(/^#/gi) === 0 ? true : false;
+          })();
+          parsed.email = (function(){
+            return parsed.protocol === 'mailto' ? parsed.source.replace(/mailto:/,'') : false;
+          })();                                                                                                               //console.log('parsed:',parsed);console.groupEnd();
+
+          return parsed;
         },
 
         // GUTTED SELECTION.JS FUNCS FROM HERE ON..

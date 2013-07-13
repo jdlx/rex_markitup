@@ -67,9 +67,19 @@ echo '
 
 
           <div class="rex-form-row">
+            <p class="rex-form-col-a rex-form-text">
+              <label for="imm_sql_where">IMM type condition:</label>
+              <input type="text" id="imm_sql_where" style="font-family:monospace;font-size:1.3em;width:98%;margin-left:5px;" class="rex-form-text" name="settings[imm_sql_where]" value="'.htmlspecialchars($REX[$mypage]['settings']['imm_sql_where']).'" />
+              <span style="margin-left:5px;color:gray;font-size:10px;font-family:monospace;">MySQL WHERE syntax</span>
+            </p>
+          </div><!-- .rex-form-row -->
+
+
+
+          <div class="rex-form-row">
             <p class="rex-form-col-a rex-form-textarea">
               <label for="buttoncss">Button CSS</label>
-              <textarea id="buttoncss" style="min-height:100px;font-family:monospace;font-size:1.3em;width:98%;margin-left:5px;" class="rex-form-textarea rex-codemirror" name="settings[buttoncss]">'.$REX[$mypage]['settings']['buttoncss'].'</textarea>
+              <textarea id="buttoncss" style="min-height:100px;font-family:monospace;font-size:1.3em;width:98%;margin-left:5px;" class="rex-form-textarea rex-codemirror" name="settings[buttoncss]">'.htmlspecialchars($REX[$mypage]['settings']['buttoncss']).'</textarea>
             </p>
           </div><!-- .rex-form-row -->
 
@@ -77,8 +87,8 @@ echo '
           <div class="rex-form-row">
             <p class="rex-form-col-a rex-form-textarea">
               <label for="buttondefinitions" style="width:auto;">rex_markitup.buttondefinitions:&nbsp;{…}</label>
-              <textarea id="buttondefinitions" style="min-height:100px;font-family:monospace;font-size:1.3em;width:98%;margin-left:5px;" class="rex-form-textarea rex-codemirror" name="settings[buttondefinitions]">'.$REX[$mypage]['settings']['buttondefinitions'].'</textarea>
-              <span style="margin-left:5px;color:gray;font-size:10px;font-family:monospace;">use JS obj property notation</span>
+              <textarea id="buttondefinitions" style="min-height:100px;font-family:monospace;font-size:1.3em;width:98%;margin-left:5px;" class="rex-form-textarea rex-codemirror" name="settings[buttondefinitions]">'.htmlspecialchars($REX[$mypage]['settings']['buttondefinitions']).'</textarea>
+              <span style="margin-left:5px;color:gray;font-size:10px;font-family:monospace;">JS obj property syntax</span>
             </p>
           </div><!-- .rex-form-row -->
 
@@ -86,11 +96,19 @@ echo '
           <div class="rex-form-row">
             <p class="rex-form-col-a rex-form-textarea">
               <label for="buttonsets">rex_markitup.buttonsets:&nbsp;{…}</label>
-              <textarea id="buttonsets" style="min-height:100px;font-family:monospace;font-size:1.3em;width:98%;margin-left:5px;" class="rex-form-textarea rex-codemirror" name="settings[buttonsets]">'.$REX[$mypage]['settings']['buttonsets'].'</textarea>
-              <span style="margin-left:5px;color:gray;font-size:10px;font-family:monospace;">use JS obj property notation</span>
+              <textarea id="buttonsets" style="min-height:100px;font-family:monospace;font-size:1.3em;width:98%;margin-left:5px;" class="rex-form-textarea rex-codemirror" name="settings[buttonsets]">'.htmlspecialchars($REX[$mypage]['settings']['buttonsets']).'</textarea>
+              <span style="margin-left:5px;color:gray;font-size:10px;font-family:monospace;">JS obj property syntax</span>
             </p>
           </div><!-- .rex-form-row -->
 
+
+          <div class="rex-form-row">
+            <p class="rex-form-col-a rex-form-textarea">
+              <label for="options">rex_markitup.options:&nbsp;{…}</label>
+              <textarea id="options" style="min-height:100px;font-family:monospace;font-size:1.3em;width:98%;margin-left:5px;" class="rex-form-textarea rex-codemirror" name="settings[options]">'.htmlspecialchars($REX[$mypage]['settings']['options']).'</textarea>
+              <span style="margin-left:5px;color:gray;font-size:10px;font-family:monospace;">JS obj property syntax</span>
+            </p>
+          </div><!-- .rex-form-row -->
 
 
           <div class="rex-form-row rex-form-element-v2">

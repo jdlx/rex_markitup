@@ -74,15 +74,24 @@ if( $data !== false || $api === 'rex_markitup_api')
 
             switch($data['func']) {
               case'css_dummy':
-                $content = rex_get_file_contents($REX['INCLUDE_PATH'].'/addons/be_style/plugins/rex_markitup/files/custom/markitup/skins/rex_markitup/css_dummy.textile');
-                $content = rex_markitup_previewlinks(rex_a79_textile($content));
+                $content = rex_markitup_previewlinks(
+                             rex_a79_textile(
+                               rex_get_file_contents(
+                                 $REX['INCLUDE_PATH'].'/addons/be_style/plugins/rex_markitup/files/custom/markitup/skins/rex_markitup/css_dummy.textile'
+                               )
+                             )
+                           );
               break;
 
               case'rex_a79_help':
                 ob_start();
                 rex_a79_help_overview();
-                $content = ob_get_flush();
-                $content = '<h3>Textile Reference</h3>'.$content;
+                $content  = '<h3>Textile Reference</h3>'.ob_get_flush();
+                $content .= rex_a79_textile(
+                              rex_get_file_contents(
+                                $REX['INCLUDE_PATH'].'/addons/be_style/plugins/rex_markitup/files/custom/markitup/skins/rex_markitup/textile_class_usage.textile'
+                              )
+                            );
               break;
             }
 

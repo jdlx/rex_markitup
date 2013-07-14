@@ -276,16 +276,23 @@ var rex_markitup_getURLParam = function(strParamName) {
                                     p.removeClass("fullscreen");
                                     $(h.textarea).css('height','200px');
                                     $(h.textarea).nextAll('.markItUpPreviewFrame').css('height','200px');
-                                    $('body').removeClass("markitup_fullscreen");
+                                    $('body').removeClass("rex_markitup_fullscreen");
                                   }else{
                                     p.addClass("fullscreen");
                                     $(h.textarea).css('height','50%');
                                     $(h.textarea).nextAll('.markItUpPreviewFrame').css('height','50%');
-                                    $('body').addClass("markitup_fullscreen");
+                                    $('body').addClass("rex_markitup_fullscreen");
                                   }
                                 },
                                 key:"F"
                               },
+              'rex_save':     {
+                                name:rex_markitup.i18n.save_block
+                              },
+              'rex_update':   {
+                                name:rex_markitup.i18n.update_block
+                              },
+
 
               // MENUS
               ////////////////////////////////////////////////
@@ -308,7 +315,7 @@ var rex_markitup_getURLParam = function(strParamName) {
               standard: 'h1,h2,h3,h4,|,bold,italic,stroke,ins,cite,code,|,listbullet,listnumeric,|,immimagemenu,linkmedia,|,linkintern,linkextern,linkmailto,|,preview,fullscreen',
               compact:  'blockmenu,|,bold,italic,stroke,ins,cite,code,|,listbullet,listnumeric,|,immimagemenu,linkmedia,|,linkmenu,|,preview,fullscreen',
               full:     'blockmenu,|,h1,h2,h3,h4,h5,h6,|,bold,italic,stroke,ins,cite,code,|,alignleft,alignright,aligncenter,alignjustify,|,listbullet,listnumeric,|,image,linkmedia,|,linkmenu,linkintern,linkextern,linkmailto,|,preview,rex_a79_help,fullscreen',
-              dev:      'blockmenu,|,h1,h2,h3,h4,h5,h6,|,bold,italic,stroke,ins,cite,code,|,alignleft,alignright,aligncenter,alignjustify,|,listbullet,listnumeric,|,immimagemenu,image,linkmedia,|,linkmenu,linkintern,linkextern,linkmailto,|,preview,rex_a79_help,|,css_dummy,fullscreen'
+              dev:      'blockmenu,|,h1,h2,h3,h4,h5,h6,|,bold,italic,stroke,ins,cite,code,|,alignleft,alignright,aligncenter,alignjustify,|,listbullet,listnumeric,|,immimagemenu,image,linkmedia,|,linkmenu,linkintern,linkextern,linkmailto,|,preview,rex_a79_help,|,css_dummy,fullscreen,rex_update,rex_save'
             },
             smartinsert: true,
             previewfrontend: false
@@ -551,6 +558,12 @@ var rex_markitup_getURLParam = function(strParamName) {
                 this.showInPreview(className, h);
                 return;
               }
+            break;
+
+            case'rex_update':
+            case'rex_save':
+              name = className.replace('rex_','btn_');
+              $('.rex-form-content-editmode-edit-slice p.rex-form-submit input[name*="'+name+'"]').click();
             break;
           }
 

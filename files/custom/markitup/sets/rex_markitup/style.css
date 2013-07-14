@@ -153,10 +153,53 @@
 /* FULLSCREEN */
 li.markItUpButton.markitup-fullscreen {
     float: right;
+    margin-left:20px;
 }
 .markItUpButton.markitup-fullscreen a {
     background-position: 0 -780px;
 }
 .fullscreen .markItUpButton.markitup-fullscreen a {
     background-position: 0 -810px;
+}
+
+/* REX SAVE/UPDATE BUTTONS */
+body.rex_markitup_fullscreen li.markItUpButton.markitup-rex_save,
+body.rex_markitup_fullscreen li.markItUpButton.markitup-rex_update {
+    display: block;
+}
+li.markItUpButton.markitup-rex_save,
+li.markItUpButton.markitup-rex_update {
+    float: right;
+    display: none;
+    width:auto;
+}
+li.markItUpButton.markitup-rex_save a,
+li.markItUpButton.markitup-rex_update a {
+    background: linear-gradient(to bottom, #F1EFEF 0%, #CCCBCB 100%) repeat scroll 0 0 transparent;
+    border-color: #A7A7A7 #CCCCCC #AAAAAA #A7A7A7;
+    border-radius: 4px 4px 4px 4px;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: 1px 1px 0 rgba(255, 255, 255, 0.51);
+    color: #000000;
+    cursor: pointer;
+    /*display: inline-block;*/
+    font-family: Helvetica,Arial,Verdana,Tahoma,sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 16px;
+    margin-left: 8px;
+    outline: 0 none;
+    padding: 4px 8px 2px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    text-indent: 0;
+    text-shadow: 0 1px 0 #FFFFFF;
+    width: auto;
+}
+li.markItUpButton.markitup-rex_save a:hover,
+li.markItUpButton.markitup-rex_update a:hover {
+    background: linear-gradient(to bottom, #E1E1E1 0%, #BBBABA 100%) repeat scroll 0 0 transparent;
+    text-decoration: none !important;
 }

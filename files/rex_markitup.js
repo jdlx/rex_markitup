@@ -549,6 +549,7 @@ var rex_markitup_getURLParam = function(strParamName) {
 
           switch(className)
           {
+            // SPECIAL FUNCS
             case'preview':
             case'css_dummy':
             case'rex_a79_help':                                                                                         //console.log('h:',h);console.groupEnd();
@@ -567,6 +568,7 @@ var rex_markitup_getURLParam = function(strParamName) {
             break;
           }
 
+          // ONLY DEFINED BUTTONS FROM HERE ON..
           if(!rex_markitup.options.smartinsert || typeof h.className === 'undefined'){                                  //console.groupEnd();
             return;
           }

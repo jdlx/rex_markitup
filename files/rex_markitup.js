@@ -228,7 +228,8 @@ var rex_markitup_getURLParam = function(strParamName) {
                                 key:'Enter'
                               },
               'rex_a79_help': {
-                                name:'Textile Reference'
+                                name:'Textile Reference',
+                                key: 'H'
                               },
               'css_dummy':    {
                                 name:'CSS Dummy'

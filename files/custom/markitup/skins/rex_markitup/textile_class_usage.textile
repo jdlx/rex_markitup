@@ -1,74 +1,303 @@
-Addendum: <a class="trigger" data-target="#textile_class_comments">Textile Class Comments</a>
+Addendum: <a class="trigger" data-target="#textile_class_comments">Textile Class Doc</a>
 
  <div id="textile_class_comments" style="display:none">
 
-h3. Block modifier syntax:
-
-bc.. Header: h(1-6).
-  Paragraphs beginning with 'hn. ' (where n is 1-6) are wrapped in header tags.
-  Example: h1. Header... -> <h1>Header...</h1>
-
-  Paragraph: p. (also applied by default)
-  Example: p. Text -> <p>Text</p>
-
-  Blockquote: bq.
-  Example: bq. Block quotation... -> <blockquote>Block quotation...</blockquote>
-
-  Blockquote with citation: bq.:http://citation.url
-  Example: bq.:http://textism.com/ Text...
-  ->    <blockquote cite="http://textism.com">Text...</blockquote>
-
-  Footnote: fn(1-100).
-  Example: fn1. Footnote... -> <p id="fn1">Footnote...</p>
-
-  Numeric list: #, ##
-  Consecutive paragraphs beginning with # are wrapped in ordered list tags.
-  Example: <ol><li>ordered list</li></ol>
-
-  Bulleted list: *, **
-  Consecutive paragraphs beginning with * are wrapped in unordered list tags.
-  Example: <ul><li>unordered list</li></ul>
-
-  Definition list:
-      Terms ;, ;;
-      Definitions :, ::
-  Consecutive paragraphs beginning with ; or : are wrapped in definition list tags.
-  Example: <dl><dt>term</dt><dd>definition</dd></dl>
-
-  Redcloth-style Definition list:
-      - Term1 := Definition1
-      - Term2 := Extended
-        definition =:
-
-h3. Phrase modifier syntax:
-
-bc..            _emphasis_    ->     <em>emphasis</em>
-           __italic__    ->     <i>italic</i>
-             *strong*    ->     <strong>strong</strong>
-             **bold**    ->     <b>bold</b>
-         ??citation??    ->     <cite>citation</cite>
-       -deleted text-    ->     <del>deleted</del>
-      +inserted text+    ->     <ins>inserted</ins>
-        ^superscript^    ->     <sup>superscript</sup>
-          ~subscript~    ->     <sub>subscript</sub>
-               @code@    ->     <code>computer code</code>
-          %(bob)span%    ->     <span class="bob">span</span>
-
-        ==notextile==    ->     leave text alone (do not format)
-
-       "linktext":url    ->     <a href="url">linktext</a>
-"linktext(title)":url    ->     <a href="url" title="title">linktext</a>
-              "$":url    ->     <a href="url">url</a>
-       "$(title)":url    ->     <a href="url" title="title">url</a>
-
-           !imageurl!    ->     <img src="imageurl" />
- !imageurl(alt text)!    ->     <img src="imageurl" alt="alt text" />
-   !imageurl!:linkurl    ->     <a href="linkurl"><img src="imageurl" /></a>
-
-ABC(Always Be Closing)   ->     <acronym title="Always Be Closing">ABC</acronym>
 
 
-h4. Linked Notes:
+
+h2(topic). 1. Block modifier
+
+* Block modifier *require a newline* above und below the block.
+* The modifier must be at the beginning of a line followed by a dot and a whitespace (_exception: lists, see below_).
+
+h3. Header
+
+|_. example                                       |_. output                                |
+| @h1. Header...@ *_h#._* where # is 1-6          | @<h1>Header...</h1>@                    |
+
+h3. Paragraph
+
+*Note:* any line starting without a distinct block modifier will be treated as a paragraph
+
+|_. example                 |_. output                                                      |
+| @p. Paragraph...@         | @<p>Paragraph...</p>@                                         |
+
+h3. Blockquote
+
+|_. example                 |_. output                                                      |
+| @bq. Block quotation... @ | @<blockquote>Block quotation...</blockquote>@                 |
+
+h3. Footnote
+
+|_. example                                            |_. output                           |
+| @fn1. Footnote...@ *_fn(#)._* where # is 1-100       | @<p id="fn1">Footnote...</p>@      |
+
+*Note:* Using 2 dots after a block modifier makes it _greedy_ (aka _multiline_) : it will span until the next explicit block modifier.
+
+
+
+h2(topic). 2. Phrase modifier
+
+|_. example                 |_. output                                                                 |
+| @            _emphasis_ @ | @ <em>emphasis</em> @                                                    |
+| @           __italic__  @ | @ <i>italic</i> @                                                        |
+| @             *strong*  @ | @ <strong>strong</strong> @                                              |
+| @             **bold**  @ | @ <b>bold</b> @                                                          |
+| @         ??citation??  @ | @ <cite>citation</cite> @                                                |
+| @       -deleted text-  @ | @ <del>deleted</del> @                                                   |
+| @      +inserted text+  @ | @ <ins>inserted</ins> @                                                  |
+| @        ^superscript^  @ | @ <sup>superscript</sup> @                                               |
+| @          ~subscript~  @ | @ <sub>subscript</sub> @                                                 |
+|       <code>@code@</code> | @ <code>computer code</code> @                                           |
+
+*Note:* Phrase modifiers require a leading & trailing whitespace to work - to use without, the phrase needs to be wrapped in square brackets: @super[*bold*]faced@
+
+h3. Links
+
+|_. example                 |_. output                                                                 |
+| @"Textile":http://texti.le  @ | @ <a href="http://texti.le">linktext</a> @                           |
+| @"Textile(Textile)":http://texti.le  @ | @ <a href="http://texti.le" title="Textile">linktext</a> @  |
+| @"$":http://texti.le  @ | @ <a href="http://texti.le">http://texti.le</a> @                          |
+| @"$(Textile)":http://texti.le  @ | @ <a href="http://texti.le" title="Textile">http://texti.le</a> @ |
+
+h3. Images
+
+|_. example                 |_. output                                                                 |
+| @           !imageurl!  @ | @ <img src="imageurl" /> @                                               |
+| @ !imageurl(alt text)!  @ | @ <img src="imageurl" alt="alt text" /> @                                |
+| @   !imageurl!:linkurl  @ | @ <a href="linkurl"><img src="imageurl" /></a> @                         |
+
+h3. Other
+
+|_. example                 |_. output                                                                 |
+| @          %(bob)span%  @ | @ <span class="bob">span</span> @                                        |
+| @        ==notextile==  @ | @ leave text alone (do not format) @                                     |
+| @ABC(Always Be Closing) @ | @ <acronym title="Always Be Closing">ABC</acronym> @                     |
+
+
+
+
+h2(topic). 3. Lists
+
+* Lists - as block modifiers - *require a newline* above und below the block.
+* Consecutive lines with a list item modifier are wrapped in list tags.
+* Each list item modifier must be at the beginning of the line followed by *just* a whitespace.
+* Multiple list item modifiers control the nesting level
+
+h3. Numeric
+
+|_. example                 |_. output              |
+| <pre># item 1
+# item 2
+## item 2.1
+## item 2.2</pre> | <pre><ol>
+  <li>item 1</li>
+  <li>item 2
+  <ol>
+    <li>item 2.1/li>
+    <li>item 2.2</li>
+  </ol></li>
+</ol></pre>                                        |
+
+h3. Bulleted
+
+|_. example                 |_. output              |
+| <pre>* item 1
+* item 2
+** item 2.1
+** item 2.2</pre> | <pre><ul>
+  <li>item 1</li>
+  <li>item 2
+  <ul>
+    <li>item 2.1/li>
+    <li>item 2.2</li>
+  </ul></li>
+</ul></pre>                                        |
+
+h3. Definition
+
+|_. example                 |_. output              |
+| <pre>; term 1
+: definition 1
+; term 2
+: definition 2
+;; term 3
+:: definition 3</pre> | <pre><dl>
+  <dt>term 1</dt>
+  <dd>definition 1</dd>
+  <dt>term 2</dt>
+  <dd>definition 2
+  <dl>
+    <dt>term 3</dt>
+    <dd>definition 3</dd>
+  </dl></dd>
+</dl></pre>                                        |
+
+*Note:* Redcloth-style Definition list:
+
+bc. - Term1 := Definition1
+- Term2 := Extended
+definition =:
+
+h5. Ordered List Start & Continuation
+
+You can control the start attribute of an ordered list like so;
+
+bc. #5 Item 5
+# Item 6
+
+You can resume numbering list items after some intervening anonymous block like so...
+
+bc. #_ Item 7
+# Item 8
+
+
+
+
+
+
+
+h2(topic). 4. Tables
+
+|_. example                 |_. output              |
+| <pre>|a|simple|table|row|
+|And|Another|table|row|
+|With an||empty|cell|</pre> | <pre><table>
+  <tbody>
+    <tr>
+      <td>a</td>
+      <td>simple</td>
+      <td>table</td>
+      <td>row</td>
+    </tr>
+    <tr>
+      <td>And</td>
+      <td>Another</td>
+      <td>table</td>
+      <td>row</td>
+    </tr>
+    <tr>
+      <td>With an</td>
+      <td></td>
+      <td>empty</td>
+      <td>cell</td>
+    </tr>
+  </tbody>
+</table></pre>                                        |
+| <pre>|=. My table caption goes here
+|_. A|_. table|_. header|_.row|
+|A|simple|table|row|</pre> |<pre><table>
+  <caption>My table caption goes here</caption>
+  <tbody>
+    <tr>
+      <th>A</th>
+      <th>table</th>
+      <th>header</th>
+      <th>_.row</th>
+    </tr>
+    <tr>
+      <td>A</td>
+      <td>simple</td>
+      <td>table</td>
+      <td>row</td>
+    </tr>
+  </tbody>
+</table></pre>                                        |
+
+*Note:* Table captions *must* be the first line of the table else treated as a center-aligned cell.
+
+h5. Tables with attributes:
+
+bc. table{border:1px solid black}. My table summary here
+{background:#ddd;color:red}. |{}| | | |
+
+To specify thead / tfoot / tbody groups, add one of these on its own line
+above the row(s) you wish to wrap (you may specify attributes before the dot):
+
+bc. |^.     # thead
+|-.     # tbody
+|~.     # tfoot
+
+h5. Column groups:
+
+bc. |:\3. 100|
+
+Becomes:
+
+bc. <colgroup span="3" width="100"></colgroup>
+
+You can omit either or both of the \N or width values. You may also
+add cells after the colgroup definition to specify col elements with
+span, width, or standard Textile attributes:
+
+bc. |:. 50|(firstcol). |\2. 250||300|
+
+Becomes:
+
+bc. <colgroup width="50">
+    <col class="firstcol" />
+    <col span="2" width="250" />
+    <col />
+    <col width="300" />
+</colgroup>
+
+_(Note that, per the HTML specification, you should not add span to the colgroup if specifying col elements.)_
+
+
+
+
+
+h2(topic). 5. Attributes
+
+Most anywhere Textile code is used, attributes such as arbitrary css style, css classes, and ids can be applied - the syntax is fairly consistent.
+
+h3. Alignment
+
+table{max-width:600px}.
+|_. character|_. align     |_. example                      |
+| @<@        | left        | @p<. left-aligned paragraph@   |
+| @>@        | right       | @h3>. right-aligned header 3@  |
+| @=@        | centred     | @h4=. centred header 4@        |
+| @<>@       | justified   | @p<>. justified paragraph@     |
+| @^@        | top         | @p|^. top-aligned table cell|@ |
+| @-@        | middle      | @|-. middle aligned cell|@     |
+| @~@        | bottom      | @|~. bottom aligned cell|@     |
+
+h3. Class & id attributes:
+
+table{max-width:auto}.
+|_. example                    |_. attribute     |_. output                                     |
+| @p(hector). paragraph@       | class           | @<p class="hector">paragraph</p>@            |
+| @p(#fluid). paragraph@       | id              | @<p id="fluid">paragraph</p>@                |
+| @p(hector#fluid). paragraph@ | class & id      | @<p class="hector" id="fluid">paragraph</p>@ |
+
+h3. Language attributes:
+
+table{max-width:600px}.
+|_. example          |_. output                        |
+| @p[no]. paragraph@ | @<p lang="no">paragraph</p>@    |
+| @%[fr]phrase%@     | @<span lang="fr">phrase</span>@ |
+
+h3. Inline Styles:
+
+table{max-width:600px}.
+|_. example                         |_. output                                    |
+| @p{line-height:18px}. paragraph@  | @<p style="line-height:18px">paragraph</p>@ |
+| @h3{color:red}. header 3@         | @<h3 style="color:red">header 3</h3>@       |
+|\2. _Usually Textile block element syntax requires a dot and space before the block begins, but since lists don't, they can be styled just using braces:_ |
+| <pre>#{color:blue} one
+# big
+# list</pre> | <pre><ol style="color:blue">
+ <li>one</li>
+ <li>big</li>
+ <li>list</li>
+</ol></pre> |
+
+
+
+
+
+h2(topic). 6. Linked Notes:
 
 Allows the generation of an automated list of notes with links.
 
@@ -146,134 +375,18 @@ For example if you wanted the notes to have numeric backlinks starting from 1:
 
 bc. notelist:1.
 
-h3. Table syntax:
-
-Simple tables:
-
-bc. |a|simple|table|row|
-|And|Another|table|row|
-|With an||empty|cell|
-
-bc. |=. My table caption goes here  (NB. Table captions *must* be the first line of the table else treated as a center-aligned cell.)
-|_. A|_. table|_. header|_.row|
-|A|simple|table|row|
-
-h5. Tables with attributes:
-
-bc. table{border:1px solid black}. My table summary here
-{background:#ddd;color:red}. |{}| | | |
-
-To specify thead / tfoot / tbody groups, add one of these on its own line
-above the row(s) you wish to wrap (you may specify attributes before the dot):
-
-bc. |^.     # thead
-|-.     # tbody
-|~.     # tfoot
-
-h5. Column groups:
-
-bc. |:\3. 100|
-
-Becomes:
-
-bc. <colgroup span="3" width="100"></colgroup>
-
-You can omit either or both of the \N or width values. You may also
-add cells after the colgroup definition to specify col elements with
-span, width, or standard Textile attributes:
-
-bc. |:. 50|(firstcol). |\2. 250||300|
-
-Becomes:
-
-bc. <colgroup width="50">
-    <col class="firstcol" />
-    <col span="2" width="250" />
-    <col />
-    <col width="300" />
-</colgroup>
-
-(Note that, per the HTML specification, you should not add span
-to the colgroup if specifying col elements.)
-
-h3. Applying Attributes:
-
-Most anywhere Textile code is used, attributes such as arbitrary css style,
-css classes, and ids can be applied. The syntax is fairly consistent.
-
-The following characters quickly alter the alignment of block elements:
-
-bc. <  ->  left align     ex. p<. left-aligned para
->  ->  right align         h3>. right-aligned header 3
-=  ->  centred             h4=. centred header 4
-<> ->  justified         p<>. justified paragraph
-
-These will change vertical alignment in table cells:
-
-bc. ^  ->  top           ex. |^. top-aligned table cell|
--  ->  middle           |-. middle aligned|
-~  ->  bottom           |~. bottom aligned cell|
-
-Plain (parentheses) inserted between block syntax and the closing dot-space
-indicate classes and ids:
-
-bc. p(hector). paragraph -> <p class="hector">paragraph</p>
-
-bc. p(#fluid). paragraph -> <p id="fluid">paragraph</p>
-
-classes and ids can be combined
-
-bc. p(hector#fluid). paragraph -> <p class="hector" id="fluid">paragraph</p>
-
-Curly {brackets} insert arbitrary css style
-
-bc. p{line-height:18px}. paragraph -> <p style="line-height:18px">paragraph</p>
-
-bc. h3{color:red}. header 3 -> <h3 style="color:red">header 3</h3>
-
-Square [brackets] insert language attributes
-
-bc. p[no]. paragraph -> <p lang="no">paragraph</p>
-
-bc. %[fr]phrase%@ -> <span lang="fr">phrase</span>
-
-Usually Textile block element syntax requires a dot and space before the block
-begins, but since lists don't, they can be styled just using braces
-
-bc. #{color:blue} one  ->  <ol style="color:blue">
-# big                    <li>one</li>
-# list                    <li>big</li>
-                        <li>list</li>
-                       </ol>
-
-Using the span tag to style a phrase
-
-bc. It goes like this, %{color:red}the fourth the fifth%
--> It goes like this, <span style="color:red">the fourth the fifth</span>
-
-h4. Ordered List Start & Continuation:
-
-You can control the start attribute of an ordered list like so;
-
-bc. #5 Item 5
-# Item 6
-
-You can resume numbering list items after some intervening anonymous block like so...
-
-bc. #_ Item 7
-# Item 8
-
   </div>
 
-==
-<script>
+notextile. <script>
   jQuery('.a79_help_overview table').addClass('table').addClass('table-bordered table-striped');
   jQuery('.a79_help_overview a').removeAttr('href').removeAttr('onclick').css('cursor','pointer');
   jQuery('.a79_help_overview').on('click','a',function(e){
      jQuery(e.target).parents('thead').next('tbody').toggle();
   });
-  jQuery('a.trigger').click(function(){
-    jQuery(jQuery(this).data().target).toggle();
+  jQuery('.trigger').click(function() {
+    d = $(this).data();
+    d.func  = typeof d.func  !== 'undefined' ? d.func  : 'toggle';
+    d.speed = typeof d.speed !== 'undefined' ? d.speed : 0;
+    jQuery(d.target)[d.func](d.speed);
   });
 </script>
-==

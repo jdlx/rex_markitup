@@ -892,16 +892,6 @@ var rex_markitup_getURLParam = function(strParamName) {
           var start = this.cursor()[0];
           return insertText(this, text, start, start, cur);
         },
-        // append text to the end, and select the appended text
-        append: function(text, cur) {
-          var end = this.cursor()[1];
-          return insertText(this, text, end, end, cur);
-        },
-        // prepend text to the start, and select the prepended text
-        prepend: function(text, cur) {
-          var start = this.cursor()[0];
-          return insertText(this, text, start, start, cur);
-        },
         // get whole line of selected text
         line: function(offset) {                                                //console.group('line:');
           offset = typeof offset === 'undefined' ? 0 : offset;                  //console.log('offset:',offset);

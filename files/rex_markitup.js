@@ -698,10 +698,10 @@ var rex_markitup_getURLParam = function(strParamName) {
             case'popup-image':
             case'popup-immimage':
               surround    = h.sel.surround();
-              if(surround[0].match(/\n/) && surround[1].match(/\n/)) {
+              /*if(surround[0].match(/\n/) && surround[1].match(/\n/)) {
                 h.openWith  = '\n' + h.openWith;
                 h.closeWith =  h.closeWith + '\n';
-              }else if(surround[0].match(/\w/) || surround[1].match(/\w/)) {
+              }else */if(surround[0].match(/\w/) || surround[1].match(/\w/)) {
                 h.openWith  = '[' + h.openWith;
                 h.closeWith =  h.closeWith + ']';
               }

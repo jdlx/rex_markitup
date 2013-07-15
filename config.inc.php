@@ -204,12 +204,13 @@ function rex_markitup_previewlinks($content)
   return $content;
 }
 
-function rex_markitup_preview($slice_id, $instance, $textile, $decode = true)
+function rex_markitup_preview($slice_id, $instance, $textile, $decode = true, $replace = array( array('<br />' => '' ) ) )
 {
   global $REX;
   $textile = $decode
            ? htmlspecialchars_decode($textile, ENT_QUOTES)
            : $textile;
+  $textile = str_replace(array_keys($replace), array_values($replace), $textile);
   $textile = isset($_SESSION[$REX['INSTNAME']]['rex_markitup'][$slice_id][$instance])
            ? $_SESSION[$REX['INSTNAME']]['rex_markitup'][$slice_id][$instance]
            : $textile;

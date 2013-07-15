@@ -201,19 +201,19 @@ div.rex-content-body {
 /* FULLSCREEN *****************************************************************/
 
 body.markitup_fullscreen {
-  overflow:hidden;
+  overflow:hidden !important;
 }
 
 .markItUp.fullscreen {
-    position:fixed;
-    top:0;
-    left:0;
-    right:0;
-    bottom:0;
-    width:auto;
-    height:99.99%;
-    z-index:9999;
-    background:white;
+    position:fixed !important;
+    top:0 !important;
+    left:0 !important;
+    right:0 !important;
+    bottom:0 !important;
+    width:auto !important;
+    height:99.99% !important;
+    z-index:9999 !important;
+    background:white !important;
 }
 .markItUp.fullscreen .markItUpContainer {
   height:99.99%;

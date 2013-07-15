@@ -279,8 +279,8 @@ var rex_markitup_getURLParam = function(strParamName) {
                                     $('body').removeClass("rex_markitup_fullscreen");
                                   }else{
                                     p.addClass("fullscreen");
-                                    $(h.textarea).css('height','50%');
-                                    $(h.textarea).nextAll('.markItUpPreviewFrame').css('height','50%');
+                                    $(h.textarea).css('height','33%');
+                                    $(h.textarea).nextAll('.markItUpPreviewFrame').css('height','66.99%');
                                     $('body').addClass("rex_markitup_fullscreen");
                                   }
                                 },
@@ -339,8 +339,10 @@ var rex_markitup_getURLParam = function(strParamName) {
 
         init: function() {                                                                                              //console.log('this.options:',this.options);
 
+            // BINDERS
             $(document).on('dblclick','.markItUpFooter', function(e){
               $(e.target).next('.markItUpPreviewFrame').remove();
+              this.previewOpen = false;
             });
 
             $(document).on('click','div.markItUp.fullscreen .markItUpFooter', $.proxy(function(e){
@@ -362,10 +364,14 @@ var rex_markitup_getURLParam = function(strParamName) {
 
             this.guid = $(this.element).constructor.guid;
 
+            this.previewOpen = false;
+            this.options.previewAutoRefresh = true;
+
             if(typeof rex_markitup.i18n === 'undefined') {
               this.getI18n();
             }
 
+            // EXTEND OPTIONS
             if(typeof rex_markitup !== 'undefined') {
               if(typeof rex_markitup.options !== 'undefined') {
                 this.options = $.extend( {}, this.options, rex_markitup.options );                                      //console.log('this.options:',this.options);
@@ -377,13 +383,12 @@ var rex_markitup_getURLParam = function(strParamName) {
                 this.options.buttondefinitions = $.extend( {}, this.options.buttondefinitions, rex_markitup.buttondefinitions ); //console.log('this.options:',this.options);
               }
             }
-
             this.options = $.extend( {}, this.options, $(this.element).data() );
-
             this.markupSet = [];
             this.options.buttonset = ( typeof this.options.buttonset == 'undefined' || typeof this.options.buttonsets[this.options.buttonset] == 'undefined' ) ? 'standard' : this.options.buttonset;
             this.options.buttons   = typeof this.options.buttons == 'undefined' ? this.options.buttonsets[this.options.buttonset].split(',') : this.options.buttons.split(',');
 
+            // BUTTONS
             var buttonPrepare = $.proxy(function(key){                                                                  //console.group(key);
               var def = false;
               if(key === '|'){
@@ -405,7 +410,6 @@ var rex_markitup_getURLParam = function(strParamName) {
                 def.className = 'markitup-'+key;
 
                 if(typeof def.dropMenu !== 'undefined' && typeof def.dropMenuButtons !== 'undefined') {                 //console.log(def.dropMenu);
-
                   if(key === 'immimagemenu') {
                     $.each(rex_markitup.immtypes, function(name,desc) {
                       subdef = {
@@ -440,11 +444,11 @@ var rex_markitup_getURLParam = function(strParamName) {
               }
             }
 
+            // SESSION HANDLING
             if(this.options.previewfrontend) {
-
               rex_markitup.sessionCleared = false;
               $(document).on('click','.rex-form-content-editmode-edit-slice input.rex-form-submit', $.proxy(function(e){
-                if(!rex_markitup.sessionCleared) { console.log('clearing session..');
+                if(!rex_markitup.sessionCleared) {                                                                      //console.log('clearing session..');
                   $.ajax({
                     type: 'POST',
                     url: 'index.php',
@@ -458,6 +462,7 @@ var rex_markitup_getURLParam = function(strParamName) {
                 }
               },this));
 
+              // FRONT/BACKEND URLS
               if(typeof rex_markitup.backendUrl === 'undefined') {
                 rex_markitup.backendUrl = this.parseURL();
               }
@@ -469,6 +474,7 @@ var rex_markitup_getURLParam = function(strParamName) {
               this.frontendUrl = rex_markitup.frontendUrl;
             }
 
+            // CALL MARKITUP
             options = {
               onCtrlEnter:        {className:'preview'},
               nameSpace:          this.options.namespace,
@@ -480,7 +486,7 @@ var rex_markitup_getURLParam = function(strParamName) {
 
             if(this.options.smartinsert) {
               options.beforeInsert = $.proxy(function(h) { this.beforeInsertCallback(h, this); }, this);
-              //options.afterInsert  = $.proxy(function(h) { this.afterInsertCallback(h, this);  }, this);
+              options.afterInsert  = $.proxy(function(h) { this.afterInsertCallback(h, this);  }, this);
             }
 
             return $(this.element).markItUp(options);
@@ -511,17 +517,18 @@ var rex_markitup_getURLParam = function(strParamName) {
             type: 'POST',
             url: 'index.php',
             async: false,
-            //dataType:'json',
             data: {'rex_markitup_api': JSON.stringify(data)},
             success: $.proxy(function(data) {
               footer = $(this.element).next('.markItUpFooter');
               iFrame = $(this.element).nextAll('iframe.markItUpPreviewFrame.rex_markitup');
-              style  = $(this.element).parents('div.markItUp').hasClass('fullscreen') ? ' style="height:50%" ' : '';
+              style  = $(this.element).parents('div.markItUp').hasClass('fullscreen') ? ' style="height:66.99%" ' : '';
 
               if(iFrame.length === 0) {
                 iFrame = $('<iframe class="markItUpPreviewFrame rex_markitup"'+style+'></iframe>');
                 iFrame.insertAfter(footer);
               }
+
+              this.previewOpen = className === 'preview' ? true : false;
 
               if(className === 'preview' && this.options.previewfrontend) {
                 $(iFrame).attr('src',this.frontendUrl);
@@ -559,6 +566,7 @@ var rex_markitup_getURLParam = function(strParamName) {
             case'rex_a79_help':                                                                                         //console.log('h:',h);console.groupEnd();
               if(h.altKey) {
                 $('iframe.markItUpPreviewFrame.rex_markitup').remove();
+                this.previewOpen = false;
               } else {
                 this.showInPreview(className, h);
                 return;
@@ -714,12 +722,15 @@ var rex_markitup_getURLParam = function(strParamName) {
             break;
           }                                                                                                             //console.log('selection:',h.selection); console.log('openWith:',h.openWith);console.log('closeWith:',h.closeWith);console.groupEnd();
         },
-        afterInsertCallback: function(h, rex_markitup){                                                                 //console.group('afterInsertCallback: '+h.className);
-          if(!rex_markitup.options.smartinsert || typeof h.className === 'undefined'){                                  //console.groupEnd();
-            return;
+        afterInsertCallback: function(h, rex_markitup){                                                                 console.group('afterInsertCallback: '+h.className);
+          if(this.previewOpen && this.options.previewAutoRefresh) {
+            this.showInPreview('preview',h);
           }
-          className = h.className.replace('markitup-','');
-          h.sel     = this.selection($(h.textarea));                                                                    //console.log('className:',className);console.groupCollapsed('rex_markitup');console.dir(rex_markitup);console.groupEnd(); console.groupCollapsed('h');console.dir(h);console.groupEnd(); console.groupCollapsed('h.sel');console.log('sel.text():',h.sel.text());console.log('sel.surround():',h.sel.surround());console.log('sel.surround(2):',h.sel.surround(2));console.log('sel.cursor():',h.sel.cursor());console.log('sel.line():',h.sel.line());console.groupEnd();
+          // if(!rex_markitup.options.smartinsert || typeof h.className === 'undefined'){                                  //console.groupEnd();
+          //   return;
+          // }
+          // className = h.className.replace('markitup-','');
+          // h.sel     = this.selection($(h.textarea));                                                                    //console.log('className:',className);console.groupCollapsed('rex_markitup');console.dir(rex_markitup);console.groupEnd(); console.groupCollapsed('h');console.dir(h);console.groupEnd(); console.groupCollapsed('h.sel');console.log('sel.text():',h.sel.text());console.log('sel.surround():',h.sel.surround());console.log('sel.surround(2):',h.sel.surround(2));console.log('sel.cursor():',h.sel.cursor());console.log('sel.line():',h.sel.line());console.groupEnd();
                                                                                                                         //console.log('selection:',h.selection); console.log('openWith:',h.openWith);console.log('closeWith:',h.closeWith);console.groupEnd();
         },
         sanitizeNewlines: function(str) {
@@ -765,7 +776,7 @@ var rex_markitup_getURLParam = function(strParamName) {
           }
         },
         parseURL: function(url)
-        {                                                                                                                     //console.group('parseUrl:',url);
+        {                                                                                                               //console.group('parseUrl:',url);
           if(typeof url == 'undefined') {
             url = window.location.href;
           }

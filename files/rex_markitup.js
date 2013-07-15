@@ -81,7 +81,7 @@ var rex_markitup_getURLParam = function(strParamName) {
 
     var pluginName = "rexMarkItUp",
         defaults = {
-            namespace: 'textile',
+            namespace: 'rex_markitup textile',
             buttondefinitions: {
               // BLOCK MODIFIER
               ////////////////////////////////////////////////

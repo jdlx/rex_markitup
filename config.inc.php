@@ -86,7 +86,9 @@ if( $data !== false || $api === 'rex_markitup_api')
               case'rex_a79_help':
                 ob_start();
                 rex_a79_help_overview();
-                $content  = '<h3>Textile Reference</h3>'.ob_get_flush();
+                $content  = ob_get_flush();
+                $content  = $content == '' ? '<p class="alert alert-error">Can\'t show Redaxo internal textile help: <code>textile[help]</code> perms not set.. ask your admin.</p>' : $content;
+                $content  = '<h3>Redaxo Textile Help</h3>'.$content;
                 $content .= rex_a79_textile(
                               rex_get_file_contents(
                                 $REX['INCLUDE_PATH'].'/addons/be_style/plugins/rex_markitup/files/custom/markitup/skins/rex_markitup/textile_class_usage.textile'

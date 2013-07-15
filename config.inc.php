@@ -204,7 +204,7 @@ function rex_markitup_previewlinks($content)
   return $content;
 }
 
-function rex_markitup_preview($slice_id, $instance, $textile, $decode = true, $replace = array( array('<br />' => '' ) ) )
+function rex_markitup_preview($slice_id, $instance, $textile, $decode = true, $replace = array( '<br />' => '' ) )
 {
   global $REX;
   $textile = $decode

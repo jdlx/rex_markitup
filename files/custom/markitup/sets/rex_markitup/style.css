@@ -154,9 +154,10 @@
 li.markItUpButton.markitup-fullscreen {
     float: right;
     margin-left:20px;
+    margin-right: 5px;
 }
 .markItUpButton.markitup-fullscreen a {
-    background-position: 0 -780px;
+    background-position: 0 -778px;
 }
 .fullscreen .markItUpButton.markitup-fullscreen a {
     background-position: 0 -810px;

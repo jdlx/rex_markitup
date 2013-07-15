@@ -286,10 +286,10 @@ var rex_markitup_getURLParam = function(strParamName) {
                                 },
                                 key:"F"
                               },
-              'rex_save':     {
+              'slice_save':   {
                                 name:rex_markitup.i18n.save_block
                               },
-              'rex_update':   {
+              'slice_update': {
                                 name:rex_markitup.i18n.update_block
                               },
 
@@ -312,10 +312,10 @@ var rex_markitup_getURLParam = function(strParamName) {
             }, // buttondefinitions
 
             buttonsets: {
-              standard: 'h1,h2,h3,h4,|,bold,italic,stroke,ins,cite,code,|,listbullet,listnumeric,|,immimagemenu,linkmedia,|,linkintern,linkextern,linkmailto,|,preview,rex_a79_help,fullscreen,rex_update,rex_save',
-              compact:  'blockmenu,|,bold,italic,stroke,ins,cite,code,|,listbullet,listnumeric,|,immimagemenu,linkmedia,|,linkmenu,|,preview,rex_a79_help,fullscreen,rex_update,rex_save',
-              full:     'blockmenu,|,h1,h2,h3,h4,h5,h6,|,bold,italic,stroke,ins,cite,code,|,alignleft,alignright,aligncenter,alignjustify,|,listbullet,listnumeric,|,image,linkmedia,|,linkmenu,linkintern,linkextern,linkmailto,|,preview,rex_a79_help,fullscreen,rex_update,rex_save',
-              dev:      'blockmenu,|,h1,h2,h3,h4,h5,h6,|,bold,italic,stroke,ins,cite,code,|,alignleft,alignright,aligncenter,alignjustify,|,listbullet,listnumeric,|,immimagemenu,image,linkmedia,|,linkmenu,linkintern,linkextern,linkmailto,|,preview,rex_a79_help,|,css_dummy,fullscreen,rex_update,rex_save'
+              standard: 'h1,h2,h3,h4,|,bold,italic,stroke,ins,cite,code,|,listbullet,listnumeric,|,immimagemenu,linkmedia,|,linkintern,linkextern,linkmailto,|,preview,rex_a79_help,fullscreen,slice_update,slice_save',
+              compact:  'blockmenu,|,bold,italic,stroke,ins,cite,code,|,listbullet,listnumeric,|,immimagemenu,linkmedia,|,linkmenu,|,preview,rex_a79_help,fullscreen,slice_update,slice_save',
+              full:     'blockmenu,|,h1,h2,h3,h4,h5,h6,|,bold,italic,stroke,ins,cite,code,|,alignleft,alignright,aligncenter,alignjustify,|,listbullet,listnumeric,|,image,linkmedia,|,linkmenu,linkintern,linkextern,linkmailto,|,preview,rex_a79_help,fullscreen,slice_update,slice_save',
+              dev:      'blockmenu,|,h1,h2,h3,h4,h5,h6,|,bold,italic,stroke,ins,cite,code,|,alignleft,alignright,aligncenter,alignjustify,|,listbullet,listnumeric,|,immimagemenu,image,linkmedia,|,linkmenu,linkintern,linkextern,linkmailto,|,preview,rex_a79_help,|,css_dummy,fullscreen,slice_update,slice_save'
             },
             smartinsert: true,
             previewfrontend: false
@@ -561,9 +561,9 @@ var rex_markitup_getURLParam = function(strParamName) {
               }
             break;
 
-            case'rex_update':
-            case'rex_save':
-              name = className.replace('rex_','btn_');
+            case'slice_update':
+            case'slice_save':
+              name = className.replace('slice_','btn_');
               $('.rex-form-content-editmode-edit-slice p.rex-form-submit input[name*="'+name+'"]').click();
             break;
           }
@@ -579,7 +579,7 @@ var rex_markitup_getURLParam = function(strParamName) {
           }
           if(typeof h.closeWith === 'undefined') {
             h.closeWith = '';
-          }                                                                                                             /*console.log('className:',className);console.log('openWith:',h.openWith);console.log('closeWith:',h.closeWith);console.groupCollapsed('rex_markitup');console.dir(rex_markitup);console.groupEnd();*/ //console.groupCollapsed('h');console.dir(h);console.groupEnd(); console.groupCollapsed('h.sel');console.log('sel.text():',h.sel.text());console.log('sel.surround():',h.sel.surround());console.log('sel.surround(2):',h.sel.surround(2));console.log('sel.cursor():',h.sel.cursor());console.log('sel.line():',h.sel.line());console.groupEnd();
+          }                                                                                                             //console.log('className:',className);console.log('openWith:',h.openWith);console.log('closeWith:',h.closeWith);console.groupCollapsed('rex_markitup');console.dir(rex_markitup);console.groupEnd(); console.groupCollapsed('h');console.dir(h);console.groupEnd(); console.groupCollapsed('h.sel');console.log('sel.text():',h.sel.text());console.log('sel.surround():',h.sel.surround());console.log('sel.surround(2):',h.sel.surround(2));console.log('sel.cursor():',h.sel.cursor());console.log('sel.line():',h.sel.line());console.groupEnd();
 
           if(typeof rex_markitup.options.buttondefinitions[className] !== 'undefined') {
             def       = rex_markitup.options.buttondefinitions[className];

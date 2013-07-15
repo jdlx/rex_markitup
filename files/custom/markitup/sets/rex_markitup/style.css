@@ -164,18 +164,18 @@ li.markItUpButton.markitup-fullscreen {
 }
 
 /* REX SAVE/UPDATE BUTTONS */
-body.rex_markitup_fullscreen li.markItUpButton.markitup-rex_save,
-body.rex_markitup_fullscreen li.markItUpButton.markitup-rex_update {
-    display: block;
-}
-li.markItUpButton.markitup-rex_save,
-li.markItUpButton.markitup-rex_update {
+li.markItUpButton.markitup-slice_save,
+li.markItUpButton.markitup-slice_update {
     float: right;
     display: none;
     width:auto;
 }
-li.markItUpButton.markitup-rex_save a,
-li.markItUpButton.markitup-rex_update a {
+body.rex_markitup_fullscreen .rex-content-editmode-slice-input li.markItUpButton.markitup-slice_save,
+body.rex_markitup_fullscreen .rex-content-editmode-slice-input li.markItUpButton.markitup-slice_update {
+    display: block;
+}
+li.markItUpButton.markitup-slice_save a,
+li.markItUpButton.markitup-slice_update a {
     background: linear-gradient(to bottom, #F1EFEF 0%, #CCCBCB 100%) repeat scroll 0 0 transparent;
     border-color: #A7A7A7 #CCCCCC #AAAAAA #A7A7A7;
     border-radius: 4px 4px 4px 4px;
@@ -199,8 +199,8 @@ li.markItUpButton.markitup-rex_update a {
     text-shadow: 0 1px 0 #FFFFFF;
     width: auto;
 }
-li.markItUpButton.markitup-rex_save a:hover,
-li.markItUpButton.markitup-rex_update a:hover {
+li.markItUpButton.markitup-slice_save a:hover,
+li.markItUpButton.markitup-slice_update a:hover {
     background: linear-gradient(to bottom, #E1E1E1 0%, #BBBABA 100%) repeat scroll 0 0 transparent;
     text-decoration: none !important;
 }

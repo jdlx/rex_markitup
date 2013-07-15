@@ -344,7 +344,11 @@ var rex_markitup_getURLParam = function(strParamName) {
             });
 
             $(document).on('click','div.markItUp.fullscreen .markItUpFooter', $.proxy(function(e){
-              this.setIframeHeight(e);
+              this.setIframeHeight($(e.target));
+            },this));
+
+            $(window).on('resize', null, $.proxy(function(e){
+              this.setIframeHeight($(this.element).next('.markItUpFooter').children('.markItUpResizeHandle'));
             },this));
 
             // (SELECTION.JS) HELPERS
@@ -734,10 +738,10 @@ var rex_markitup_getURLParam = function(strParamName) {
             }
             return str;
         },
-        insertLink: function(url,desc) { console.log('url:',url);
+        insertLink: function(url,desc) {                                                                                //console.log('url:',url);
         },
-        setIframeHeight: function(e) {
-          p = $(e.target).parents('div.markItUpContainer');
+        setIframeHeight: function(e) {                                                                                  //console.log('e:',e);
+          p = e.parents('div.markItUpContainer');
           h = p.children('div.markItUpHeader').height();
           a = p.children('textarea.markItUpEditor').height();
           f = p.children('div.markItUpFooter').height();

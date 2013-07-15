@@ -200,7 +200,7 @@ div.rex-content-body {
 
 /* FULLSCREEN *****************************************************************/
 
-body.markitup_fullscreen {
+body.rex_markitup_fullscreen {
   overflow:hidden !important;
 }
 

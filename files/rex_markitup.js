@@ -468,7 +468,7 @@ var rex_markitup_getURLParam = function(strParamName) {
               }
               this.backendUrl = rex_markitup.backendUrl;
 
-              if(typeof rex_markitup.frontendUrl === 'undefined') {
+              if(typeof rex_markitup.frontendUrl === 'undefined' && $("ul.rex-navi-content li:last-child a").length > 0) {
                 rex_markitup.frontendUrl = 'http://' + window.location.hostname + $('ul.rex-navi-content li:last-child a').attr('href').replace('../','/');
               }
               this.frontendUrl = rex_markitup.frontendUrl;

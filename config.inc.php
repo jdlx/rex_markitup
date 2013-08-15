@@ -225,6 +225,19 @@ function rex_markitup_clear_session()
   unset($_SESSION[$REX['INSTNAME']]['rex_markitup']);
 }
 
+// CATCH OLD MARKITUP CLASS CALLS
+if(!class_exists('a287_markitup')) {
+  class a287_markitup {
+    static $error_thrown = false;
+    function a287_markitup()   { self::throw_error(); }
+    static function markitup() { self::throw_error(); }
+    private function throw_error() {
+      if(!self::$error_thrown) {
+        trigger_error('rex_markitup: deprecated call to class "a287_markitup".. update your code to use call by textarea CSS class "rex-markitup"!', E_USER_WARNING);
+      }
+    }
+  }
+}
 
 
 

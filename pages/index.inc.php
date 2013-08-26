@@ -1,18 +1,18 @@
 <?php
 /**
- * RexMarkitup be_style Plugin for Redaxo
+ * RexMarkitup for Redaxo
  *
  * @version 0.9.8
  * @link http://markitup.jaysalvat.com
- * @author Redaxo be_style plugin: rexdev.de
+ * @author Redaxo Addon: rexdev.de
  * @package redaxo 4.4.x/4.5.x
  */
 
 
 // GET PARAMS
 ////////////////////////////////////////////////////////////////////////////////
-$mypage     = 'rex_markitup';
-$myroot     = $REX['INCLUDE_PATH'].'/addons/be_style/plugins/'.$mypage.'/';
+$mypage     = 'rex_markitup';         FB::log($mypage,' $mypage');
+$myroot     = $REX['INCLUDE_PATH'].'/addons/'.$mypage.'/';
 $subpage    = rex_request('subpage', 'string');
 $func       = rex_request('func', 'string');
 
@@ -21,7 +21,7 @@ $func       = rex_request('func', 'string');
 ////////////////////////////////////////////////////////////////////////////////
 require $REX['INCLUDE_PATH'] . '/layout/top.php';
 
-rex_title('Backend Style <span style="color:silver;font-size:0.5em;">'.$REX['ADDON']['plugins']['be_style']['title'][$mypage].' '.$REX['ADDON']['plugins']['be_style']['version'][$mypage].'</span>',$REX['ADDON']['be_style']['SUBPAGES']);
+rex_title($REX['ADDON']['name'][$mypage].' <span class="addonversion">'.$REX['ADDON']['version'][$mypage].'</span>');
 
 
 // SAVE SETTINGS
@@ -46,7 +46,7 @@ if($func=='save_settings'){
 
 // SUBSUB NAVI
 #$subsubnavi = $subsubnavi == '' ? 'Es sind keine Plugins installiert/aktiviert.' : $subsubnavi;
-
+     FB::log($mypage,' $mypage');
 echo '
 <!--<div class="rex-addon-output im-plugins">
   <h2 class="rex-hl2" style="font-size:1em;border-bottom:0;">./*$subsubnavi*/.</h2>
@@ -55,9 +55,8 @@ echo '
 <div class="rex-addon-output im-plugins">
   <div class="rex-form">
 
-    <form action="index.php?page=be_style&subpage='.$mypage.'" method="post">
-      <input type="hidden" name="page" value="be_style" />
-      <input type="hidden" name="subpage" value="'.$mypage.'" />
+    <form action="index.php?page='.$mypage.'" method="post">
+      <input type="hidden" name="page" value="'.$mypage.'" />
       <input type="hidden" name="func" value="save_settings" />
       <input type="hidden" name="codemirror_options" value="" />
 
@@ -125,7 +124,7 @@ echo '
 ';
 
 
-$help = rex_get_file_contents($REX['INCLUDE_PATH'].'/addons/be_style/plugins/rex_markitup/lang/help.'.$REX['LANG'].'.textile');
+$help = rex_get_file_contents($REX['INCLUDE_PATH'].'/addons/rex_markitup/lang/help.'.$REX['LANG'].'.textile');
 $help = OOAddon::isActivated('textile') ? rex_a79_textile($help) : '<pre>'.$help.'</pre>';
 
 echo '<div class="rex-addon-output im-plugins">

@@ -1,4 +1,4 @@
-h2. rex_markitup – Redaxo be_style Plugin
+h2. rex_markitup – Redaxo Addon
 
 Kompletter rewrite des bisherigen Markitup Addons mit modernerer/flexiblerer Codebase
 

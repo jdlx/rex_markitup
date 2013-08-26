@@ -1,10 +1,10 @@
 <?php
 /**
- * RexMarkitup be_style Plugin for Redaxo
+ * RexMarkitup for Redaxo
  *
  * @version 0.9.8
  * @link http://markitup.jaysalvat.com
- * @author Redaxo be_style plugin: rexdev.de
+ * @author Redaxo Addon: rexdev.de
  * @package redaxo 4.4.x/4.5.x
  */
 
@@ -30,7 +30,7 @@
 // PLUGIN IDENTIFIER & ROOT
 ////////////////////////////////////////////////////////////////////////////////
 $mypage = 'rex_markitup';
-$myroot = $REX['INCLUDE_PATH'].'/addons/be_style/plugins/'.$mypage.'/';
+$myroot = $REX['INCLUDE_PATH'].'/addons/'.$mypage.'/';
 
 
 // APPEND LANG
@@ -70,14 +70,14 @@ if( $data !== false || $api === 'rex_markitup_api')
         rex_register_extension('ADDONS_INCLUDED',
           function($params) use($data,$REX)
           {
-            $tmpl = rex_get_file_contents($REX['INCLUDE_PATH'].'/addons/be_style/plugins/rex_markitup/files/custom/markitup/skins/rex_markitup/preview.tmpl.html');
+            $tmpl = rex_get_file_contents($REX['INCLUDE_PATH'].'/addons/rex_markitup/files/custom/markitup/skins/rex_markitup/preview.tmpl.html');
 
             switch($data['func']) {
               case'css_dummy':
                 $content = rex_markitup_previewlinks(
                              rex_a79_textile(
                                rex_get_file_contents(
-                                 $REX['INCLUDE_PATH'].'/addons/be_style/plugins/rex_markitup/files/custom/markitup/skins/rex_markitup/css_dummy.textile'
+                                 $REX['INCLUDE_PATH'].'/addons/rex_markitup/files/custom/markitup/skins/rex_markitup/css_dummy.textile'
                                )
                              )
                            );
@@ -91,7 +91,7 @@ if( $data !== false || $api === 'rex_markitup_api')
                 $content  = '<h3>Redaxo Textile Help</h3>'.$content;
                 $content .= rex_a79_textile(
                               rex_get_file_contents(
-                                $REX['INCLUDE_PATH'].'/addons/be_style/plugins/rex_markitup/files/custom/markitup/skins/rex_markitup/textile_class_usage.textile'
+                                $REX['INCLUDE_PATH'].'/addons/rex_markitup/files/custom/markitup/skins/rex_markitup/textile_class_usage.textile'
                               )
                             );
               break;
@@ -116,7 +116,7 @@ if( $data !== false || $api === 'rex_markitup_api')
               $_SESSION[$REX['INSTNAME']]['rex_markitup'][$data['slice_id']][$data['textarea_name']] = $textile;
             }
             $textile = str_replace('<br />','',$textile);
-            $html    = rex_get_file_contents($REX['INCLUDE_PATH'].'/addons/be_style/plugins/rex_markitup/files/custom/markitup/skins/rex_markitup/preview.tmpl.html');
+            $html    = rex_get_file_contents($REX['INCLUDE_PATH'].'/addons/rex_markitup/files/custom/markitup/skins/rex_markitup/preview.tmpl.html');
             $html    = str_replace('###CONTENT###', rex_markitup_previewlinks(rex_a79_textile($textile)), $html);
             rex_markitup_ajax_reply($html, 'text/html');
           },
@@ -250,18 +250,14 @@ if(!$REX['REDAXO'] || (rex_request('page','string')=='markitup' && rex_request('
 
 // REX COMMONS
 ////////////////////////////////////////////////////////////////////////////////
-$REX['ADDON']['version'][$mypage]     = '0.9.8.7';
+$REX['ADDON']['version'][$mypage]     = '0.9.8.8';
 $REX['ADDON']['author'][$mypage]      = 'jdlx';
 $REX['ADDON']['supportpage'][$mypage] = 'forum.redaxo.de';
 
 $REX['ADDON']['page'][$mypage]        = $mypage;
+$REX['ADDON']['name'][$mypage]        = 'RexMarkitup';
 $REX['ADDON']['title'][$mypage]       = 'RexMarkitup';
 
-$REX['ADDON']['BE_STYLE_PAGE_CONTENT'][$mypage] = '
-<h2 class="settings"><a href="index.php?page=be_style&amp;subpage='.$mypage.'">'.$REX['ADDON']['title'][$mypage].'</a></h2>
-<p>Reinterpretation des bisherigen Markitup Addons mit reduzierter/schlankerer Codebase.</p>
-<hr />
-';
 
 
 // SETTINGS
@@ -277,7 +273,8 @@ compact:
 \'blockmenu,|,bold,italic,stroke,ins,cite,code,|,listbullet,listnumeric,|,immimagemenu,linkmedia,|,linkmenu,|,preview,rex_a79_help,fullscreen,slice_update,slice_save\',
 full:
 \'blockmenu,|,h1,h2,h3,h4,h5,h6,|,bold,italic,stroke,ins,cite,code,|,alignleft,alignright,aligncenter,alignjustify,|,listbullet,listnumeric,|,image,linkmedia,|,linkmenu,linkintern,linkextern,linkmailto,|,preview,rex_a79_help,fullscreen,slice_update,slice_save\'',
-  'options' => 'smartinsert: true',
+  'options' => 'smartinsert: true,
+previewfrontend: false',
 );
 // --- /DYN
 
@@ -329,8 +326,8 @@ rex_register_extension('OUTPUT_FILTER',
     ////////////////////////////////////////////////////////////////////////////
     $head = '
 <!-- rex_markitup head assets -->
-  <link rel="stylesheet" href="../files/addons/be_style/plugins/rex_markitup/custom/markitup/skins/rex_markitup/style.css">
-  <link rel="stylesheet" href="../files/addons/be_style/plugins/rex_markitup/custom/markitup/sets/rex_markitup/style.css">
+  <link rel="stylesheet" href="../files/addons/rex_markitup/custom/markitup/skins/rex_markitup/style.css">
+  <link rel="stylesheet" href="../files/addons/rex_markitup/custom/markitup/sets/rex_markitup/style.css">
   <style>
     '.$buttoncss.'
   </style>
@@ -343,7 +340,7 @@ rex_register_extension('OUTPUT_FILTER',
     ////////////////////////////////////////////////////////////////////////////
     $body = '
 <!-- rex_markitup body assets -->
-  <script src="../files/addons/be_style/plugins/rex_markitup/vendor/markitup/jquery.markitup.js"></script>
+  <script src="../files/addons/rex_markitup/vendor/markitup/jquery.markitup.js"></script>
   <script type="text/javascript">
     if(typeof rex_markitup === "undefined") { var rex_markitup = {}; }
     rex_markitup.buttondefinitions = {'.PHP_EOL.$buttondefinitions.PHP_EOL.'} // buttondefinitions
@@ -352,7 +349,7 @@ rex_register_extension('OUTPUT_FILTER',
     rex_markitup.immtypes          = '.json_encode($immtypes).' // immtypes
     rex_markitup.chosen_imm_type   = "" // last chosen imm type
   </script>
-  <script src="../files/addons/be_style/plugins/rex_markitup/rex_markitup.js"></script>
+  <script src="../files/addons/rex_markitup/rex_markitup.js"></script>
   <script type="text/javascript">
   </script>
 <!-- end rex_markitup body assets -->
@@ -362,30 +359,3 @@ rex_register_extension('OUTPUT_FILTER',
     return $params['subject'];
   }
 );
-
-
-
-// SUBPAGE
-////////////////////////////////////////////////////////////////////////////////
-rex_register_extension('ADDONS_INCLUDED',
-  function($params) use($REX,$mypage){
-
-    if(!isset($REX['ADDON']['page']['be_style'])){
-      $REX['ADDON']['page']['be_style'] = 'be_style';
-      $REX['ADDON']['name']['be_style'] = 'Backend Style';
-    }
-
-    $REX['ADDON']['pages']['be_style'][] = array ($mypage , $REX['ADDON']['plugins']['be_style']['title'][$mypage]);
-    $REX['ADDON']['be_style']['SUBPAGES'] = $REX['ADDON']['pages']['be_style'];
-    if(rex_request('page', 'string') == 'be_style' && rex_request('subpage', 'string') == $mypage){
-      $REX['ADDON']['navigation']['be_style']['path'] = $REX['INCLUDE_PATH'].'/addons/be_style/plugins/'.$mypage.'/pages/index.php';
-    }
-
-    rex_register_extension('BE_STYLE_PAGE_CONTENT',
-      function($params) use($REX,$mypage){
-        return $params['subject'].$REX['ADDON']['plugins']['be_style']['BE_STYLE_PAGE_CONTENT'][$mypage];
-      }
-    );
-  }
-);
-

@@ -11,7 +11,7 @@
 
 // GET PARAMS
 ////////////////////////////////////////////////////////////////////////////////
-$mypage     = 'rex_markitup';         FB::log($mypage,' $mypage');
+$mypage     = 'rex_markitup';
 $myroot     = $REX['INCLUDE_PATH'].'/addons/'.$mypage.'/';
 $subpage    = rex_request('subpage', 'string');
 $func       = rex_request('func', 'string');
@@ -46,7 +46,7 @@ if($func=='save_settings'){
 
 // SUBSUB NAVI
 #$subsubnavi = $subsubnavi == '' ? 'Es sind keine Plugins installiert/aktiviert.' : $subsubnavi;
-     FB::log($mypage,' $mypage');
+
 echo '
 <!--<div class="rex-addon-output im-plugins">
   <h2 class="rex-hl2" style="font-size:1em;border-bottom:0;">./*$subsubnavi*/.</h2>

@@ -1,0 +1,87 @@
+/**
+ * RexMarkitup for Redaxo
+ *
+ * @version 0.9.8
+ * @link http://markitup.jaysalvat.com
+ * @author Redaxo Addon: rexdev.de
+ * @package redaxo 4.4.x/4.5.x
+ */
+
+
+/* ADDON CONTENT */
+.rex_markitup_help  {
+  padding:2px 8px 8px 8px;
+  line-height:1.3;
+  }
+.rex_markitup_help p {
+  font-size:12px;
+  margin:0 0 20px 0;
+  }
+.rex_markitup_help .rex-warning p {
+  font-size:10px;
+  margin:0;
+  }
+.rex_markitup_help h1 {
+  color:#14568A;
+  font-size:18px;
+  border-bottom:1px solid #DFE9E9;
+  margin:26px 0 10px 0;
+  padding:0 0 2px 0;
+  }
+.rex_markitup_help h1:first-child,
+.rex_markitup_help #setup h1:first-child{
+  margin:0 0 10px 0;
+  }
+.rex_markitup_help h2 {
+  font-size:14px;
+  margin:2px 0 10px 0;
+  padding:0;
+  }
+.rex_markitup_help h3 {
+  font-size:13px;
+  margin:2px 0 10px 0;
+  padding:0;
+  }
+.rex_markitup_help h4 {
+  font-size:12px;
+  margin:2px 0 10px 0;
+  padding:0;
+  }
+.rex_markitup_help h5 {
+  font-size:11px;
+  margin:2px 0 10px 0;
+  padding:0;
+  }
+.rex_markitup_help cite,
+.rex_markitup_help code,
+.rex_markitup_help pre {
+  color:#DD1144;
+  font-family:monospace;
+  font-style:normal;
+  font-size:12px;
+  }
+.rex_markitup_help pre {
+  overflow:auto;
+  border:1px solid #CBCBCB;
+  background:#DFE9E9;
+  margin:2px 4px 8px 0;
+  padding:8px;
+  line-height:12px;
+  max-height:500px;
+  }
+.rex_markitup_help pre code {
+  /*color:#0000BB;*/
+  }
+.rexdev-skin .rex_markitup_help pre {
+  background:#fff;
+}
+.rex_markitup_help hr {
+  height:1px;
+  border:0;
+  border-top:1px solid silver;
+  margin:8px 0;
+  padding:0;
+  }
+.rex_markitup_help .screenshots {
+  display:none;
+  }

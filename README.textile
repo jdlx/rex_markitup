@@ -1,4 +1,4 @@
-h2. rex_markitup – Redaxo Addon
+h1. rex_markitup – Redaxo Addon
 
 Kompletter rewrite des bisherigen Markitup Addons mit modernerer/flexiblerer Codebase
 
@@ -13,21 +13,22 @@ h2. Features
 * Definition einer Markitup textareas lediglich über eine CSS Klasse – kein PHP Code notwendig.
 * Auswahl von Buttons/Buttonsets per @data@ Attribut der textarea
 * Mehrsprachigkeit – gekoppelt an Redaxo backend Sprache - lang strings per i18n und *.lang Datei
+* Inline & Live(frontend) preview
 * Fluid Editor Layout..
 * ..und ein klein wenig aufgehübscht das ganze
 
-h2. Anwendung im Modul
+h1. Anwendung im Modul
 
 h4. Aufruf per CSS Klasse
 
-@<textarea class="rex-markitup"></textarea>@
+bc. <textarea class="rex-markitup"></textarea>
 
-h4. @Data@ Attribute
+h4. Data Attribute
 
-@<textarea class="rex-markitup" data-buttonset="full"></textarea>@
-@<textarea class="rex-markitup" data-buttons="h1,h2,h3,|,…"></textarea>@
+bc. <textarea class="rex-markitup" data-buttonset="full"></textarea>
+<textarea class="rex-markitup" data-buttons="h1,h2,h3,|,…"></textarea>
 
-h2. Settings
+h1. Settings
 
 *Button CSS* Beispiel:
 
@@ -61,16 +62,33 @@ bc. examplebutton:
 bc. exampleset:
 'h1,h2,h3,|,bold,italic,examplebutton'
 
-h2. Screenshots
+h1. Frontend/Live Preview
 
-h5. Editor @ agk_skin => fixed with parent elem
+In *rex_markitup.options* muß @previewfrontend@ auf @true@ gesetzt werden. Desweiteren muß in der Modulausgabe folgende Funktion verwendet werden:
+
+bc. $textile = rex_markitup_preview('REX_SLICE_ID', 'VALUE[n]', 'REX_VALUE[n]');
+$textile = rex_a79_textile($textile);
+
+*Hinweis:* Um die live preview nutzen zu können muß im frontend eine Session aktiv sein:
+
+bc. if(!session_id()) {
+  session_start();
+}
+
+ <div class="screenshots">
+
+h1. Screenshots
+
+h4. Editor @ agk_skin => fixed with parent elem
 
 !http://rexdev.de/index.php?rex_img_type=github_readme&rex_img_file=lnk_rex_markitup_editor_agk_skin.png!
 
-h5. Editor @ fullscreen mode
+h4. Editor @ fullscreen mode
 
 !http://rexdev.de/index.php?rex_img_type=github_readme&rex_img_file=lnk_rex_markitup_editor_fullscreen.png!
 
-h5. Editor @ rexdev_skin => fluid with parent elem
+h4. Editor @ rexdev_skin => fluid with parent elem
 
 !http://rexdev.de/index.php?rex_img_type=github_readme&rex_img_file=lnk_rex_markitup_editor_rexdev_skin.png!
+
+ </div>

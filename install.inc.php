@@ -2,7 +2,7 @@
 /**
  * RexMarkitup for Redaxo
  *
- * @version 0.9.8
+ * @version 1.0.0
  * @link http://markitup.jaysalvat.com
  * @author Redaxo Addon: rexdev.de
  * @package redaxo 4.4.x/4.5.x

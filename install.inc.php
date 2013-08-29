@@ -8,10 +8,16 @@
  * @package redaxo 4.4.x/4.5.x
  */
 
-$error = '';
+$myself = 'rex_markitup';
 
-if ($error != '') {
-  $REX['ADDON']['installmsg']['rex_markitup'] = $error;
-} else {
-  $REX['ADDON']['install']['rex_markitup'] = true;
+// REQUIRE TEXTILE
+////////////////////////////////////////////////////////////////////////////////
+if(!isset($ADDONSsic['version']['textile']))
+{
+  $REX['ADDON']['installmsg'][$myself] = 'Textile Addon required!';
+  $REX['ADDON']['install'][$myself] = 0;
+  return;
 }
+
+
+$REX['ADDON']['install'][$myself] = 1;

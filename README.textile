@@ -79,8 +79,9 @@ h1. Known issues
 
 * *Webkit (Safari & Chrome)*
 ** Der Popup-Blocker von webkit basierten Browsern "blockt die popups":https://github.com/jdlx/rex_markitup/issues/13 (linkmal,mediapool) welche von rex_markitup aufgerufen werden.
-** *Abhilfe @ Chrome:* in der ULR-Zeile erfolgt eine kurze Einblendung über den geblockten popup -> draufklicken, und page zur whitelist hinzufügen.
-** *Abhilfe @ Safari:* Ältere Safari Versionen (< 7.x) haben von Haus aus keine whitelist Option -> blocker muß vorübergehend deaktiviert werden (Apfel-Shift-K). Safari 7.x scheint keinerlei Probleme mit den popups zu haben.
+*** *Abhilfe @ Chrome:* in der ULR-Zeile erfolgt eine kurze Einblendung über den geblockten popup -> draufklicken, und page zur whitelist hinzufügen.
+*** *Abhilfe @ Safari:* Ältere Safari Versionen (< 7.x) haben von Haus aus keine whitelist Option -> blocker muß vorübergehend deaktiviert werden (Apfel-Shift-K). Safari 7.x scheint keinerlei Probleme mit den popups zu haben.
+** Safari - scheinbar egal welche Version - pastet bei Abbruch eines Aufrufs von "interner Link/Mailto Link" den default Platzhalter in den Text.
 
  <div class="screenshots">
 

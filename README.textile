@@ -75,6 +75,11 @@ bc. if(!session_id()) {
   session_start();
 }
 
+h1. Known issues
+
+* *Webkit (Safari/Chrome)*
+** Der popup-blocker von webkit basierten Browsern "blockt die popups":https://github.com/jdlx/rex_markitup/issues/13 (linkmal,mediapool) welche von rex_markitup aufgerufen werden. Abhilfe -> whitelist des blockers benutzen.
+
  <div class="screenshots">
 
 h1. Screenshots

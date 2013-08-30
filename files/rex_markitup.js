@@ -647,7 +647,7 @@ var rex_markitup_getURLParam = function(strParamName) {
               }else{                                                                                                    //console.log('surround[0].match:',surround[0].match(/(\n)/g));
                 leading  = surround[0].match(/\n/g) ? 2 - surround[0].match(/\n/g).length : 2;                          //console.log('leading:',leading);
               }
-              trailing = surround[1].match(/\n/g) ? 2 - surround[1].match(/\n/g).length : 2;                            //console.log('surround[1].match:',surround[1].match(/(\n)/g)); console.log('trailing:',trailing); console.log('h.selection.charAt(0):',h.selection.charAt(h.selection.length-2));
+              trailing = surround[1].match(/\n/g) ? 2 - surround[1].match(/\n/g).length : 2;                            //console.log('surround[1].match:',surround[1].match(/(\n)/g));console.log('trailing:',trailing);console.log('h.selection.charAt(0):',h.selection.charAt(h.selection.length-2));
               leading  = h.selection.charAt(0)                    === '\n' ? leading-1 : leading;
               trailing = h.selection.charAt(h.selection.length-1) === '\n' ? trailing-1 : trailing;
 
@@ -702,7 +702,7 @@ var rex_markitup_getURLParam = function(strParamName) {
               }else{                                                                                                    //console.log('surround[0].match:',surround[0].match(/(\n)/g));
                 leading  = surround[0].match(/\n/g) ? 2 - surround[0].match(/\n/g).length : 2;                          //console.log('leading:',leading);
               }
-              trailing = surround[1].match(/\n/g) ? 2 - surround[1].match(/\n/g).length : 2;                            //console.log('surround[1].match:',surround[1].match(/(\n)/g)); console.log('trailing:',trailing);
+              trailing = surround[1].match(/\n/g) ? 2 - surround[1].match(/\n/g).length : 2;                            //console.log('surround[1].match:',surround[1].match(/(\n)/g));console.log('trailing:',trailing);
               h.openWith  = this.prependChar('\n', leading,  def.defaults.openWith);
               h.closeWith = this.appendChar('\n', trailing,  def.defaults.closeWith);
             break;
@@ -720,9 +720,9 @@ var rex_markitup_getURLParam = function(strParamName) {
                 h.closeWith =  h.closeWith + ']';
               }
             break;
-          }                                                                                                             //console.log('selection:',h.selection); console.log('openWith:',h.openWith);console.log('closeWith:',h.closeWith);console.groupEnd();
+          }                                                                                                             //console.log('selection:',h.selection);console.log('openWith:',h.openWith);console.log('closeWith:',h.closeWith);console.groupEnd();
         },
-        afterInsertCallback: function(h, rex_markitup){                                                                 console.group('afterInsertCallback: '+h.className);
+        afterInsertCallback: function(h, rex_markitup){                                                                 //console.group('afterInsertCallback: '+h.className);
           if(this.previewOpen && this.options.previewAutoRefresh) {
             this.showInPreview('preview',h);
           }
@@ -730,8 +730,8 @@ var rex_markitup_getURLParam = function(strParamName) {
           //   return;
           // }
           // className = h.className.replace('markitup-','');
-          // h.sel     = this.selection($(h.textarea));                                                                    //console.log('className:',className);console.groupCollapsed('rex_markitup');console.dir(rex_markitup);console.groupEnd(); console.groupCollapsed('h');console.dir(h);console.groupEnd(); console.groupCollapsed('h.sel');console.log('sel.text():',h.sel.text());console.log('sel.surround():',h.sel.surround());console.log('sel.surround(2):',h.sel.surround(2));console.log('sel.cursor():',h.sel.cursor());console.log('sel.line():',h.sel.line());console.groupEnd();
-                                                                                                                        //console.log('selection:',h.selection); console.log('openWith:',h.openWith);console.log('closeWith:',h.closeWith);console.groupEnd();
+          // h.sel     = this.selection($(h.textarea));                                                                    //console.log('className:',className);console.groupCollapsed('rex_markitup');console.dir(rex_markitup);console.groupEnd();console.groupCollapsed('h');console.dir(h);console.groupEnd();console.groupCollapsed('h.sel');console.log('sel.text():',h.sel.text());console.log('sel.surround():',h.sel.surround());console.log('sel.surround(2):',h.sel.surround(2));console.log('sel.cursor():',h.sel.cursor());console.log('sel.line():',h.sel.line());console.groupEnd();
+                                                                                                                        //console.log('selection:',h.selection);console.log('openWith:',h.openWith);console.log('closeWith:',h.closeWith);console.groupEnd();
         },
         sanitizeNewlines: function(str) {
           str = str.replace(new RegExp('(\n){3,}', 'gim') , '\n\n');

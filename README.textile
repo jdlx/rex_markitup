@@ -80,7 +80,7 @@ h1. Known issues
 * *Webkit (Safari & Chrome)*
 ** Der Popup-Blocker von webkit basierten Browsern "blockt die popups":https://github.com/jdlx/rex_markitup/issues/13 (linkmal,mediapool) welche von rex_markitup aufgerufen werden.
 ** *Abhilfe @ Chrome:* in der ULR-Zeile erfolgt eine kurze Einblendung über den geblockten popup -> draufklicken, und page zur whitelist hinzufügen.
-** *Abhilfe @ Safari:* Ältere Safari Versionen (< 7.x) scheinen von Haus aus keine whitelist Option zu haben (evtl. per plugin?) -> blocker muß pauschal deaktiviert werden. Safari 7.x scheint keinerlei Probleme mit den popups zu haben.
+** *Abhilfe @ Safari:* Ältere Safari Versionen (< 7.x) haben von Haus aus keine whitelist Option -> blocker muß vorübergehend deaktiviert werden (Apfel-Shift-K). Safari 7.x scheint keinerlei Probleme mit den popups zu haben.
 
  <div class="screenshots">
 

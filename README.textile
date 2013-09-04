@@ -28,6 +28,18 @@ h4. Data Attribute
 bc. <textarea class="rex-markitup" data-buttonset="full"></textarea>
 <textarea class="rex-markitup" data-buttons="h1,h2,h3,|,…"></textarea>
 
+h1. Minimaler Modul Code
+
+*Input:*
+
+bc. <textarea name="VALUE[1]" class="rex-markitup" style="width:100%;min-height:150px">REX_HTML_VALUE[1]</textarea>
+
+*Output:*
+
+bc. $textile = htmlspecialchars_decode('REX_VALUE[1]',ENT_QUOTES);
+$textile = str_replace('<br />','',$textile);
+echo '<div class="txt-img">'. rex_a79_textile($textile) . '</div>';
+
 h1. Settings
 
 *Button CSS* Beispiel:

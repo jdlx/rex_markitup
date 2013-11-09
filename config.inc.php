@@ -8,6 +8,10 @@
  * @package redaxo 4.4.x/4.5.x
  */
 
+if($REX['SETUP'] === true) {
+  return;
+}
+
 #rex_register_extension('REX_MARKITUP_BUTTONS',
 #  function($params)
 #  {                                                                             FB::log($params,' $params');

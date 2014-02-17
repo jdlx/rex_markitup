@@ -65,8 +65,8 @@ $REX['ADDON']['supportpage'][$mypage] = 'forum.redaxo.de';
 $REX['ADDON']['page'][$mypage]        = $mypage;
 $REX['ADDON']['name'][$mypage]        = 'RexMarkitup';
 $REX['ADDON']['title'][$mypage]       = 'RexMarkitup';
-$REX['ADDON']['perm'][$mypage] = 'rexmarkitup[]';
-$REX['PERM'][] = 'rexmarkitup[]';
+$REX['ADDON']['perm'][$mypage]        = 'rexmarkitup[]';
+$REX['PERM'][]                        = 'rexmarkitup[]';
 
 
 

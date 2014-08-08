@@ -2,10 +2,10 @@
 /**
  * RexMarkitup for Redaxo
  *
- * @version 1.0.3
+ * @version 1.0.4
  * @link http://markitup.jaysalvat.com
  * @author Redaxo Addon: rexdev.de
- * @package redaxo 4.4.x/4.5.x
+ * @package redaxo 4.4.x/4.5.x/4.6.x
  */
 
 $error = '';

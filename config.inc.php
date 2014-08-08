@@ -49,9 +49,9 @@ if(is_a($I18N,'i18n')) {
 include $myroot.'pages/ajax_api.inc.php';
 
 
-// BACKEND ONLY
-////////////////////////////////////////////////////////////////////////////////
-if(!$REX['REDAXO'] || (rex_request('page','string')=='markitup' && rex_request('subpage','string')=='preview') ){
+// ONLY @ LOGGED IN BACKEND SESSION
+//////////////////////////////////////////////////////////////////////////////
+if( !$REX['REDAXO'] || !is_a($REX["USER"],'rex_login_sql') ) {
   return;
 }
 

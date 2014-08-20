@@ -42,6 +42,12 @@ echo '<div class="txt-img">'. rex_a79_textile($textile) . '</div>';
 
 h1. Settings
 
+*IMM type condition* Beispiel:
+
+Folgende *WHERE* condition (MySQL syntax) schließt z.b. alle internen default imagetypes (rex_…) aus:
+
+bc. WHERE `name` NOT LIKE "rex_%"
+
 *Button CSS* Beispiel:
 
 bc. .markItUpButton.markitup-example a {

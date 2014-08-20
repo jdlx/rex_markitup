@@ -46,7 +46,7 @@ if(is_a($I18N,'i18n')) {
 
 // AJAX API
 ////////////////////////////////////////////////////////////////////////////////
-include $myroot.'pages/ajax_api.inc.php';
+require_once $myroot.'pages/ajax_api.inc.php';
 
 
 // ONLY @ LOGGED IN BACKEND SESSION
@@ -73,7 +73,7 @@ $REX['PERM'][]                        = 'rexmarkitup[]';
 // DEFAULT SETTINGS
 ////////////////////////////////////////////////////////////////////////////////
 $REX['ADDON'][$mypage]['settings'] = array (
-  'imm_sql_where' => 'WHERE `name` NOT LIKE "rex_%"',
+  'imm_sql_where' => '',
   'buttoncss' => '',
   'buttondefinitions' => '',
   'buttonsets' => 'standard:

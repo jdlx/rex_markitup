@@ -2,7 +2,7 @@
 /**
  * RexMarkitup for Redaxo
  *
- * @version 1.0.5
+ * @version 1.0.6
  * @link http://markitup.jaysalvat.com
  * @author Redaxo Addon: rexdev.de
  * @package redaxo 4.4.x/4.5.x/4.6.x
@@ -201,7 +201,7 @@ function rex_markitup_imm_imgtypes()
   global $REX;
   $REX['ADDON']['image_manager']['types'] = array();
   $db = rex_sql::factory();
-  $query = rex_register_extension_point('REX_MARKITUP_IMAGE_TYPES_QUERY', 'SELECT * FROM '.$REX['TABLE_PREFIX'].'679_types '.$REX['ADDON']['rex_markitup']['settings']['imm_sql_where'].' ORDER BY `name` ASC');
+  $query = rex_register_extension_point('REX_MARKITUP_IMAGE_TYPES_QUERY', 'SELECT * FROM '.$REX['TABLE_PREFIX'].'679_types '.$REX['ADDON']['rex_markitup']['settings']['imm_sql_where'].' ORDER BY `name` ASC');                                                       FB::log($query,' $query');
   foreach($db->getArray($query) as $type) {
     $REX['ADDON']['image_manager']['types'][$type['name']] = $type['description'];
   }

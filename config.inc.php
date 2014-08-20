@@ -2,7 +2,7 @@
 /**
  * RexMarkitup for Redaxo
  *
- * @version 1.0.5
+ * @version 1.0.6
  * @link http://markitup.jaysalvat.com
  * @author Redaxo Addon: rexdev.de
  * @package redaxo 4.4.x/4.5.x/4.6.x
@@ -58,7 +58,7 @@ if( !$REX['REDAXO'] || !is_a($REX["USER"],'rex_login_sql') ) {
 
 // REX COMMONS
 ////////////////////////////////////////////////////////////////////////////////
-$REX['ADDON']['version'][$mypage]     = '1.0.5';
+$REX['ADDON']['version'][$mypage]     = '1.0.6';
 $REX['ADDON']['author'][$mypage]      = 'jdlx';
 $REX['ADDON']['supportpage'][$mypage] = 'rexdev.de';
 

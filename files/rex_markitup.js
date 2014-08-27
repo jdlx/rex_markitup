@@ -157,6 +157,14 @@ var rex_markitup_getURLParam = function(strParamName) {
                                 openWith:'@(!(([![Class]!]))!)',
                                 closeWith:'@'
                               },
+              'subscript':    {
+                                openWith:'~(!(([![Class]!]))!)',
+                                closeWith:'~'
+                              },
+              'superscript':  {
+                                openWith:'^(!(([![Class]!]))!)',
+                                closeWith:'^'
+                              },
 
               // ALIGNED PARAGRAPHS
               ////////////////////////////////////////////////

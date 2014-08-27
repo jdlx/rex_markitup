@@ -622,6 +622,8 @@ var rex_markitup_getURLParam = function(strParamName) {
             case'stroke':
             case'ins':
             case'cite':
+            case'sub':
+            case'sup':
             case'linkmailto':
             case'linkextern':
               surround    = h.sel.surround();

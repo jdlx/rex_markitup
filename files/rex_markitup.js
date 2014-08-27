@@ -157,11 +157,11 @@ var rex_markitup_getURLParam = function(strParamName) {
                                 openWith:'@(!(([![Class]!]))!)',
                                 closeWith:'@'
                               },
-              'subscript':    {
+              'sub':          {
                                 openWith:'~(!(([![Class]!]))!)',
                                 closeWith:'~'
                               },
-              'superscript':  {
+              'sup':          {
                                 openWith:'^(!(([![Class]!]))!)',
                                 closeWith:'^'
                               },

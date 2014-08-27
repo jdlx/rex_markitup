@@ -77,6 +77,12 @@
 .markItUpButton.markitup-code a {
     background-position: 0 -330px;
 }
+.markItUpButton.markitup-sup a {
+    background-position: 0 -1050px;
+}
+.markItUpButton.markitup-sub a {
+    background-position: 0 -1080px;
+}
 
 /* ALIGN*/
 .markItUpButton.markitup-alignleft a {

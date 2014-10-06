@@ -43,7 +43,7 @@ div.rex-content-body {
 .markItUpEditor {
   -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
   font:12px monaco, menlo, consolas, lucida console, courier new, monospace;
-  padding: 1% 0 0 1%;
+  padding: 1% 0 0 1% !important;
   margin:0 !important;
   width: 100% !important;
   border: 0;

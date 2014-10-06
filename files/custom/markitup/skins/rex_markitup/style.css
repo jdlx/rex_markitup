@@ -32,6 +32,7 @@ div.rex-content-body {
   border-radius: 2px 2px 2px 2px;
   background:transparent;
   padding:0;
+  clear:both;
 }
 .markItUpHeader {
     background:#E6E6E6;
@@ -97,6 +98,9 @@ div.rex-content-body {
 .markItUpHeader ul {
   display: table;
   width:99.99%;
+}
+div.rex-addon-content .markItUpHeader > ul {
+  margin:0;
 }
 .markItUpHeader ul li  {
   list-style:none;

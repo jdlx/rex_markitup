@@ -2,6 +2,7 @@ h1. rex_markitup – Redaxo Addon
 
 Kompletter rewrite des bisherigen Markitup Addons mit modernerer/flexiblerer Codebase
 
+
 h2. Features
 
 * Aktuelle MarkItUp Lib v.1.1.14

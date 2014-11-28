@@ -14,8 +14,8 @@ h2. Features
 * Auswahl von Buttons/Buttonsets per @data@ Attribut der textarea
 * Mehrsprachigkeit – gekoppelt an Redaxo backend Sprache - lang strings per i18n und *.lang Datei
 * Inline & Live(frontend) preview
-* Fluid Editor Layout..
-* ..und ein klein wenig aufgehübscht das ganze
+* Fluid Editor Layout …
+* … und ein klein wenig aufgehübscht das Ganze …
 
 h1. Anwendung im Modul
 
